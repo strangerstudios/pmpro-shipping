@@ -3,7 +3,7 @@
 Plugin Name: PMPro Shipping
 Plugin URI: http://www.paidmembershipspro.com/wp/pmpro-shipping/
 Description: Add shipping to the checkout page and other updates.
-Version: .2.2
+Version: .2.2.1
 Author: Stranger Studios
 Author URI: http://www.strangerstudios.com
  
@@ -475,6 +475,8 @@ function pmproship_pmpro_members_list_csv_extra_columns($columns)
 		"szipcode" => "pmproship_extra_column_szipcode",
 		"scountry" => "pmproship_extra_column_scountry"
 	);
+	
+	return $columns;
 }
 add_filter("pmpro_members_list_csv_extra_columns", "pmproship_pmpro_members_list_csv_extra_columns");
 
