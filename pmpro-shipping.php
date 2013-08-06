@@ -481,11 +481,11 @@ function pmproship_pmpro_members_list_csv_extra_columns($columns)
 add_filter("pmpro_members_list_csv_extra_columns", "pmproship_pmpro_members_list_csv_extra_columns");
 
 //call backs
-function pmproship_extra_column_sfirstname($user){if(!empty($user->metavalues->sfirstname)){return $user->metavalues->sfirstname;}else{return "";}}
-function pmproship_extra_column_slastname($user){if(!empty($user->metavalues->slastname)){return $user->metavalues->slastname;}else{return "";}}
-function pmproship_extra_column_saddress1($user){if(!empty($user->metavalues->saddress1)){return $user->metavalues->saddress1;}else{return "";}}
-function pmproship_extra_column_saddress2($user){if(!empty($user->metavalues->saddress2)){return $user->metavalues->saddress2;}else{return "";}}
-function pmproship_extra_column_scity($user){if(!empty($user->metavalues->scity)){return $user->metavalues->scity;}else{return "";}}
-function pmproship_extra_column_sstate($user){if(!empty($user->metavalues->sstate)){return $user->metavalues->sstate;}else{return "";}}
-function pmproship_extra_column_szipcode($user){if(!empty($user->metavalues->szipcode)){return $user->metavalues->szipcode;}else{return "";}}
-function pmproship_extra_column_scountry($user){if(!empty($user->metavalues->scountry)){return $user->metavalues->scountry;}else{return "";}}
+function pmproship_extra_column_sfirstname($user){if(!empty($user->metavalues->pmpro_sfirstname)){return $user->metavalues->pmpro_sfirstname;}else{return "";}}
+function pmproship_extra_column_slastname($user){if(!empty($user->metavalues->pmpro_slastname)){return $user->metavalues->pmpro_slastname;}else{return "";}}
+function pmproship_extra_column_saddress1($user){if(!empty($user->metavalues->pmpro_saddress1)){return $user->metavalues->pmpro_saddress1;}else{return "";}}
+function pmproship_extra_column_saddress2($user){if(!empty($user->metavalues->pmpro_saddress2)){return $user->metavalues->pmpro_saddress2;}else{return "";}}
+function pmproship_extra_column_scity($user){if(!empty($user->metavalues->pmpro_scity)){return $user->metavalues->pmpro_scity;}else{return "";}}
+function pmproship_extra_column_sstate($user){if(!empty($user->metavalues->pmpro_sstate)){return $user->metavalues->pmpro_sstate;}else{return "";}}
+function pmproship_extra_column_szipcode($user){if(!empty($user->metavalues->pmpro_szipcode)){return $user->metavalues->pmpro_szipcode;}else{return "";}}
+function pmproship_extra_column_scountry($user){if(!empty($user->metavalues->pmpro_scountry)){return $user->metavalues->pmpro_scountry;}else{return "";}}
