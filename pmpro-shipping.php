@@ -3,13 +3,15 @@
 Plugin Name: PMPro Shipping
 Plugin URI: http://www.paidmembershipspro.com/wp/pmpro-shipping/
 Description: Add shipping to the checkout page and other updates.
-Version: .2.2.1
+Version: .2.3
 Author: Stranger Studios
 Author URI: http://www.strangerstudios.com
  
 Note that this plugin requires PMPro 1.3.19 or higher to function fully.
 */
- 
+
+define('PMPRO_SHIPPING_SHOW_REQUIRED', true);	//if false required fields won't have asterisks and non-required fields will say (optional)
+
 //add a shipping address field to the checkout page with "sameas" checkbox
 function pmproship_pmpro_checkout_boxes()
 {	
@@ -26,40 +28,48 @@ function pmproship_pmpro_checkout_boxes()
 		<tr>
 			<td>
 	
+		<?php //check that gateway is not paypal standard, paypal express, stripe lite, or check ?>
 		<p style="margin-left:130px; "><input type="checkbox" id="sameasbilling" name="sameasbilling" value="1" <?php if(!empty($sameasbilling)) { ?>checked="checked"<?php } ?> />Ship to the billing address used above. </p>
 		
 		<div id="shipping-fields">
 			<div>
 				<label for="sfirstname">First Name</label>
-				<input id="sfirstname" name="sfirstname" type="text" class="input" size="20" value="<?php echo esc_attr($sfirstname);?>" /> 
+				<input id="sfirstname" name="sfirstname" type="text" class="input" size="20" value="<?php echo esc_attr($sfirstname);?>" />
+				<?php if(PMPRO_SHIPPING_SHOW_REQUIRED) { ?><span class="pmpro_asterisk"> *</span><?php } ?>
 			</div>	
 			
 			<div>
 				<label for="slastname">Last Name</label>
 				<input id="slastname" name="slastname" type="text" class="input" size="20" value="<?php echo esc_attr($slastname);?>" /> 
+				<?php if(PMPRO_SHIPPING_SHOW_REQUIRED) { ?><span class="pmpro_asterisk"> *</span><?php } ?>
 			</div>	
 							
 			<div>
 				<label for="saddress1">Address 1</label>
-				<input id="saddress1" name="saddress1" type="text" class="input" size="20" value="<?php echo esc_attr($saddress1);?>" /> 
+				<input id="saddress1" name="saddress1" type="text" class="input" size="20" value="<?php echo esc_attr($saddress1);?>" />
+				<?php if(PMPRO_SHIPPING_SHOW_REQUIRED) { ?><span class="pmpro_asterisk"> *</span><?php } ?>
 			</div>
 			
 			<div>
 				<label for="saddress2">Address 2</label>
-				<input id="saddress2" name="saddress2" type="text" class="input" size="20" value="<?php echo esc_attr($saddress2);?>" /> <small class="lite">(optional)</small>
+				<input id="saddress2" name="saddress2" type="text" class="input" size="20" value="<?php echo esc_attr($saddress2);?>" /> 
+				<?php if(!PMPRO_SHIPPING_SHOW_REQUIRED) { ?><small class="lite">(optional)</small><?php } ?>
 			</div>
 			
 			<div>
 				<label for="scity"><?php _e('City', 'pmpro');?></label>
 				<input id="scity" name="scity" type="text" class="input" size="30" value="<?php echo esc_attr($scity)?>" /> 
+				<?php if(PMPRO_SHIPPING_SHOW_REQUIRED) { ?><span class="pmpro_asterisk"> *</span><?php } ?>
 			</div>
 			<div>
 				<label for="sstate"><?php _e('State', 'pmpro');?></label>																
 				<input id="sstate" name="sstate" type="text" class="input" size="30" value="<?php echo esc_attr($sstate)?>" /> 					
+				<?php if(PMPRO_SHIPPING_SHOW_REQUIRED) { ?><span class="pmpro_asterisk"> *</span><?php } ?>
 			</div>
 			<div>
 				<label for="szipcode"><?php _e('Postal Code', 'pmpro');?></label>
-				<input id="szipcode" name="szipcode" type="text" class="input" size="30" value="<?php echo esc_attr($szipcode)?>" /> 
+				<input id="szipcode" name="szipcode" type="text" class="input" size="30" value="<?php echo esc_attr($szipcode)?>" />
+				<?php if(PMPRO_SHIPPING_SHOW_REQUIRED) { ?><span class="pmpro_asterisk"> *</span><?php } ?>
 			</div>	
 			<div>
 				<label for="scountry"><?php _e('Country', 'pmpro');?></label>
@@ -76,6 +86,7 @@ function pmproship_pmpro_checkout_boxes()
 						}
 					?>
 				</select>
+				<?php if(PMPRO_SHIPPING_SHOW_REQUIRED) { ?><span class="pmpro_asterisk"> *</span><?php } ?>
 			</div>
 			
 			<?php /* old non-long form method

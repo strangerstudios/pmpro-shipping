@@ -3,7 +3,7 @@ Contributors: strangerstudios
 Tags: paid memberships pro, shipping, shipping address, 
 Requires at least: 3.0
 Tested up to: 3.5.2
-Stable tag: .2.2.1
+Stable tag: .2.3
 
 Adds shipping fields to the Paid Memberships Pro checkout.
 
@@ -28,6 +28,9 @@ Please post it in the GitHub issue tracker here: https://github.com/strangerstud
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= .2.3 =
+* Updated required fields to show an asterisk. Set PMPRO_SHIPPING_SHOW_REQUIRED to false to set back to the old method where only optional fields showed (optional).
+
 = .2.2.1 =
 * Fixed bug with members list CSV columns.
 
