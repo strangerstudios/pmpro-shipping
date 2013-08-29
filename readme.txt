@@ -30,6 +30,7 @@ Please visit our premium support site at http://www.paidmembershipspro.com for m
 == Changelog ==
 = .2.3 =
 * Updated required fields to show an asterisk. Set PMPRO_SHIPPING_SHOW_REQUIRED to false to set back to the old method where only optional fields showed (optional).
+* Using JavaScript to show the #sameasbilling checkbox only if the #baddress1 field is on the page and visible.
 
 = .2.2.1 =
 * Fixed bug with members list CSV columns.

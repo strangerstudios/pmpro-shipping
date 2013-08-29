@@ -15,7 +15,7 @@ define('PMPRO_SHIPPING_SHOW_REQUIRED', true);	//if false required fields won't h
 //add a shipping address field to the checkout page with "sameas" checkbox
 function pmproship_pmpro_checkout_boxes()
 {	
-	global $pmpro_states, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $shipping_address, $pmpro_requirebilling;	
+	global $gateway, $pmpro_states, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $shipping_address, $pmpro_requirebilling;	
 ?>
  
 	<table id="pmpro_shipping_address_fields" class="pmpro_checkout top1em" width="100%" cellpadding="0" cellspacing="0" border="0">
@@ -27,9 +27,17 @@ function pmproship_pmpro_checkout_boxes()
 	<tbody>
 		<tr>
 			<td>
-	
-		<?php //check that gateway is not paypal standard, paypal express, stripe lite, or check ?>
-		<p style="margin-left:130px; "><input type="checkbox" id="sameasbilling" name="sameasbilling" value="1" <?php if(!empty($sameasbilling)) { ?>checked="checked"<?php } ?> />Ship to the billing address used above. </p>
+			
+		<p style="margin-left:130px; display: none;" id="sameasbilling_wrapper"><input type="checkbox" id="sameasbilling" name="sameasbilling" value="1" <?php if(!empty($sameasbilling)) { ?>checked="checked"<?php } ?> />Ship to the billing address used above. </p>
+		<script>
+			jQuery(document).ready(function() {
+				var baddress = jQuery('#baddress1');
+				if(baddress.length && baddress.is(':visible'))
+				{
+					jQuery('#sameasbilling_wrapper').show();
+				}
+			});
+		</script>
 		
 		<div id="shipping-fields">
 			<div>
