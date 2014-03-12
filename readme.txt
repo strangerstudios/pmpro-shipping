@@ -2,8 +2,8 @@
 Contributors: strangerstudios
 Tags: paid memberships pro, shipping, shipping address, 
 Requires at least: 3.0
-Tested up to: 3.7.1
-Stable tag: .2.4
+Tested up to: 3.8.1
+Stable tag: .2.5
 
 Adds shipping fields to the Paid Memberships Pro checkout.
 
@@ -28,6 +28,9 @@ Please post it in the GitHub issue tracker here: https://github.com/strangerstud
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= .2.5 =
+* PMPro Shipping will no longer override other members list CSV export columns added by other addons/code.
+
 = .2.4 =
 * State field on profile page is now a free text field instead of a dropdown.
 * Wrapped strings with localization functions. They use the "pmpro" domain.
