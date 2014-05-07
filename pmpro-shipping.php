@@ -214,8 +214,9 @@ function pmproship_pmpro_valid_gateways($gateways)
 		unset($_SESSION['szipcode']);
 		unset($_SESSION['scountry']);
 	}
-    else {
-        //set the shipping fields to be the same as the billing fields
+    elseif(!empty($current_user->ID))
+	{
+        //get shipping fields from user meta
         $user_id = $current_user->ID;
         $sfirstname = get_user_meta($user_id, "pmpro_sfirstname", true);
         $slastname = get_user_meta($user_id, "pmpro_slastname", true);

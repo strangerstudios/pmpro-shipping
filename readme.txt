@@ -2,8 +2,8 @@
 Contributors: strangerstudios
 Tags: paid memberships pro, shipping, shipping address, 
 Requires at least: 3.0
-Tested up to: 3.8.1
-Stable tag: .2.5
+Tested up to: 3.9
+Stable tag: .2.6
 
 Adds shipping fields to the Paid Memberships Pro checkout.
 
