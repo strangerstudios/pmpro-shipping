@@ -3,7 +3,7 @@
 Plugin Name: PMPro Shipping
 Plugin URI: http://www.paidmembershipspro.com/wp/pmpro-shipping/
 Description: Add shipping to the checkout page and other updates.
-Version: .2.5
+Version: .2.6
 Author: Stranger Studios
 Author URI: http://www.strangerstudios.com
  
@@ -148,7 +148,7 @@ add_action("pmpro_checkout_after_billing_fields", "pmproship_pmpro_checkout_boxe
 //get fields on checkout page (abusing the pmpro_valid_gateways filter for this since it comes early on the checkout page)
 function pmproship_pmpro_valid_gateways($gateways)
 {
-	global $sameasbilling, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $shipping_address, $pmpro_requirebilling;
+	global $sameasbilling, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $shipping_address, $pmpro_requirebilling, $current_user;
 
 	if(!empty($_REQUEST['sameasbilling']))
 		$sameasbilling = true;	//we'll get the fields further down below
@@ -213,7 +213,19 @@ function pmproship_pmpro_valid_gateways($gateways)
 		unset($_SESSION['sstate']);
 		unset($_SESSION['szipcode']);
 		unset($_SESSION['scountry']);
-	}	
+	}
+    else {
+        //set the shipping fields to be the same as the billing fields
+        $user_id = $current_user->ID;
+        $sfirstname = get_user_meta($user_id, "pmpro_sfirstname", true);
+        $slastname = get_user_meta($user_id, "pmpro_slastname", true);
+        $saddress1 = get_user_meta($user_id, "pmpro_saddress1", true);
+        $saddress2 = get_user_meta($user_id, "pmpro_saddress2", true);
+        $scity = get_user_meta($user_id, "pmpro_scity", true);
+        $sstate = get_user_meta($user_id, "pmpro_sstate", true);
+        $szipcode = get_user_meta($user_id, "pmpro_szipcode", true);
+        $scountry = get_user_meta($user_id, "pmpro_scountry", true);
+    }
 
 	return $gateways;
 }
