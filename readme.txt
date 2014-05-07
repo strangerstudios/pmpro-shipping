@@ -28,6 +28,9 @@ Please post it in the GitHub issue tracker here: https://github.com/strangerstud
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= .2.6 =
+* Shipping information is now populated on the checkout page.
+
 = .2.5 =
 * PMPro Shipping will no longer override other members list CSV export columns added by other addons/code.
 
