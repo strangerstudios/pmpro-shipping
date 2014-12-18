@@ -3,7 +3,7 @@
 Plugin Name: PMPro Shipping
 Plugin URI: http://www.paidmembershipspro.com/wp/pmpro-shipping/
 Description: Add shipping to the checkout page and other updates.
-Version: .2.6
+Version: .3
 Author: Stranger Studios
 Author URI: http://www.strangerstudios.com
  
@@ -35,12 +35,28 @@ function pmproship_pmpro_checkout_boxes()
 			</label>
 		</p>
 		<script>
-			jQuery(document).ready(function() {
-				var baddress = jQuery('#baddress1');
-				if(baddress.length && baddress.is(':visible'))
+			jQuery(document).ready(function() {				
+				//checking if sameas checkbox should show
+				function checkBillingAddressVisibilityForSameAsCheckbox()
 				{
-					jQuery('#sameasbilling_wrapper').show();
-				}
+					var baddress = jQuery('#baddress1');
+					if(baddress.length && baddress.is(':visible'))
+					{
+						jQuery('#sameasbilling_wrapper').show();
+					}
+					else
+					{
+						jQuery('#sameasbilling').attr('checked', false);
+						jQuery('#sameasbilling_wrapper').hide();						
+						jQuery('#shipping-fields').show();
+					}
+					
+					//check again in .2 seconds
+					pmpro_shipping_show_sameas_timer = setTimeout(function(){checkBillingAddressVisibilityForSameAsCheckbox();}, 200);
+				}								
+				
+				//run on page load
+				checkBillingAddressVisibilityForSameAsCheckbox();
 			});
 		</script>
 		
@@ -264,7 +280,7 @@ function pmproship_pmpro_after_checkout($user_id)
 	}
 }
 add_action("pmpro_after_checkout", "pmproship_pmpro_after_checkout");
- 
+
 //show the shipping address in the profile
 function pmproship_show_extra_profile_fields($user)
 {
@@ -561,3 +577,56 @@ function pmproship_extra_column_scity($user){if(!empty($user->metavalues->pmpro_
 function pmproship_extra_column_sstate($user){if(!empty($user->metavalues->pmpro_sstate)){return $user->metavalues->pmpro_sstate;}else{return "";}}
 function pmproship_extra_column_szipcode($user){if(!empty($user->metavalues->pmpro_szipcode)){return $user->metavalues->pmpro_szipcode;}else{return "";}}
 function pmproship_extra_column_scountry($user){if(!empty($user->metavalues->pmpro_scountry)){return $user->metavalues->pmpro_scountry;}else{return "";}}
+
+/*
+	Add checkbox to hide shipping address on some levels.
+*/
+//show the checkbox on the edit level page
+function pmproship_pmpro_membership_level_after_other_settings()
+{	
+	$level_id = intval($_REQUEST['edit']);
+	if($level_id > 0)
+		$hide_shipping = get_option('pmpro_shipping_hidden_level_' . $level_id);	
+	else
+		$hide_shipping = false;
+?>
+<h3 class="topborder">Shipping Address</h3>
+<table>
+<tbody class="form-table">
+	<tr>
+		<th scope="row" valign="top"><label for="hide_shipping"><?php _e('Hide Shipping Address:', 'pmpro');?></label></th>
+		<td>
+			<input type="checkbox" name="hide_shipping" value="1" <?php checked($hide_shipping, 1);?> />
+			<?php _e('Check this if you DO NOT want to ask for a shipping address with this level.', 'pmpro');?>
+		</td>
+	</tr>
+</tbody>
+</table>
+<?php
+}
+add_action('pmpro_membership_level_after_other_settings', 'pmproship_pmpro_membership_level_after_other_settings');
+
+//save hide shipping setting when the level is saved/added
+function pmproship_pmpro_save_membership_level($level_id)
+{
+	$hide_shipping = intval($_REQUEST['hide_shipping']);
+	update_option('pmpro_shipping_hidden_level_' . $level_id, $hide_shipping);
+}
+add_action("pmpro_save_membership_level", "pmproship_pmpro_save_membership_level");
+
+//actually hide/disable shipping address for these levels
+function pmproship_hide_shipping($level)
+{
+	$hide_shipping = get_option('pmpro_shipping_hidden_level_' . $level->id, false);
+	if($hide_shipping)
+	{
+		remove_filter("pmpro_registration_checks", "pmproship_pmpro_registration_checks");
+		remove_action("pmpro_checkout_after_billing_fields", "pmproship_pmpro_checkout_boxes");
+		remove_filter('pmpro_valid_gateways', 'pmproship_pmpro_valid_gateways');
+		remove_action("pmpro_after_checkout", "pmproship_pmpro_after_checkout");
+		remove_action("pmpro_paypalexpress_session_vars", "pmproship_pmpro_paypalexpress_session_vars");
+	}
+
+	return $level;
+}
+add_filter('pmpro_checkout_level', 'pmproship_hide_shipping', 99);
