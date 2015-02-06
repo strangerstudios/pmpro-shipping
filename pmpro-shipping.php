@@ -3,7 +3,7 @@
 Plugin Name: PMPro Shipping
 Plugin URI: http://www.paidmembershipspro.com/wp/pmpro-shipping/
 Description: Add shipping to the checkout page and other updates.
-Version: .3
+Version: .3.1
 Author: Stranger Studios
 Author URI: http://www.strangerstudios.com
  
@@ -15,10 +15,9 @@ define('PMPRO_SHIPPING_SHOW_REQUIRED', true);	//if false required fields won't h
 //add a shipping address field to the checkout page with "sameas" checkbox
 function pmproship_pmpro_checkout_boxes()
 {	
-	global $gateway, $pmpro_states, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $shipping_address, $pmpro_requirebilling;	
+	global $gateway, $pmpro_states, $sameasbilling, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $shipping_address, $pmpro_requirebilling, $pmpro_review;	
 ?>
- 
-	<table id="pmpro_shipping_address_fields" class="pmpro_checkout top1em" width="100%" cellpadding="0" cellspacing="0" border="0">
+	<table id="pmpro_shipping_address_fields" class="pmpro_checkout top1em" width="100%" cellpadding="0" cellspacing="0" border="0" <?php if($pmpro_review) { ?>style="display: none;"<?php } ?> >
 	<thead>
 		<tr>
 			<th><?php _e('Shipping Address', 'pmpro');?></th>
@@ -28,7 +27,7 @@ function pmproship_pmpro_checkout_boxes()
 		<tr>
 			<td>
 			
-		<p style="margin-left:130px; display: none;" id="sameasbilling_wrapper">
+		<p style="margin-left:130px; display: none; margin-bottom:10px;" id="sameasbilling_wrapper">
 			<input type="checkbox" id="sameasbilling" name="sameasbilling" value="1" <?php if(!empty($sameasbilling)) { ?>checked="checked"<?php } ?> /> 
 			<label for="sameasbilling" style="float: none; font-weight: normal; cursor: pointer;">
 				<?php _e('Ship to the billing address used above.', 'pmpro');?>
@@ -40,11 +39,12 @@ function pmproship_pmpro_checkout_boxes()
 				function checkBillingAddressVisibilityForSameAsCheckbox()
 				{
 					var baddress = jQuery('#baddress1');
+					var pmpro_shipping_address_fields = jQuery('#pmpro_shipping_address_fields');
 					if(baddress.length && baddress.is(':visible'))
 					{
 						jQuery('#sameasbilling_wrapper').show();
 					}
-					else
+					else if (pmpro_shipping_address_fields.is(':visible'))
 					{
 						jQuery('#sameasbilling').attr('checked', false);
 						jQuery('#sameasbilling_wrapper').hide();						
@@ -157,7 +157,7 @@ function pmproship_pmpro_checkout_boxes()
 	</tr>
 	</tbody>
 	</table>
-<?php
+<?php	
 }
 add_action("pmpro_checkout_after_billing_fields", "pmproship_pmpro_checkout_boxes");
 
@@ -165,7 +165,7 @@ add_action("pmpro_checkout_after_billing_fields", "pmproship_pmpro_checkout_boxe
 function pmproship_pmpro_valid_gateways($gateways)
 {
 	global $sameasbilling, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $shipping_address, $pmpro_requirebilling, $current_user;
-
+	
 	if(!empty($_REQUEST['sameasbilling']))
 		$sameasbilling = true;	//we'll get the fields further down below
 	elseif(!empty($_REQUEST['saddress1']))
@@ -202,7 +202,6 @@ function pmproship_pmpro_valid_gateways($gateways)
 	{
 		//coming back from PayPal. same as billing
 		$sameasbilling = true;
-		unset($_SESSION['sameasbilling']);		
 	}
 	elseif(!empty($_SESSION['saddress1']))
 	{
@@ -216,19 +215,7 @@ function pmproship_pmpro_valid_gateways($gateways)
 		$scity = $_SESSION['scity'];
 		$sstate = $_SESSION['sstate'];
 		$szipcode = $_SESSION['szipcode'];
-		$scountry = $_SESSION['scountry'];
-		
-		//unset the session vars				
-		unset($_SESSION['sfirstname']);
-		unset($_SESSION['slastname']);
-		unset($_SESSION['saddress1']);
-		if(!empty($_SESSION['saddress2'])) { 
-			unset($_SESSION['saddress2']);
-		}
-		unset($_SESSION['scity']);
-		unset($_SESSION['sstate']);
-		unset($_SESSION['szipcode']);
-		unset($_SESSION['scountry']);
+		$scountry = $_SESSION['scountry'];				
 	}
     elseif(!empty($current_user->ID))
 	{
@@ -278,6 +265,14 @@ function pmproship_pmpro_after_checkout($user_id)
 		update_user_meta($user_id, "pmpro_szipcode", $szipcode);		
 		update_user_meta($user_id, "pmpro_scountry", $scountry);		
 	}
+	
+	//unset session vars (Note: updated to run after checkout in version .3.1		
+	$vars = array('sfirstname', 'slastname', 'saddress1', 'saddress2', 'scity', 'sstate', 'szipcode', 'scountry', 'sameasbilling');
+	foreach($vars as $var)
+	{
+		if(isset($_SESSION[$var]))
+			unset($_SESSION[$var]);
+	}	
 }
 add_action("pmpro_after_checkout", "pmproship_pmpro_after_checkout");
 
@@ -286,13 +281,13 @@ function pmproship_show_extra_profile_fields($user)
 {
 	global $pmpro_states;
 ?>
-	<h3><?php _e('Shipping Address', 'pmpro');?></h3>
+	<h3 style="margin-top:20px;"><?php _e('Shipping Address', 'pmpro');?></h3>
  
 	<table class="form-table">
  
 		<tr>
-			<th><?php _e('First Name', 'pmpro');?></th>			
-			<td>
+			<th style="width:130px;"><?php _e('First Name', 'pmpro');?></th>			
+			<td style="width:300px;">
 				<input id="sfirstname" name="sfirstname" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta($user->ID, 'pmpro_sfirstname', true) ); ?>" />
 			</td>
 		</tr>
@@ -397,7 +392,6 @@ function pmproship_pmpro_paypalexpress_session_vars()
 		$_SESSION['saddress2'] = $_REQUEST['saddress2'];
 	else
 		$_SESSION['saddress2'] = "";
- 
 }
 add_action("pmpro_paypalexpress_session_vars", "pmproship_pmpro_paypalexpress_session_vars");
  
@@ -451,7 +445,7 @@ function pmproship_pmpro_confirmation_message($confirmation_message, $pmpro_invo
 		$shipping_address .= $scity . ", " . $sstate . " " . $szipcode;
 		$shipping_address .= "<br />" . $scountry;		
 		
-		$confirmation_message .= "<br /><h3 id='userlogin'>Shipping Information:</h3><p>" . $shipping_address;
+		$confirmation_message .= "<br /><h3 id='userlogin' style='margin-top:20px;'>Shipping Information:</h3><p style='padding-left:35px; color: #a3a37d; margin-top:10px; font-size:14px; line-height:18px;'>" . $shipping_address;
 	}
 			
 	return $confirmation_message;
@@ -501,6 +495,9 @@ function pmproship_pmpro_email_body($body, $pmpro_email)
 }
 add_filter("pmpro_email_body", "pmproship_pmpro_email_body", 10, 2);
  
+ 
+ 
+ 
 //use a dropdown for state in the billing fields
 function pmproship_pmpro_state_dropdowns($use)
 {
@@ -508,10 +505,13 @@ function pmproship_pmpro_state_dropdowns($use)
 }
 add_filter("pmpro_state_dropdowns", "pmproship_pmpro_state_dropdowns");
 
+
+
 /*
 	add shipping address column to members list
 */
 //heading
+
 function pmproship_pmpro_memberslist_extra_cols_header()
 {
 ?>

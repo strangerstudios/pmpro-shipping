@@ -3,7 +3,7 @@ Contributors: strangerstudios
 Tags: paid memberships pro, shipping, shipping address, 
 Requires at least: 3.0
 Tested up to: 4.1
-Stable tag: .3
+Stable tag: .3.1
 
 Adds shipping fields to the Paid Memberships Pro checkout.
 
@@ -28,6 +28,10 @@ Please post it in the GitHub issue tracker here: https://github.com/strangerstud
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= .3.1 =
+* BUG: Now unestting SESSION variables after checkout in case someone refreshes the review page with PayPal Express.
+* ENHANCEMENT: Updated to hide the shipping fields on the review page when using PayPal Express.
+
 = .3 =
 * FEATURE: Added a checkbox to hide the shipping address fields for certain levels.
 * ENHANCEMENT: Now hiding the "same as Billing Address" checkbox if the billing address is not visible.
