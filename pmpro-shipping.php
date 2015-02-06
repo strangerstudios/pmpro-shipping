@@ -27,7 +27,7 @@ function pmproship_pmpro_checkout_boxes()
 		<tr>
 			<td>
 			
-		<p style="margin-left:130px; display: none; margin-bottom:10px;" id="sameasbilling_wrapper">
+		<p style="margin-left:130px; display: none;" id="sameasbilling_wrapper">
 			<input type="checkbox" id="sameasbilling" name="sameasbilling" value="1" <?php if(!empty($sameasbilling)) { ?>checked="checked"<?php } ?> /> 
 			<label for="sameasbilling" style="float: none; font-weight: normal; cursor: pointer;">
 				<?php _e('Ship to the billing address used above.', 'pmpro');?>
@@ -281,13 +281,13 @@ function pmproship_show_extra_profile_fields($user)
 {
 	global $pmpro_states;
 ?>
-	<h3 style="margin-top:20px;"><?php _e('Shipping Address', 'pmpro');?></h3>
+	<h3><?php _e('Shipping Address', 'pmpro');?></h3>
  
 	<table class="form-table">
  
 		<tr>
-			<th style="width:130px;"><?php _e('First Name', 'pmpro');?></th>			
-			<td style="width:300px;">
+			<th><?php _e('First Name', 'pmpro');?></th>			
+			<td>
 				<input id="sfirstname" name="sfirstname" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta($user->ID, 'pmpro_sfirstname', true) ); ?>" />
 			</td>
 		</tr>
@@ -445,7 +445,7 @@ function pmproship_pmpro_confirmation_message($confirmation_message, $pmpro_invo
 		$shipping_address .= $scity . ", " . $sstate . " " . $szipcode;
 		$shipping_address .= "<br />" . $scountry;		
 		
-		$confirmation_message .= "<br /><h3 id='userlogin' style='margin-top:20px;'>Shipping Information:</h3><p style='padding-left:35px; color: #a3a37d; margin-top:10px; font-size:14px; line-height:18px;'>" . $shipping_address;
+		$confirmation_message .= "<br /><h3>Shipping Information:</h3><p>" . $shipping_address . "</p>";		
 	}
 			
 	return $confirmation_message;
