@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: PMPro Shipping
+Plugin Name: Paid Memberships Pro - Shipping Add On
 Plugin URI: http://www.paidmembershipspro.com/wp/pmpro-shipping/
 Description: Add shipping to the checkout page and other updates.
-Version: .3.1
+Version: .3.2
 Author: Stranger Studios
 Author URI: http://www.strangerstudios.com
  
@@ -596,8 +596,8 @@ function pmproship_pmpro_membership_level_after_other_settings()
 	<tr>
 		<th scope="row" valign="top"><label for="hide_shipping"><?php _e('Hide Shipping Address:', 'pmpro');?></label></th>
 		<td>
-			<input type="checkbox" name="hide_shipping" value="1" <?php checked($hide_shipping, 1);?> />
-			<?php _e('Check this if you DO NOT want to ask for a shipping address with this level.', 'pmpro');?>
+			<input type="checkbox" id="hide_shipping" name="hide_shipping" value="1" <?php checked($hide_shipping, 1);?> />
+			<label for="hide_shipping"><?php _e('Check this if you DO NOT want to ask for a shipping address with this level.', 'pmpro');?></label>
 		</td>
 	</tr>
 </tbody>
@@ -609,7 +609,10 @@ add_action('pmpro_membership_level_after_other_settings', 'pmproship_pmpro_membe
 //save hide shipping setting when the level is saved/added
 function pmproship_pmpro_save_membership_level($level_id)
 {
-	$hide_shipping = intval($_REQUEST['hide_shipping']);
+	if(isset($_REQUEST['hide_shipping']))
+		$hide_shipping = intval($_REQUEST['hide_shipping']);
+	else
+		$hide_shipping = 0;
 	update_option('pmpro_shipping_hidden_level_' . $level_id, $hide_shipping);
 }
 add_action("pmpro_save_membership_level", "pmproship_pmpro_save_membership_level");
@@ -630,3 +633,19 @@ function pmproship_hide_shipping($level)
 	return $level;
 }
 add_filter('pmpro_checkout_level', 'pmproship_hide_shipping', 99);
+
+/*
+Function to add links to the plugin row meta
+*/
+function pmproship_plugin_row_meta($links, $file) {
+	if(strpos($file, 'pmpro-shipping.php') !== false)
+	{
+		$new_links = array(
+			'<a href="' . esc_url('http://www.paidmembershipspro.com/add-ons/plugins-on-github/shipping-address-membership-checkout/')  . '" title="' . esc_attr( __( 'View Documentation', 'pmpro' ) ) . '">' . __( 'Docs', 'pmpro' ) . '</a>',
+			'<a href="' . esc_url('http://paidmembershipspro.com/support/') . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro' ) ) . '">' . __( 'Support', 'pmpro' ) . '</a>',
+		);
+		$links = array_merge($links, $new_links);
+	}
+	return $links;
+}
+add_filter('plugin_row_meta', 'pmproship_plugin_row_meta', 10, 2);
