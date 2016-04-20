@@ -584,7 +584,7 @@ function pmproship_extra_column_scountry($user){if(!empty($user->metavalues->pmp
 //show the checkbox on the edit level page
 function pmproship_pmpro_membership_level_after_other_settings()
 {	
-	$level_id = intval($_REQUEST['edit']);
+	$level_id = isset($_REQUEST['edit']) ? intval($_REQUEST['edit']) : 0;
 	if($level_id > 0)
 		$hide_shipping = get_option('pmpro_shipping_hidden_level_' . $level_id);	
 	else
