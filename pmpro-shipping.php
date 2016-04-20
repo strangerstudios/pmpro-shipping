@@ -445,7 +445,7 @@ function pmproship_pmpro_confirmation_message($confirmation_message, $pmpro_invo
 		$shipping_address .= $scity . ", " . $sstate . " " . $szipcode;
 		$shipping_address .= "<br />" . $scountry;		
 		
-		$confirmation_message .= "<br /><h3>Shipping Information:</h3><p>" . $shipping_address . "</p>";		
+		$confirmation_message .= '<br /><h3>' . __('Shipping Information:', 'pmpro') . '</h3><p>' . $shipping_address . '</p>';
 	}
 			
 	return $confirmation_message;
