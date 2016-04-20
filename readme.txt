@@ -2,8 +2,8 @@
 Contributors: strangerstudios
 Tags: paid memberships pro, shipping, shipping address, 
 Requires at least: 3.0
-Tested up to: 4.1.1
-Stable tag: .3.2
+Tested up to: 4.5
+Stable tag: .3.3
 
 Adds shipping fields to the Paid Memberships Pro checkout.
 
@@ -28,6 +28,10 @@ Please post it in the GitHub issue tracker here: https://github.com/strangerstud
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= .3.3 =
+* BUG/ENHANCEMENT: Now sanitizing and validating the hide_shipping/edit parameter when editing a level.
+* BUG/ENHANCEMENT: Wrapped the Shipping Information label for localization in the confirmation message. (Thanks, shr3k on GitHub)
+
 = .3.2 =
 * BUG: Fixed warning with hide_shipping option when saving a level in the dashboard.
 

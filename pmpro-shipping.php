@@ -3,7 +3,7 @@
 Plugin Name: Paid Memberships Pro - Shipping Add On
 Plugin URI: http://www.paidmembershipspro.com/wp/pmpro-shipping/
 Description: Add shipping to the checkout page and other updates.
-Version: .3.2
+Version: .3.3
 Author: Stranger Studios
 Author URI: http://www.strangerstudios.com
  
