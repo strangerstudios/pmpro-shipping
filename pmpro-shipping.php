@@ -358,14 +358,14 @@ function pmproship_save_extra_profile_fields( $user_id )
 	if ( !current_user_can( 'edit_user', $user_id ) )
 		return false;
  
-	update_usermeta( $user_id, 'pmpro_sfirstname', $_POST['sfirstname'] );
-	update_usermeta( $user_id, 'pmpro_slastname', $_POST['slastname'] );
-	update_usermeta( $user_id, 'pmpro_saddress1', $_POST['saddress1'] );
-	update_usermeta( $user_id, 'pmpro_saddress2', $_POST['saddress2'] );
-	update_usermeta( $user_id, 'pmpro_scity', $_POST['scity'] );
-	update_usermeta( $user_id, 'pmpro_sstate', $_POST['sstate'] );
-	update_usermeta( $user_id, 'pmpro_szipcode', $_POST['szipcode'] );
-	update_usermeta( $user_id, 'pmpro_scountry', $_POST['scountry'] );
+	update_user_meta( $user_id, 'pmpro_sfirstname', $_POST['sfirstname'] );
+	update_user_meta( $user_id, 'pmpro_slastname', $_POST['slastname'] );
+	update_user_meta( $user_id, 'pmpro_saddress1', $_POST['saddress1'] );
+	update_user_meta( $user_id, 'pmpro_saddress2', $_POST['saddress2'] );
+	update_user_meta( $user_id, 'pmpro_scity', $_POST['scity'] );
+	update_user_meta( $user_id, 'pmpro_sstate', $_POST['sstate'] );
+	update_user_meta( $user_id, 'pmpro_szipcode', $_POST['szipcode'] );
+	update_user_meta( $user_id, 'pmpro_scountry', $_POST['scountry'] );
 }
 add_action( 'personal_options_update', 'pmproship_save_extra_profile_fields' );
 add_action( 'edit_user_profile_update', 'pmproship_save_extra_profile_fields' );
