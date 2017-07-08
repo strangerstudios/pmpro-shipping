@@ -413,6 +413,8 @@ function pmproship_pmpro_registration_checks($okay)
 		
 		$required_shipping_fields = array('sfirstname', 'slastname', 'saddress1', 'scity', 'sstate', 'szipcode', 'scountry');
 		
+		$required_shipping_fields = apply_filters("pmproship_required_shipping_fields", $required_shipping_fields);
+	
 		foreach($required_shipping_fields as $field)
 		{
 			if(empty($_REQUEST[$field]))
