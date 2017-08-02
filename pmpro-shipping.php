@@ -1,13 +1,11 @@
 <?php
 /*
 Plugin Name: Paid Memberships Pro - Shipping Add On
-Plugin URI: http://www.paidmembershipspro.com/wp/pmpro-shipping/
+Plugin URI: https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/
 Description: Add shipping to the checkout page and other updates.
-Version: .3.3
+Version: .4
 Author: Stranger Studios
-Author URI: http://www.strangerstudios.com
- 
-Note that this plugin requires PMPro 1.3.19 or higher to function fully.
+Author URI: https://www.paidmembershipspro.com
 */
 
 define('PMPRO_SHIPPING_SHOW_REQUIRED', true);	//if false required fields won't have asterisks and non-required fields will say (optional)
@@ -649,8 +647,8 @@ function pmproship_plugin_row_meta($links, $file) {
 	if(strpos($file, 'pmpro-shipping.php') !== false)
 	{
 		$new_links = array(
-			'<a href="' . esc_url('http://www.paidmembershipspro.com/add-ons/plugins-on-github/shipping-address-membership-checkout/')  . '" title="' . esc_attr( __( 'View Documentation', 'pmpro' ) ) . '">' . __( 'Docs', 'pmpro' ) . '</a>',
-			'<a href="' . esc_url('http://paidmembershipspro.com/support/') . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro' ) ) . '">' . __( 'Support', 'pmpro' ) . '</a>',
+			'<a href="' . esc_url('https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/')  . '" title="' . esc_attr( __( 'View Documentation', 'pmpro' ) ) . '">' . __( 'Docs', 'pmpro' ) . '</a>',
+			'<a href="' . esc_url('https://paidmembershipspro.com/support/') . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro' ) ) . '">' . __( 'Support', 'pmpro' ) . '</a>',
 		);
 		$links = array_merge($links, $new_links);
 	}
