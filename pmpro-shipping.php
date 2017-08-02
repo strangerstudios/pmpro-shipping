@@ -40,6 +40,12 @@ function pmproship_pmpro_checkout_boxes()
 				{
 					var baddress = jQuery('#baddress1');
 					var pmpro_shipping_address_fields = jQuery('#pmpro_shipping_address_fields');
+					
+					if(jQuery('#sameasbilling').is(':checked'))
+					{					
+						jQuery('#shipping-fields').hide();
+					}
+		
 					if(baddress.length && baddress.is(':visible'))
 					{
 						jQuery('#sameasbilling_wrapper').show();
@@ -50,7 +56,7 @@ function pmproship_pmpro_checkout_boxes()
 						jQuery('#sameasbilling_wrapper').hide();						
 						jQuery('#shipping-fields').show();
 					}
-					
+
 					//check again in .2 seconds
 					pmpro_shipping_show_sameas_timer = setTimeout(function(){checkBillingAddressVisibilityForSameAsCheckbox();}, 200);
 				}								
