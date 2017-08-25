@@ -165,8 +165,8 @@ function pmproship_pmpro_checkout_boxes()
 }
 add_action("pmpro_checkout_after_billing_fields", "pmproship_pmpro_checkout_boxes");
 
-//get fields on checkout page (abusing the pmpro_valid_gateways filter for this since it comes early on the checkout page)
-function pmproship_pmpro_valid_gateways($gateways)
+//get fields on checkout page
+function pmproship_pmpro_checkout_preheader()
 {
 	global $sameasbilling, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $shipping_address, $pmpro_requirebilling, $current_user;
 	
@@ -235,9 +235,8 @@ function pmproship_pmpro_valid_gateways($gateways)
         $scountry = get_user_meta($user_id, "pmpro_scountry", true);
     }
 
-	return $gateways;
 }
-add_filter('pmpro_valid_gateways', 'pmproship_pmpro_valid_gateways');
+add_filter('pmpro_checkout_preheader', 'pmproship_pmpro_checkout_preheader', 10, 0);
 
 //update a user meta value on checkout
 function pmproship_pmpro_after_checkout($user_id)
