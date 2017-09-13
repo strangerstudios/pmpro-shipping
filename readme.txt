@@ -28,6 +28,9 @@ Please post it in the GitHub issue tracker here: https://github.com/strangerstud
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= .5 =
+* ENHANCEMENT: Improved fields display on membership checkout page to use no tables for compatibility with Paid Memberships Pro v1.9.4.
+
 = .4 =
 * BUG FIX: Fixed warnings related to use of get_usermeta.
 * BUG FIX: Fixed issue where shipping fields continued to show when "same as" was selected.
