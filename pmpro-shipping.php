@@ -446,10 +446,16 @@ add_filter( "pmpro_confirmation_message", "pmproship_pmpro_confirmation_message"
 
 //adding shipping address to confirmation email
 function pmproship_pmpro_email_body( $body, $pmpro_email ) {
-	global $wpdb;
+	
+    global $wpdb;
+	$user_id = null;
 	
 	//get the user_id from the email
-	$user_id = $wpdb->get_var( "SELECT ID FROM $wpdb->users WHERE user_email = '" . $pmpro_email->data['user_email'] . "' LIMIT 1" );
+    $user = isset(  $pmpro_email->data['user_email'] ) ? get_user_by( 'email', $pmpro_email->data['user_email'] ) : null;
+    
+    if ( !empty( $user ) ) {
+        $user_id = $user->ID;
+    }
 	
 	if ( ! empty( $user_id ) ) {
 		//does the user being emailed have a shipping address?		
