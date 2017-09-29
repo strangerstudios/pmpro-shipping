@@ -249,7 +249,7 @@ function pmproship_pmpro_after_checkout( $user_id ) {
 	}
 }
 
-add_action( "pmpro_after_checkout", "pmproship_pmpro_after_checkout" );
+add_action( "pmpro_after_checkout", "pmproship_pmpro_after_checkout", 11 );
 
 //show the shipping address in the profile
 function pmproship_show_extra_profile_fields( $user ) {
