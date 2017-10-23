@@ -29,7 +29,8 @@ Please visit our premium support site at http://www.paidmembershipspro.com for m
 
 == Changelog ==
 = .6 =
-* ENHANCEMENT: Support for same billing & shipping address when using the Add PayPal Express Option at Checkout and Pay By Check add-ons
+* ENHANCEMENT: Copying billing to shipping address when using the Add PayPal Express Option at Checkout and Pay By Check add-ons
+* ENHANCEMENT/FIX: Didn't save Shipping Address when using PayPal Standard
 
 = .5 =
 * ENHANCEMENT: Improved fields display on membership checkout page to use no tables for compatibility with Paid Memberships Pro v1.9.4.

@@ -3,13 +3,13 @@
 Plugin Name: Paid Memberships Pro - Shipping Add On
 Plugin URI: https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/
 Description: Add shipping to the checkout page and other updates.
-Version: .5
+Version: .6.0
 Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com
 */
 
 define( 'PMPRO_SHIPPING_SHOW_REQUIRED', true );    //if false required fields won't have asterisks and non-required fields will say (optional)
-define( 'PMPRO_SHIPPING_VERSION', '.5.1' );
+define( 'PMPRO_SHIPPING_VERSION', '.6.0' );
 
 //add a shipping address field to the checkout page with "sameas" checkbox
 function pmproship_pmpro_checkout_boxes() {
@@ -138,7 +138,9 @@ function pmproship_pmpro_checkout_boxes() {
 add_action( "pmpro_checkout_after_billing_fields", "pmproship_pmpro_checkout_boxes" );
 
 //get fields on checkout page (abusing the pmpro_valid_gateways filter for this since it comes early on the checkout page)
-function pmproship_pmpro_valid_gateways( $gateways ) {
+// Doesn't work for PayPal Standard!
+function pmproship_pmpro_after_checkout() {
+	
 	global $sameasbilling, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $shipping_address, $pmpro_requirebilling, $current_user;
 	
 	if ( ! empty( $_REQUEST['sameasbilling'] ) ) {
@@ -146,15 +148,15 @@ function pmproship_pmpro_valid_gateways( $gateways ) {
 	}    //we'll get the fields further down below
 	else if ( ! empty( $_REQUEST['saddress1'] ) ) {
 		//grab the fields entered by the user at checkout
-		$sfirstname = $_REQUEST['sfirstname'];
-		$slastname  = $_REQUEST['slastname'];
-		$saddress1  = $_REQUEST['saddress1'];
+		$sfirstname = sanitize_text_field( $_REQUEST['sfirstname'] );
+		$slastname  = sanitize_text_field( $_REQUEST['slastname'] );
+		$saddress1  = sanitize_text_field( $_REQUEST['saddress1'] );
 		if ( ! empty( $_REQUEST['saddress2'] ) ) {
-			$saddress2 = $_REQUEST['saddress2'];
+			$saddress2 = sanitize_text_field( $_REQUEST['saddress2'] );
 		}
-		$scity = $_REQUEST['scity'];
+		$scity = sanitize_text_field( $_REQUEST['scity'] );
 		
-		$sstate = $_REQUEST['sstate'];
+		$sstate = sanitize_text_field( $_REQUEST['sstate'] );
 		
 		//convert long state names to abbreviations
 		if ( ! empty( $sstate ) ) {
@@ -167,23 +169,23 @@ function pmproship_pmpro_valid_gateways( $gateways ) {
 			}
 		}
 		
-		$szipcode = $_REQUEST['szipcode'];
-		$scountry = $_REQUEST['scountry'];
+		$szipcode = sanitize_text_field( $_REQUEST['szipcode'] );
+		$scountry = sanitize_text_field( $_REQUEST['scountry'] );
 	} else if ( ! empty( $_SESSION['sameasbilling'] ) ) {
 		//coming back from PayPal. same as billing
 		$sameasbilling = true;
 	} else if ( ! empty( $_SESSION['saddress1'] ) ) {
 		//coming back from PayPal. grab the fields from session
-		$sfirstname = $_SESSION['sfirstname'];
-		$slastname  = $_SESSION['slastname'];
-		$saddress1  = $_SESSION['saddress1'];
+		$sfirstname = sanitize_text_field( $_SESSION['sfirstname'] );
+		$slastname  = sanitize_text_field( $_SESSION['slastname'] );
+		$saddress1  = sanitize_text_field( $_SESSION['saddress1'] );
 		if ( ! empty( $_SESSION['saddress2'] ) ) {
-			$saddress2 = $_SESSION['saddress2'];
+			$saddress2 = sanitize_text_field( $_SESSION['saddress2'] );
 		}
-		$scity    = $_SESSION['scity'];
-		$sstate   = $_SESSION['sstate'];
-		$szipcode = $_SESSION['szipcode'];
-		$scountry = $_SESSION['scountry'];
+		$scity    = sanitize_text_field( $_SESSION['scity'] );
+		$sstate   = sanitize_text_field( $_SESSION['sstate'] );
+		$szipcode = sanitize_text_field( $_SESSION['szipcode'] );
+		$scountry = sanitize_text_field( $_SESSION['scountry'] );
 	} else if ( ! empty( $current_user->ID ) ) {
 		//get shipping fields from user meta
 		$user_id    = $current_user->ID;
@@ -196,16 +198,14 @@ function pmproship_pmpro_valid_gateways( $gateways ) {
 		$szipcode   = get_user_meta( $user_id, "pmpro_szipcode", true );
 		$scountry   = get_user_meta( $user_id, "pmpro_scountry", true );
 	}
-	
-	return $gateways;
 }
 
-add_filter( 'pmpro_valid_gateways', 'pmproship_pmpro_valid_gateways' );
+add_filter( 'pmpro_checkout_preheader', 'pmproship_pmpro_after_checkout' );
 
 //update a user meta value on checkout
-function pmproship_pmpro_after_checkout( $user_id ) {
+function pmproship_pmpro_checkout_before_processing( $user_id ) {
 	global $sameasbilling, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $shipping_address, $pmpro_requirebilling;
-	
+ 
 	if ( ! empty( $sameasbilling ) ) {
 		//set the shipping fields to be the same as the billing fields		
 		$sfirstname = get_user_meta( $user_id, "pmpro_bfirstname", true );
@@ -249,7 +249,7 @@ function pmproship_pmpro_after_checkout( $user_id ) {
 	}
 }
 
-add_action( "pmpro_after_checkout", "pmproship_pmpro_after_checkout", 11 );
+add_action( "pmpro_checkout_before_processing", "pmproship_pmpro_checkout_before_processing", 30 );
 
 //show the shipping address in the profile
 function pmproship_show_extra_profile_fields( $user ) {
@@ -337,48 +337,136 @@ add_action( 'show_user_profile', 'pmproship_show_extra_profile_fields' );
 add_action( 'edit_user_profile', 'pmproship_show_extra_profile_fields' );
 
 function pmproship_save_extra_profile_fields( $user_id ) {
+	
 	if ( ! current_user_can( 'edit_user', $user_id ) ) {
 		return false;
 	}
 	
-	update_user_meta( $user_id, 'pmpro_sfirstname', $_POST['sfirstname'] );
-	update_user_meta( $user_id, 'pmpro_slastname', $_POST['slastname'] );
-	update_user_meta( $user_id, 'pmpro_saddress1', $_POST['saddress1'] );
-	update_user_meta( $user_id, 'pmpro_saddress2', $_POST['saddress2'] );
-	update_user_meta( $user_id, 'pmpro_scity', $_POST['scity'] );
-	update_user_meta( $user_id, 'pmpro_sstate', $_POST['sstate'] );
-	update_user_meta( $user_id, 'pmpro_szipcode', $_POST['szipcode'] );
-	update_user_meta( $user_id, 'pmpro_scountry', $_POST['scountry'] );
+	update_user_meta( $user_id, 'pmpro_sfirstname', sanitize_text_field( $_POST['sfirstname'] ) );
+	update_user_meta( $user_id, 'pmpro_slastname', sanitize_text_field( $_POST['slastname'] ) );
+	update_user_meta( $user_id, 'pmpro_saddress1', sanitize_text_field( $_POST['saddress1'] ) );
+	update_user_meta( $user_id, 'pmpro_saddress2', sanitize_text_field( $_POST['saddress2'] ) );
+	update_user_meta( $user_id, 'pmpro_scity', sanitize_text_field( $_POST['scity'] ) );
+	update_user_meta( $user_id, 'pmpro_sstate', sanitize_text_field( $_POST['sstate'] ) );
+	update_user_meta( $user_id, 'pmpro_szipcode', sanitize_text_field( $_POST['szipcode'] ) );
+	update_user_meta( $user_id, 'pmpro_scountry', sanitize_text_field( $_POST['scountry'] ) );
 }
 
 add_action( 'personal_options_update', 'pmproship_save_extra_profile_fields' );
 add_action( 'edit_user_profile_update', 'pmproship_save_extra_profile_fields' );
 
 /*
-	These bits are required for PayPal Express only.
+	These bits are required for offsite gateways.
 */
-function pmproship_pmpro_paypalexpress_session_vars() {
-	//save our added fields in session while the user goes off to PayPal	
-	$_SESSION['sameasbilling'] = $_REQUEST['sameasbilling'];
+function pmproship_checkout_before_processing() {
+ 
 	
-	//assume the request is set
-	$_SESSION['saddress1']  = $_REQUEST['saddress1'];
-	$_SESSION['sfirstname'] = $_REQUEST['sfirstname'];
-	$_SESSION['slastname']  = $_REQUEST['slastname'];
-	$_SESSION['sstate']     = $_REQUEST['sstate'];
-	$_SESSION['scity']      = $_REQUEST['scity'];
-	$_SESSION['szipcode']   = $_REQUEST['szipcode'];
-	$_SESSION['scountry']   = $_REQUEST['scountry'];
+	// Exit
+	if ( false === pmproship_is_shipping_set( $_REQUEST ) || ( true === pmproship_is_shipping_set( $_REQUEST ) && ! empty( $_REQUEST['sameasbilling'] ) ) ) {
+		
+		return;
+	}
 	
-	//check this one cause it's optional
-	if ( ! empty( $_REQUEST['saddress2'] ) ) {
-		$_SESSION['saddress2'] = $_REQUEST['saddress2'];
-	} else {
-		$_SESSION['saddress2'] = "";
+	global $pmpro_pages;
+	
+	$shipping_fields = array(
+		'sameasbilling',
+		'sfirstname',
+		'slastname',
+		'saddress1',
+		'saddress2',
+		'sstate',
+		'scity',
+		'szipcode',
+		'scountry',
+	);
+	
+	if ( is_page( array(
+			$pmpro_pages['checkout'],
+			$pmpro_pages['confirmation'],
+		) ) && true === pmproship_is_shipping_set( $_REQUEST ) ) {
+  
+		//(Try to) save our added fields in session while the user goes off to PayPal
+		foreach ( $shipping_fields as $field_name ) {
+			
+			$val = isset( $_REQUEST[ $field_name ] ) ? $_REQUEST[ $field_name ] : null;
+			
+			if ( ! empty( $val ) ) {
+				$_SESSION[ $field_name ] = $val;
+			}
+		}
+	} else if ( true === pmproship_is_shipping_set( $_SESSION ) ) {
+  
+		foreach ( $shipping_fields as $field_name ) {
+			
+			$val = isset( $_SESSION[ $field_name ] ) ? $_SESSION[ $field_name ] : null;
+			
+			if ( ! empty( $val ) ) {
+				$_REQUEST[ $field_name ] = $val;
+			}
+		}
+		
 	}
 }
 
-add_action( "pmpro_paypalexpress_session_vars", "pmproship_pmpro_paypalexpress_session_vars" );
+// For all offsite gateways
+add_action( "pmpro_checkout_before_processing", "pmproship_checkout_before_processing", 9 );
+
+/**
+ * Save Shipping Address to local DB when using PayPal Standard gateway
+ *
+ * @param int $user_id
+ * @param \MemberOrder $morder
+ */
+function pmproship_save_shipping_values( $user_id, $morder ) {
+	
+    if ( 'paypalstandard' !== pmpro_getGateway()) {
+        return ;
+    }
+    
+	global $current_user;
+	
+	$shipping_fields = array(
+		'sameasbilling',
+		'sfirstname',
+		'slastname',
+		'saddress1',
+		'saddress2',
+		'sstate',
+		'scity',
+		'szipcode',
+		'scountry',
+	);
+	
+    if ( empty( $_REQUEST['sameasbilling']) && true === pmproship_is_shipping_set( $_REQUEST ) ) {
+        
+	    foreach( $shipping_fields as $key ) {
+	     
+		    if ( isset( $_REQUEST[$key]) && $key !== 'sameasbilling' )
+			    
+		        update_user_meta( $user_id, "pmpro_{$key}", sanitize_text_field( $_REQUEST[$key] ) );
+	    }
+	
+    }
+}
+
+add_action( 'pmpro_before_send_to_paypal_standard', 'pmproship_save_shipping_values', 10, 2 );
+
+/**
+ * Are one of the shipping address data fields set?
+ *
+ * @param array $object
+ *
+ * @return bool
+ */
+function pmproship_is_shipping_set( $object ) {
+	
+	return isset( $object['sameasbilling'] ) ||
+	       isset( $object['saddress1'] ) || isset( $object['saddress2'] ) ||
+	       isset( $object['sfirstname'] ) || isset( $object['slastname'] ) ||
+	       isset( $object['sstate'] ) || isset( $object['scity'] ) ||
+	       isset( $object['szipcode'] ) || isset( $object['scountry'] );
+}
 
 /*
 	Require the shipping fields (optional)
@@ -447,15 +535,18 @@ add_filter( "pmpro_confirmation_message", "pmproship_pmpro_confirmation_message"
 //adding shipping address to confirmation email
 function pmproship_pmpro_email_body( $body, $pmpro_email ) {
 	
-    global $wpdb;
-	$user_id = null;
+	global $wpdb;
+	
+	// Init variables
+	$user_id          = null;
+	$shipping_address = null;
 	
 	//get the user_id from the email
-    $user = isset(  $pmpro_email->data['user_email'] ) ? get_user_by( 'email', $pmpro_email->data['user_email'] ) : null;
-    
-    if ( !empty( $user ) ) {
-        $user_id = $user->ID;
-    }
+	$user = isset( $pmpro_email->data['user_email'] ) ? get_user_by( 'email', $pmpro_email->data['user_email'] ) : null;
+	
+	if ( ! empty( $user ) ) {
+		$user_id = $user->ID;
+	}
 	
 	if ( ! empty( $user_id ) ) {
 		//does the user being emailed have a shipping address?		
