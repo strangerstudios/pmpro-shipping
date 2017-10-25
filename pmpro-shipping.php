@@ -3,13 +3,13 @@
 Plugin Name: Paid Memberships Pro - Shipping Add On
 Plugin URI: https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/
 Description: Add shipping to the checkout page and other updates.
-Version: .6.0
+Version: .5
 Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com
 */
 
 define( 'PMPRO_SHIPPING_SHOW_REQUIRED', true );    //if false required fields won't have asterisks and non-required fields will say (optional)
-define( 'PMPRO_SHIPPING_VERSION', '.6.0' );
+define( 'PMPRO_SHIPPING_VERSION', '.5' );
 
 //add a shipping address field to the checkout page with "sameas" checkbox
 function pmproship_pmpro_checkout_boxes() {
