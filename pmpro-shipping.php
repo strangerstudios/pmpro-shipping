@@ -187,7 +187,7 @@ function pmproship_pmpro_checkout_preheader_check_gateway() {
 	global $gateway;
 	
 	if(!in_array($gateway, array('paypalstandard', 'twocheckout', 'ccbill', 'payfast'))) {
-		add_action('pmpro_checkout_before_change_membership_level', 'pmproship_save_shipping_to_usermeta');
+		add_action('pmpro_checkout_before_change_membership_level', 'pmproship_save_shipping_to_usermeta', 1);
 	} else {
 		add_action('pmpro_after_checkout', 'pmproship_save_shipping_to_usermeta');
 	}
@@ -696,7 +696,7 @@ function pmproship_hide_shipping( $level ) {
 		remove_filter( "pmpro_registration_checks", "pmproship_pmpro_registration_checks" );
 		remove_action( "pmpro_checkout_after_billing_fields", "pmproship_pmpro_checkout_boxes" );
 		remove_action('pmpro_checkout_preheader', 'pmproship_pmpro_checkout_preheader');
-		remove_action('pmpro_checkout_before_change_membership_level', 'pmproship_save_shipping_to_usermeta');
+		remove_action('pmpro_checkout_before_change_membership_level', 'pmproship_save_shipping_to_usermeta', 1);
 		remove_action('pmpro_after_checkout', 'pmproship_save_shipping_to_usermeta');
 		remove_action( "pmpro_checkout_before_processing", "pmproship_save_shipping_to_session", 9 );		
 	}
