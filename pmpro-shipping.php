@@ -26,8 +26,7 @@ function pmproship_pmpro_checkout_boxes() {
         <div class="pmpro_checkout-fields">
 			<?php if ( apply_filters( 'pmpro_include_billing_address_fields', true ) ) { ?>
                 <p id="sameasbilling_wrapper">
-                    <input type="checkbox" id="sameasbilling" name="sameasbilling" value="1"
-					       <?php if ( ! empty( $sameasbilling ) ) { ?>checked="checked"<?php } ?> />
+                    <input type="checkbox" id="sameasbilling" name="sameasbilling" value="1" <?php checked($sameasbilling, 1);?> />
                     <label for="sameasbilling" class="pmpro_label-inline pmpro_clickable">
 						<?php _e( 'Ship to the billing address used above.', 'pmpro' ); ?>
                     </label>
@@ -660,8 +659,7 @@ function pmproship_pmpro_membership_level_after_other_settings() {
             <th scope="row" valign="top"><label
                         for="hide_shipping"><?php _e( 'Hide Shipping Address:', 'pmpro' ); ?></label></th>
             <td>
-                <input type="checkbox" id="hide_shipping" name="hide_shipping"
-                       value="1" <?php checked( $hide_shipping, 1 ); ?> />
+                <input type="checkbox" id="hide_shipping" name="hide_shipping" value="1" <?php checked( $hide_shipping, 1 ); ?> />
                 <label for="hide_shipping"><?php _e( 'Check this if you DO NOT want to ask for a shipping address with this level.', 'pmpro' ); ?></label>
             </td>
         </tr>
@@ -713,8 +711,7 @@ function pmproship_load_js() {
 	
 	global $pmpro_pages;
 	
-	if ( is_admin() || is_page( $pmpro_pages['checkout'] ) ) {
-		
+	if ( is_admin() || is_page( $pmpro_pages['checkout'] ) ) {		
 		wp_enqueue_script( 'pmproship', plugins_url( 'js/pmpro-shipping.js', __FILE__ ), array( 'jquery' ), PMPRO_SHIPPING_VERSION );
 	}
 }

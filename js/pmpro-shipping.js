@@ -14,12 +14,12 @@ jQuery(document).ready(function($){
 			this.inputs = $('#pmpro_shipping_address_fields').find('input');
 			this.show_sameas_timer = null;
 			
-            var self = this;
-            
+            var self = this;			
+			
 			//hide/show shipping fields and copy when clicking sameas
             self.sameas_checkbox.unbind('change').on('change', function() {              
 				//maybe copy
-				self.maybe_copy_data( this );
+				self.maybe_copy_data( this );				
             });
 			
 			//hide the sameas button if the billing address is not visible
@@ -31,19 +31,23 @@ jQuery(document).ready(function($){
 
             if (element.checked) {				
 				//hide the fields
-				this.fields.hide();
-				
+				self.fields.hide();
+
 				//copy the fields			
-                self.inputs.each( function() {
-                    var me = $(this);
-                    var $bfield_name = me.attr('id').replace('s', 'b');
-                    window.console.log("Replaced " + me.attr('id') + ' to locate ' + $bfield_name );
-                    // Copy content of billing field to shipping field
-                    $(me).val( $("#" + $bfield_name ).val() );
+                self.inputs.each( function() {					
+					var me = $(this);
+										
+					//skip the sameas checkbox
+					if(!me.attr('id') != 'sameasbilling') {					
+						var $bfield_name = me.attr('id').replace('s', 'b');
+						//window.console.log("Replaced " + me.attr('id') + ' to locate ' + $bfield_name );
+						// Copy content of billing field to shipping field
+						me.val( $("#" + $bfield_name ).val() );
+					}
                 });
             } else {				
 				//show the fields
-				this.fields.show();				
+				self.fields.show();				
 			}
         },
 		checkBillingAddressVisibilityForSameAsCheckbox: function() {
