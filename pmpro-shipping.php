@@ -186,7 +186,7 @@ function pmproship_pmpro_checkout_preheader_check_gateway() {
 	//if we're not going offsite, we don't need to save things in session
 	global $gateway;
 	
-	if(!in_array($gateway, array('paypalexpress', 'twocheckout', 'ccbill', 'payfast'))) {
+	if(!in_array($gateway, array('paypalstandard', 'twocheckout', 'ccbill', 'payfast'))) {
 		add_action('pmpro_checkout_before_change_membership_level', 'pmproship_save_shipping_to_usermeta');
 	} else {
 		add_action('pmpro_after_checkout', 'pmproship_save_shipping_to_usermeta');
@@ -200,10 +200,7 @@ add_action('pmpro_checkout_preheader', 'pmproship_pmpro_checkout_preheader_check
 function pmproship_save_shipping_to_usermeta($user_id)
 {	
 	global $sameasbilling, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $shipping_address, $pmpro_requirebilling;			
-	
-	d($sameasbilling);
-	d($sstate);
-	
+		
 	if(!empty($sameasbilling))
 	{			
 		//set the shipping fields to be the same as the billing fields		
@@ -216,10 +213,7 @@ function pmproship_save_shipping_to_usermeta($user_id)
 		$szipcode = get_user_meta($user_id, "pmpro_bzipcode", true);			
 		$scountry = get_user_meta($user_id, "pmpro_bcountry", true);					
 	}
-	
-	d($sstate);
-	exit;
-	
+		
 	if(!empty($saddress1))
 	{
 		//update the shipping user meta
