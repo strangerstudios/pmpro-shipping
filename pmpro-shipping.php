@@ -184,9 +184,9 @@ add_action('pmpro_checkout_preheader', 'pmproship_pmpro_checkout_preheader');
 function pmproship_pmpro_checkout_preheader_check_gateway() {
 	//if we're not going offsite, we don't need to save things in session
 	global $gateway;
-	
-	if(!in_array($gateway, array('paypalstandard', 'twocheckout', 'ccbill', 'payfast'))) {
-		add_action('pmpro_checkout_before_change_membership_level', 'pmproship_save_shipping_to_usermeta', 1);
+		
+	if(in_array($gateway, array('paypalstandard', 'twocheckout', 'ccbill', 'payfast'))) {
+		add_action('pmpro_checkout_before_change_membership_level', 'pmproship_save_shipping_to_usermeta', 1);	
 	} else {
 		add_action('pmpro_after_checkout', 'pmproship_save_shipping_to_usermeta');
 	}
@@ -212,7 +212,7 @@ function pmproship_save_shipping_to_usermeta($user_id)
 		$szipcode = get_user_meta($user_id, "pmpro_bzipcode", true);			
 		$scountry = get_user_meta($user_id, "pmpro_bcountry", true);					
 	}
-		
+	
 	if(!empty($saddress1))
 	{
 		//update the shipping user meta
@@ -687,8 +687,10 @@ add_action( "pmpro_save_membership_level", "pmproship_pmpro_save_membership_leve
 /**
  * Actually hide/disable shipping address for these levels
  */
-function pmproship_hide_shipping( $level ) {
-	$hide_shipping = get_option( 'pmpro_shipping_hidden_level_' . $level->id, false );
+function pmproship_hide_shipping() {
+	global $pmpro_level;
+	
+	$hide_shipping = get_option( 'pmpro_shipping_hidden_level_' . $pmpro_level->id, false );
 	if ( $hide_shipping ) {
 		remove_action('pmpro_checkout_preheader', 'pmproship_pmpro_checkout_preheader_check_gateway', 9);
 		remove_filter( "pmpro_registration_checks", "pmproship_pmpro_registration_checks" );
@@ -698,8 +700,6 @@ function pmproship_hide_shipping( $level ) {
 		remove_action('pmpro_after_checkout', 'pmproship_save_shipping_to_usermeta');
 		remove_action( "pmpro_checkout_before_processing", "pmproship_save_shipping_to_session", 9 );		
 	}
-	
-	return $level;
 }
 add_filter( 'pmpro_checkout_preheader', 'pmproship_hide_shipping', 5 );
 
