@@ -1,9 +1,9 @@
 === Paid Memberships Pro - Shipping Add On ===
 Contributors: strangerstudios
 Tags: paid memberships pro, shipping, shipping address, 
-Requires at least: 3.0
-Tested up to: 4.8.2
-Stable tag: .5
+Requires at least: 4.0
+Tested up to: 4.9
+Stable tag: .6
 
 Adds shipping fields to the Paid Memberships Pro checkout.
 
@@ -28,6 +28,11 @@ Please post it in the GitHub issue tracker here: https://github.com/strangerstud
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= .6 =
+* BUG FIX: Fixed bugs where shipping address was not being saved. Rewrote the logic that figures out when and how to save shipping to user meta based on the chosen gateway.
+* BUG FIX: Fixed bugs where the "same as" checkbox was no longer toggling the shipping address fields or being hidden when there was no billing address to copy.
+* BUG FIX/ENHANEMENT: Now checking if PMPRO_SHIPPING_SHOW_REQUIRED is already defined so you can override it in wp-config.php instead of having to edit this plugin.
+
 = .5 =
 * ENHANCEMENT: Copying billing to shipping address when using the Add PayPal Express Option at Checkout and Pay By Check add-ons
 * ENHANCEMENT/FIX: Didn't save Shipping Address when using PayPal Standard
