@@ -185,7 +185,7 @@ function pmproship_pmpro_checkout_preheader_check_gateway() {
 	//if we're not going offsite, we don't need to save things in session
 	global $gateway;
 		
-	if(in_array($gateway, array('paypalstandard', 'twocheckout', 'ccbill', 'payfast'))) {
+	if( 1 === preg_match( '/paypalstandard|paypalexpress|twocheckout|ccbill|payfast/i', $gateway ) ) {
 		add_action('pmpro_checkout_before_change_membership_level', 'pmproship_save_shipping_to_usermeta', 1);	
 	} else {
 		add_action('pmpro_after_checkout', 'pmproship_save_shipping_to_usermeta');
