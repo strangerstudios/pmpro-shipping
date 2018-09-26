@@ -337,7 +337,7 @@ add_action( 'edit_user_profile_update', 'pmproship_save_extra_profile_fields' );
 function pmproship_save_shipping_to_session() {	
 	//if we're not going offsite, we don't need to save things in session
 	global $gateway;
-	if(!in_array($gateway, array('paypalexpress'))) {
+	if( 1 !== preg_match( '/paypalexpress/', $gateway ) ) {
 		return;
 	}
 	
