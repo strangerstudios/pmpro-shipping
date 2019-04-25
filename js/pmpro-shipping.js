@@ -31,8 +31,11 @@ jQuery(document).ready(function($){
 
             if (element.checked) {				
 				//hide the fields
-				self.fields.hide();
 
+				jQuery( '#scountry' ).val( jQuery( '#bcountry' ).val() );
+
+				self.fields.hide();
+				
 				//copy the fields			
                 self.inputs.each( function() {					
 					var me = $(this);
