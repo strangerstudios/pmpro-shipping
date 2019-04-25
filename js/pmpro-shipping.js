@@ -9,9 +9,10 @@ jQuery(document).ready(function($){
 
     pmpro_shipping = {
         init: function() {
+            
+        	this.field_names = [ 'firstname', 'lastname', 'address1', 'address2', 'country','city', 'state', 'zipcode'  ];
             this.sameas_checkbox = $('#sameasbilling');
             this.fields = $('#shipping-fields');
-			this.inputs = $('#pmpro_shipping_address_fields').find('input');
 			this.show_sameas_timer = null;
 			
             var self = this;			
@@ -28,23 +29,20 @@ jQuery(document).ready(function($){
         maybe_copy_data: function( element ) {
 
             var self = this;
-
+            
             if (element.checked) {				
 				//hide the fields
 				self.fields.hide();
+				
+				// Integrate with State dropdown, convert #sstate to text input.
+            	if ( $( '#bcountry.crs-country' ).length > 0 ) {
+	            	$('#sstate').replaceWith( '<input type="text" id="sstate" name="sstate"></input>');
+	            }
 
 				//copy the fields			
-                self.inputs.each( function() {					
-					var me = $(this);
-										
-					//skip the sameas checkbox
-					if(!me.attr('id') != 'sameasbilling') {					
-						var $bfield_name = me.attr('id').replace('s', 'b');
-						//window.console.log("Replaced " + me.attr('id') + ' to locate ' + $bfield_name );
-						// Copy content of billing field to shipping field
-						me.val( $("#" + $bfield_name ).val() );
-					}
-                });
+		    	$.each( self.field_names, function( index, field_name ) {
+	          		$( '#s' + field_name  ).val( $('#b' + field_name ).val() );  // Set shipping field equal to each billing field.
+	          	});
             } else {				
 				//show the fields
 				self.fields.show();				
