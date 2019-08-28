@@ -16,7 +16,7 @@ define( 'PMPRO_SHIPPING_VERSION', '.6' );
  * Add a shipping address field to the checkout page with "sameas" checkbox
  */
 function pmproship_pmpro_checkout_boxes() {
-	global $gateway, $pmpro_states, $sameasbilling, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $shipping_address, $pmpro_requirebilling, $pmpro_review;
+	global $gateway, $pmpro_states, $sameasbilling, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $sphone, $scountry, $shipping_address, $pmpro_requirebilling, $pmpro_review;
 	?>
     <div id="pmpro_shipping_address_fields" class="pmpro_checkout"
 	     <?php if ( $pmpro_review ) { ?>style="display: none;"<?php } ?> >
@@ -82,7 +82,14 @@ function pmproship_pmpro_checkout_boxes() {
                            class="input <?php echo pmpro_getClassForField( "szipcode" ); ?>" size="30"
                            value="<?php echo esc_attr( $szipcode ) ?>"/>
 					<?php if ( PMPRO_SHIPPING_SHOW_REQUIRED ) { ?><span class="pmpro_asterisk"> *</span><?php } ?>
-                </div>     <!-- end pmpro_checkout-field pmpro_checkout-field-szipcode -->
+                </div>     <!-- end pmpro_checkout-field pmpro_checkout-field-sphone -->
+                <div class="pmpro_checkout-field pmpro_checkout-field-sphone">
+                    <label for="sphone"><?php _e( 'Phone', 'pmpro' ); ?></label>
+                    <input id="sphone" name="sphone" type="text"
+                           class="input <?php echo pmpro_getClassForField( "sphone" ); ?>" size="30"
+                           value="<?php echo esc_attr( $sphone ) ?>"/>
+					<?php if ( PMPRO_SHIPPING_SHOW_REQUIRED ) { ?><span class="pmpro_asterisk"> *</span><?php } ?>
+                </div>     <!-- end pmpro_checkout-field pmpro_checkout-field-sphone -->
                 <div class="pmpro_checkout-field pmpro_checkout-field-scountry">
                     <label for="scountry"><?php _e( 'Country', 'pmpro' ); ?></label>
                     <select name="scountry" class="input <?php echo pmpro_getClassForField( "scountry" ); ?>">
@@ -114,7 +121,7 @@ add_action( "pmpro_checkout_after_billing_fields", "pmproship_pmpro_checkout_box
  */
 function pmproship_pmpro_checkout_preheader()
 {
-	global $sameasbilling, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $shipping_address, $pmpro_requirebilling, $current_user;
+	global $sameasbilling, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $sphone, $scountry, $shipping_address, $pmpro_requirebilling, $current_user;
 		
 	if ( ! empty( $_REQUEST['sameasbilling'] ) ) {
 		$sameasbilling = true;
@@ -169,6 +176,7 @@ function pmproship_pmpro_checkout_preheader()
 		$scity      = get_user_meta( $user_id, "pmpro_scity", true );
 		$sstate     = get_user_meta( $user_id, "pmpro_sstate", true );
 		$szipcode   = get_user_meta( $user_id, "pmpro_szipcode", true );
+		$sphone     = get_user_meta( $user_id, "pmpro_sphone", true );
 		$scountry   = get_user_meta( $user_id, "pmpro_scountry", true );
 	}	
 }
@@ -198,7 +206,7 @@ add_action('pmpro_checkout_preheader', 'pmproship_pmpro_checkout_preheader_check
  */
 function pmproship_save_shipping_to_usermeta($user_id)
 {	
-	global $sameasbilling, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $shipping_address, $pmpro_requirebilling;			
+	global $sameasbilling, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $sphone, $scountry, $shipping_address, $pmpro_requirebilling;			
 		
 	if(!empty($sameasbilling))
 	{			
@@ -210,6 +218,7 @@ function pmproship_save_shipping_to_usermeta($user_id)
 		$scity = get_user_meta($user_id, "pmpro_bcity", true);
 		$sstate = get_user_meta($user_id, "pmpro_bstate", true);
 		$szipcode = get_user_meta($user_id, "pmpro_bzipcode", true);			
+		$sphone = get_user_meta($user_id, "pmpro_bphone", true);			
 		$scountry = get_user_meta($user_id, "pmpro_bcountry", true);					
 	}
 	
@@ -223,11 +232,12 @@ function pmproship_save_shipping_to_usermeta($user_id)
 		update_user_meta($user_id, "pmpro_scity", $scity);
 		update_user_meta($user_id, "pmpro_sstate", $sstate);
 		update_user_meta($user_id, "pmpro_szipcode", $szipcode);		
+		update_user_meta($user_id, "pmpro_sphone", $sphone);		
 		update_user_meta($user_id, "pmpro_scountry", $scountry);		
 	}
 	
 	//unset session vars
-	$vars = array('sfirstname', 'slastname', 'saddress1', 'saddress2', 'scity', 'sstate', 'szipcode', 'scountry', 'sameasbilling');
+	$vars = array('sfirstname', 'slastname', 'saddress1', 'saddress2', 'scity', 'sstate', 'szipcode', 'sphone', 'scountry', 'sameasbilling');
 	foreach($vars as $var)
 	{
 		if(isset($_SESSION[$var]))
@@ -295,6 +305,13 @@ function pmproship_show_extra_profile_fields( $user ) {
             </td>
         </tr>
         <tr>
+            <th><?php _e( 'Phone', 'pmpro' ); ?></th>
+            <td>
+                <input id="sphone" name="sphone" type="text" class="regular-text"
+                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sphone', true ) ); ?>"/>
+            </td>
+        </tr>
+        <tr>
             <th><?php _e( 'Country', 'pmpro' ); ?></th>
             <td>
                 <input id="scountry" name="scountry" type="text" class="regular-text"
@@ -324,6 +341,7 @@ function pmproship_save_extra_profile_fields( $user_id ) {
 	update_user_meta( $user_id, 'pmpro_scity', sanitize_text_field( $_POST['scity'] ) );
 	update_user_meta( $user_id, 'pmpro_sstate', sanitize_text_field( $_POST['sstate'] ) );
 	update_user_meta( $user_id, 'pmpro_szipcode', sanitize_text_field( $_POST['szipcode'] ) );
+	update_user_meta( $user_id, 'pmpro_sphone', sanitize_text_field( $_POST['sphone'] ) );
 	update_user_meta( $user_id, 'pmpro_scountry', sanitize_text_field( $_POST['scountry'] ) );
 }
 add_action( 'personal_options_update', 'pmproship_save_extra_profile_fields' );
@@ -351,6 +369,7 @@ function pmproship_save_shipping_to_session() {
 		'sstate',
 		'scity',
 		'szipcode',
+		'sphone',
 		'scountry',
 	);
 		
@@ -380,7 +399,7 @@ function pmproship_is_shipping_set( $object = NULL ) {
 	       isset( $object['saddress1'] ) || isset( $object['saddress2'] ) ||
 	       isset( $object['sfirstname'] ) || isset( $object['slastname'] ) ||
 	       isset( $object['sstate'] ) || isset( $object['scity'] ) ||
-	       isset( $object['szipcode'] ) || isset( $object['scountry'] );
+	       isset( $object['szipcode'] ) || isset( $object['sphone'] ) || isset( $object['scountry'] );
 }
 
 /** 
@@ -398,6 +417,7 @@ function pmproship_pmpro_registration_checks( $okay ) {
 			'scity',
 			'sstate',
 			'szipcode',
+			'sphone',
 			'scountry',
 		);
 		
@@ -430,6 +450,7 @@ function pmproship_pmpro_confirmation_message( $confirmation_message, $pmpro_inv
 	$scity      = get_user_meta( $current_user->ID, "pmpro_scity", true );
 	$sstate     = get_user_meta( $current_user->ID, "pmpro_sstate", true );
 	$szipcode   = get_user_meta( $current_user->ID, "pmpro_szipcode", true );
+	$sphone   	= get_user_meta( $current_user->ID, "pmpro_sphone", true );
 	$scountry   = get_user_meta( $current_user->ID, "pmpro_scountry", true );
 	
 	if ( ! empty( $scity ) && ! empty( $sstate ) ) {
@@ -474,6 +495,7 @@ function pmproship_pmpro_email_body( $body, $pmpro_email ) {
 		$scity      = get_user_meta( $user_id, "pmpro_scity", true );
 		$sstate     = get_user_meta( $user_id, "pmpro_sstate", true );
 		$szipcode   = get_user_meta( $user_id, "pmpro_szipcode", true );
+		$sphone  	= get_user_meta( $user_id, "pmpro_sphone", true );
 		$scountry   = get_user_meta( $user_id, "pmpro_scountry", true );
 		
 		if ( ! empty( $scity ) && ! empty( $sstate ) ) {
@@ -565,6 +587,7 @@ function pmproship_pmpro_members_list_csv_extra_columns( $columns ) {
 		"scity"      => "pmproship_extra_column_scity",
 		"sstate"     => "pmproship_extra_column_sstate",
 		"szipcode"   => "pmproship_extra_column_szipcode",
+		"sphone"     => "pmproship_extra_column_sphone",
 		"scountry"   => "pmproship_extra_column_scountry",
 	);
 	
@@ -627,6 +650,15 @@ function pmproship_extra_column_sstate( $user ) {
 function pmproship_extra_column_szipcode( $user ) {
 	if ( ! empty( $user->metavalues->pmpro_szipcode ) ) {
 		return $user->metavalues->pmpro_szipcode;
+	} else {
+		return "";
+	}
+}
+
+
+function pmproship_extra_column_sphone( $user ) {
+	if ( ! empty( $user->metavalues->pmpro_sphone ) ) {
+		return $user->metavalues->pmpro_sphone;
 	} else {
 		return "";
 	}
