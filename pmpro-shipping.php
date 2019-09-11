@@ -85,7 +85,7 @@ function pmproship_pmpro_checkout_boxes() {
                 </div>     <!-- end pmpro_checkout-field pmpro_checkout-field-szipcode -->
                 <div class="pmpro_checkout-field pmpro_checkout-field-scountry">
                     <label for="scountry"><?php _e( 'Country', 'pmpro' ); ?></label>
-                    <select name="scountry" class="input <?php echo pmpro_getClassForField( "scountry" ); ?>">
+                    <select name="scountry" id="scountry" class="input <?php echo pmpro_getClassForField( "scountry" ); ?>">
 						<?php
 						global $pmpro_countries, $pmpro_default_country;
 						foreach ( $pmpro_countries as $abbr => $country ) {
