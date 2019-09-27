@@ -21,7 +21,7 @@ function pmproship_pmpro_load_textdomain() {
 	load_plugin_textdomain( 'pmpro-shipping', false, basename( dirname( __FILE__ ) ) . '/languages' ); 
 }
 
-add_action( 'plugins_loaded', 'pmproship_pmpro_load_textdomain' );
+add_action( 'init', 'pmproship_pmpro_load_textdomain' );
 
 /**
  * Add a shipping address field to the checkout page with "sameas" checkbox
