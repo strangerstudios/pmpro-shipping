@@ -1,0 +1,136 @@
+# Copyright (C) 2019 Paid Memberships Pro
+# This file is distributed under the same license as the Paid Memberships Pro - Shipping Add On plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Paid Memberships Pro - Shipping Add On .6\n"
+"Report-Msgid-Bugs-To: info@paidmembershipspro.com\n"
+"Last-Translator: Paid Memberships Pro <info@paidmembershipspro.com>\n"
+"Language-Team: Paid Memberships Pro <info@paidmembershipspro.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2019-09-27T07:42:50+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.3.0\n"
+"X-Domain: pmpro-shipping\n"
+
+#. Plugin Name of the plugin
+msgid "Paid Memberships Pro - Shipping Add On"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Add shipping to the checkout page and other updates."
+msgstr ""
+
+#. Author of the plugin
+msgid "Paid Memberships Pro"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.paidmembershipspro.com"
+msgstr ""
+
+#: pmpro-shipping.php:35
+#: pmpro-shipping.php:265
+#: pmpro-shipping.php:524
+#: pmpro-shipping.php:526
+#: pmpro-shipping.php:551
+#: pmpro-shipping.php:698
+msgid "Shipping Address"
+msgstr ""
+
+#: pmpro-shipping.php:42
+msgid "Ship to the billing address used above."
+msgstr ""
+
+#: pmpro-shipping.php:48
+#: pmpro-shipping.php:270
+msgid "First Name"
+msgstr ""
+
+#: pmpro-shipping.php:55
+#: pmpro-shipping.php:277
+msgid "Last Name"
+msgstr ""
+
+#: pmpro-shipping.php:62
+#: pmpro-shipping.php:284
+msgid "Address 1"
+msgstr ""
+
+#: pmpro-shipping.php:69
+#: pmpro-shipping.php:291
+msgid "Address 2"
+msgstr ""
+
+#: pmpro-shipping.php:74
+msgid "optional"
+msgstr ""
+
+#: pmpro-shipping.php:77
+#: pmpro-shipping.php:298
+msgid "City"
+msgstr ""
+
+#: pmpro-shipping.php:84
+#: pmpro-shipping.php:305
+msgid "State"
+msgstr ""
+
+#: pmpro-shipping.php:91
+#: pmpro-shipping.php:312
+msgid "Postal Code"
+msgstr ""
+
+#: pmpro-shipping.php:105
+#: pmpro-shipping.php:326
+msgid "Country"
+msgstr ""
+
+#: pmpro-shipping.php:319
+msgid "Phone"
+msgstr ""
+
+#: pmpro-shipping.php:440
+msgid "Please complete all required fields."
+msgstr ""
+
+#: pmpro-shipping.php:475
+msgid "Shipping Information:"
+msgstr ""
+
+#: pmpro-shipping.php:524
+msgid "Billing Information"
+msgstr ""
+
+#: pmpro-shipping.php:526
+msgid "Log in to your membership"
+msgstr ""
+
+#: pmpro-shipping.php:703
+msgid "Hide Shipping Address:"
+msgstr ""
+
+#: pmpro-shipping.php:706
+msgid "Check this if you DO NOT want to ask for a shipping address with this level."
+msgstr ""
+
+#: pmpro-shipping.php:769
+msgid "View Documentation"
+msgstr ""
+
+#: pmpro-shipping.php:769
+msgid "Docs"
+msgstr ""
+
+#: pmpro-shipping.php:770
+msgid "Visit Customer Support Forum"
+msgstr ""
+
+#: pmpro-shipping.php:770
+msgid "Support"
+msgstr ""
