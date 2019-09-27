@@ -71,7 +71,7 @@ function pmproship_pmpro_checkout_boxes() {
                            class="input <?php echo pmpro_getClassForField( "saddress2" ); ?>" size="30"
                            value="<?php echo esc_attr( $saddress2 ); ?>"/>
 					<?php if ( ! PMPRO_SHIPPING_SHOW_REQUIRED ) { ?>
-                        <small class="lite">(<?php esc_html_e( 'optional', 'pmpro-shipping' ); ?></small><?php } ?>
+                        <small class="lite">(<?php esc_html_e( 'optional', 'pmpro-shipping' ); ?>)</small><?php } ?>
                 </div> <!-- end pmpro_checkout-field pmpro_checkout-field-saddress2 -->
                 <div class="pmpro_checkout-field pmpro_checkout-field-scity">
                     <label for="scity"><?php esc_html_e( 'City', 'pmpro-shipping' ); ?></label>
