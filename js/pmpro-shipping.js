@@ -10,7 +10,7 @@ jQuery(document).ready(function($){
     pmpro_shipping = {
         init: function() {
             
-        	this.field_names = [ 'firstname', 'lastname', 'address1', 'address2', 'country','city', 'state', 'zipcode'  ];
+        	this.field_names = [ 'firstname', 'lastname', 'address1', 'address2', 'phone', 'country', 'city', 'state', 'zipcode'  ];
             this.sameas_checkbox = $('#sameasbilling');
             this.fields = $('#shipping-fields');
 			this.show_sameas_timer = null;
