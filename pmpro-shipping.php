@@ -422,6 +422,7 @@ function pmproship_pmpro_registration_checks( $okay ) {
 	//only check if we're okay so far and same as billing wasn't checked
 	if ( empty( $_REQUEST['sameasbilling'] ) ) {
 		global $pmpro_msg, $pmpro_msgt, $pmpro_error_fields;
+		global $sfirstname, $slastname, $saddress1, $scity, $sstate, $szipcode, $sphone, $scountry;
 		
 		$required_shipping_fields['sfirstname'] = $sfirstname;
 		$required_shipping_fields['slastname'] = $slastname;
