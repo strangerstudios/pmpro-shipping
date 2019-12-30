@@ -160,6 +160,7 @@ function pmproship_pmpro_checkout_preheader()
 			}
 		}
 		
+		$sphone   = sanitize_text_field( $_REQUEST['sphone'] );
 		$szipcode = sanitize_text_field( $_REQUEST['szipcode'] );
 		$scountry = sanitize_text_field( $_REQUEST['scountry'] );
 	} else if ( ! empty( $_SESSION['sameasbilling'] ) ) {
@@ -175,6 +176,7 @@ function pmproship_pmpro_checkout_preheader()
 		}
 		$scity    = sanitize_text_field( $_SESSION['scity'] );
 		$sstate   = sanitize_text_field( $_SESSION['sstate'] );
+		$sphone   = sanitize_text_field( $_SESSION['sphone'] );
 		$szipcode = sanitize_text_field( $_SESSION['szipcode'] );
 		$scountry = sanitize_text_field( $_SESSION['scountry'] );		
 	} else if ( ! empty( $current_user->ID ) ) {
