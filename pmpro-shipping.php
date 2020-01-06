@@ -160,6 +160,7 @@ function pmproship_pmpro_checkout_preheader()
 			}
 		}
 		
+		$sphone   = sanitize_text_field( $_REQUEST['sphone'] );
 		$szipcode = sanitize_text_field( $_REQUEST['szipcode'] );
 		$scountry = sanitize_text_field( $_REQUEST['scountry'] );
 	} else if ( ! empty( $_SESSION['sameasbilling'] ) ) {
@@ -175,6 +176,7 @@ function pmproship_pmpro_checkout_preheader()
 		}
 		$scity    = sanitize_text_field( $_SESSION['scity'] );
 		$sstate   = sanitize_text_field( $_SESSION['sstate'] );
+		$sphone   = sanitize_text_field( $_SESSION['sphone'] );
 		$szipcode = sanitize_text_field( $_SESSION['szipcode'] );
 		$scountry = sanitize_text_field( $_SESSION['scountry'] );		
 	} else if ( ! empty( $current_user->ID ) ) {
@@ -421,16 +423,14 @@ function pmproship_pmpro_registration_checks( $okay ) {
 	if ( empty( $_REQUEST['sameasbilling'] ) ) {
 		global $pmpro_msg, $pmpro_msgt, $pmpro_error_fields;
 		
-		$required_shipping_fields = array(
-			'sfirstname',
-			'slastname',
-			'saddress1',
-			'scity',
-			'sstate',
-			'szipcode',
-			'sphone',
-			'scountry',
-		);
+		$required_shipping_fields['sfirstname'] = $sfirstname;
+		$required_shipping_fields['slastname'] = $slastname;
+		$required_shipping_fields['saddress1'] = $saddress1;
+		$required_shipping_fields['scity'] = $scity;
+		$required_shipping_fields['sstate'] = $sstate;
+		$required_shipping_fields['szipcode'] = $szipcode;
+		$required_shipping_fields['sphone'] = $sphone;
+		$required_shipping_fields['scountry'] = $scountry;
 		
 		$required_shipping_fields = apply_filters( "pmproship_required_shipping_fields", $required_shipping_fields );
 		
