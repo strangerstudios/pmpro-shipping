@@ -2,8 +2,8 @@
 Contributors: strangerstudios
 Tags: paid memberships pro, shipping, shipping address, 
 Requires at least: 4.0
-Tested up to: 5.2.3
-Stable tag: .7
+Tested up to: 5.3.2
+Stable tag: .8
 
 Adds shipping fields to the Paid Memberships Pro checkout.
 
@@ -28,6 +28,10 @@ Please post it in the GitHub issue tracker here: https://github.com/strangerstud
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= .8 - 2020-01-06 =
+* BUG FIX: Improved registration checks for when users did not select the "Same as Billing" option.
+* BUG FIX/ENHANCEMENT: Better support for PayPal and other offsite gateways.
+
 = .7 =
 * ENHANCEMENT: Support State Dropdown Add On.
 * ENHANCEMENT: Added in phone field support for shipping address.
