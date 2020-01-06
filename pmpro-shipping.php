@@ -12,7 +12,7 @@ Domain Path: /languages
 
 if(!defined('PMPRO_SHIPPING_SHOW_REQUIRED'))
 	define( 'PMPRO_SHIPPING_SHOW_REQUIRED', true );    //if false required fields won't have asterisks and non-required fields will say (optional)
-define( 'PMPRO_SHIPPING_VERSION', '.7' );
+define( 'PMPRO_SHIPPING_VERSION', '.8' );
 
 /** 
  * Load plugin textdomain. 
@@ -463,17 +463,11 @@ function pmproship_pmpro_confirmation_message( $confirmation_message, $pmpro_inv
 	$szipcode   = get_user_meta( $current_user->ID, "pmpro_szipcode", true );
 	$sphone   	= get_user_meta( $current_user->ID, "pmpro_sphone", true );
 	$scountry   = get_user_meta( $current_user->ID, "pmpro_scountry", true );
-	
-	if ( ! empty( $scity ) && ! empty( $sstate ) ) {
-		$shipping_address = $sfirstname . " " . $slastname . "<br />" . $saddress1 . "<br />";
-		if ( $saddress2 ) {
-			$shipping_address .= $saddress2 . "<br />";
-		}
-		$shipping_address .= $scity . ", " . $sstate . " " . $szipcode;
-		$shipping_address .= "<br />" . $scountry;
+
+	$shipping_address = pmpro_formatAddress( trim( $sfirstname . ' ' . $slastname ), $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $sphone );
 		
-		$confirmation_message .= '<br /><h3>' . __( 'Shipping Information:', 'pmpro-shipping' ) . '</h3><p>' . $shipping_address . '</p>';
-	}
+	$confirmation_message .= '<br /><h3>' . __( 'Shipping Information:', 'pmpro-shipping' ) . '</h3><p>' . $shipping_address . '</p>';
+
 	
 	return $confirmation_message;
 }
@@ -509,15 +503,8 @@ function pmproship_pmpro_email_body( $body, $pmpro_email ) {
 		$sphone  	= get_user_meta( $user_id, "pmpro_sphone", true );
 		$scountry   = get_user_meta( $user_id, "pmpro_scountry", true );
 		
-		if ( ! empty( $scity ) && ! empty( $sstate ) ) {
-			$shipping_address = $sfirstname . " " . $slastname . "<br />" . $saddress1 . "<br />";
-			if ( $saddress2 ) {
-				$shipping_address .= $saddress2 . "<br />";
-			}
-			$shipping_address .= $scity . ", " . $sstate . " " . $szipcode;
-		}
-		$shipping_address .= "<br />" . $scountry;
-		
+		$shipping_address = pmpro_formatAddress( trim( $sfirstname . ' ' . $slastname ), $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $sphone );
+
 		if ( ! empty( $shipping_address ) ) {
 			//squeeze the shipping address above the billing information or above the log link
 			if ( strpos( $body, "Billing Information:" ) ) {
