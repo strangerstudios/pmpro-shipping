@@ -3,7 +3,7 @@
 Plugin Name: Paid Memberships Pro - Shipping Add On
 Plugin URI: https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/
 Description: Add shipping to the checkout page and other updates.
-Version: .7
+Version: .8
 Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com
 Text Domain: pmpro-shipping
@@ -160,6 +160,7 @@ function pmproship_pmpro_checkout_preheader()
 			}
 		}
 		
+		$sphone   = sanitize_text_field( $_REQUEST['sphone'] );
 		$szipcode = sanitize_text_field( $_REQUEST['szipcode'] );
 		$scountry = sanitize_text_field( $_REQUEST['scountry'] );
 	} else if ( ! empty( $_SESSION['sameasbilling'] ) ) {
@@ -175,6 +176,7 @@ function pmproship_pmpro_checkout_preheader()
 		}
 		$scity    = sanitize_text_field( $_SESSION['scity'] );
 		$sstate   = sanitize_text_field( $_SESSION['sstate'] );
+		$sphone   = sanitize_text_field( $_SESSION['sphone'] );
 		$szipcode = sanitize_text_field( $_SESSION['szipcode'] );
 		$scountry = sanitize_text_field( $_SESSION['scountry'] );		
 	} else if ( ! empty( $current_user->ID ) ) {
@@ -204,7 +206,7 @@ function pmproship_pmpro_checkout_preheader_check_gateway() {
 	//if we're not going offsite, we don't need to save things in session
 	global $gateway;
 		
-	if(in_array($gateway, array('paypalstandard', 'twocheckout', 'ccbill', 'payfast'))) {
+	if( 1 === preg_match( '/paypalstandard|paypalexpress|twocheckout|ccbill|payfast/i', $gateway ) ) {
 		add_action('pmpro_checkout_before_change_membership_level', 'pmproship_save_shipping_to_usermeta', 1);	
 	} else {
 		add_action('pmpro_after_checkout', 'pmproship_save_shipping_to_usermeta');
@@ -366,7 +368,7 @@ add_action( 'edit_user_profile_update', 'pmproship_save_extra_profile_fields' );
 function pmproship_save_shipping_to_session() {	
 	//if we're not going offsite, we don't need to save things in session
 	global $gateway;
-	if(!in_array($gateway, array('paypalexpress'))) {
+	if( 1 !== preg_match( '/paypalexpress/', $gateway ) ) {
 		return;
 	}
 	
@@ -421,17 +423,17 @@ function pmproship_pmpro_registration_checks( $okay ) {
 	if ( empty( $_REQUEST['sameasbilling'] ) ) {
 		global $pmpro_msg, $pmpro_msgt, $pmpro_error_fields;
 		
-		$required_shipping_fields['sfirstname'] = $sfirstname;
-		$required_shipping_fields['slastname'] = $slastname;
-		$required_shipping_fields['saddress1'] = $saddress1;
-		$required_shipping_fields['scity'] = $scity;
-		$required_shipping_fields['sstate'] = $sstate;
-		$required_shipping_fields['szipcode'] = $szipcode;
-		$required_shipping_fields['sphone'] = $sphone;
-		$required_shipping_fields['scountry'] = $scountry;
+		$required_shipping_fields['sfirstname'] = 'sfirstname';
+		$required_shipping_fields['slastname'] = 'slastname';
+		$required_shipping_fields['saddress1'] = 'saddress1';
+		$required_shipping_fields['scity'] = 'scity';
+		$required_shipping_fields['sstate'] = 'sstate';
+		$required_shipping_fields['szipcode'] = 'szipcode';
+		$required_shipping_fields['sphone'] = 'sphone';
+		$required_shipping_fields['scountry'] = 'scountry';
 		
 		$required_shipping_fields = apply_filters( "pmproship_required_shipping_fields", $required_shipping_fields );
-		
+
 		foreach ( $required_shipping_fields as $field ) {
 			if ( empty( $_REQUEST[ $field ] ) ) {
 				$okay = false;
