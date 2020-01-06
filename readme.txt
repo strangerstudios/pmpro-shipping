@@ -29,6 +29,8 @@ Please visit our premium support site at http://www.paidmembershipspro.com for m
 
 == Changelog ==
 = .8 - 2020-01-06 =
+* ENHANCEMENT: Added phone data to confirmation message, email and Member's List area.
+* ENHANCEMENT: General code improvements and optimization.
 * BUG FIX: Improved registration checks for when users did not select the "Same as Billing" option.
 * BUG FIX/ENHANCEMENT: Better support for PayPal and other offsite gateways.
 
