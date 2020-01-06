@@ -423,17 +423,17 @@ function pmproship_pmpro_registration_checks( $okay ) {
 	if ( empty( $_REQUEST['sameasbilling'] ) ) {
 		global $pmpro_msg, $pmpro_msgt, $pmpro_error_fields;
 		
-		$required_shipping_fields['sfirstname'] = $sfirstname;
-		$required_shipping_fields['slastname'] = $slastname;
-		$required_shipping_fields['saddress1'] = $saddress1;
-		$required_shipping_fields['scity'] = $scity;
-		$required_shipping_fields['sstate'] = $sstate;
-		$required_shipping_fields['szipcode'] = $szipcode;
-		$required_shipping_fields['sphone'] = $sphone;
-		$required_shipping_fields['scountry'] = $scountry;
+		$required_shipping_fields['sfirstname'] = 'sfirstname';
+		$required_shipping_fields['slastname'] = 'slastname';
+		$required_shipping_fields['saddress1'] = 'saddress1';
+		$required_shipping_fields['scity'] = 'scity';
+		$required_shipping_fields['sstate'] = 'sstate';
+		$required_shipping_fields['szipcode'] = 'szipcode';
+		$required_shipping_fields['sphone'] = 'sphone';
+		$required_shipping_fields['scountry'] = 'scountry';
 		
 		$required_shipping_fields = apply_filters( "pmproship_required_shipping_fields", $required_shipping_fields );
-		
+
 		foreach ( $required_shipping_fields as $field ) {
 			if ( empty( $_REQUEST[ $field ] ) ) {
 				$okay = false;
