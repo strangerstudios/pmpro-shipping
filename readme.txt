@@ -2,7 +2,7 @@
 Contributors: strangerstudios
 Tags: paid memberships pro, shipping, shipping address, 
 Requires at least: 4.0
-Tested up to: 4.9.8
+Tested up to: 5.2.3
 Stable tag: .7
 
 Adds shipping fields to the Paid Memberships Pro checkout.
@@ -29,8 +29,10 @@ Please visit our premium support site at http://www.paidmembershipspro.com for m
 
 == Changelog ==
 = .7 =
-* BUG FIX: in_array() is imprecise for text comparisons
-* BUG FIX: PayPal Express is also a remote gateway
+* ENHANCEMENT: Support State Dropdown Add On.
+* ENHANCEMENT: Added in phone field support for shipping address.
+* ENHANCEMENT: Improved internationalization for translating the plugin.
+
 
 = .6 =
 * BUG FIX: Fixed bugs where shipping address was not being saved. Rewrote the logic that figures out when and how to save shipping to user meta based on the chosen gateway.
