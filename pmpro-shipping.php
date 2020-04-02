@@ -339,6 +339,51 @@ add_action( 'show_user_profile', 'pmproship_show_extra_profile_fields' );
 add_action( 'edit_user_profile', 'pmproship_show_extra_profile_fields' );
 
 /**
+ * Show the shipping address in the frontend profile
+ */
+function pmproship_show_extra_frontend_profile_fields( $user ) {
+	global $pmpro_states;
+	?>
+	<div class="pmpro_checkout_box-shipping">
+		<h3><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></h3>
+		<div class="pmpro_member_profile_edit-fields">
+			<div class="pmpro_checkout-field pmpro_checkout-field-sfirstname">
+				<label for="sfirstname"><?php esc_html_e( 'First Name', 'pmpro-shipping' ); ?></label>
+				<input id="sfirstname" name="sfirstname" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sfirstname', true ) ); ?>" size="30" />
+			</div> <!-- end pmpro_checkout-field-sfirstname -->
+			<div class="pmpro_checkout-field pmpro_checkout-field-slastname">
+				<label for="slastname"><?php esc_html_e( 'Last Name', 'pmpro-shipping' ); ?></label>
+				<input id="slastname" name="slastname" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_slastname', true ) ); ?>" size="30" />
+			</div> <!-- end pmpro_checkout-field-slastname -->
+			<div class="pmpro_checkout-field pmpro_checkout-field-saddress1">
+				<label for="saddress1"><?php esc_html_e( 'Address 1', 'pmpro-shipping' ); ?></label>
+				<input id="saddress1" name="saddress1" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_saddress1', true ) ); ?>" size="30" />
+			</div> <!-- end pmpro_checkout-field-saddress1 -->
+			<div class="pmpro_checkout-field pmpro_checkout-field-saddress2">
+				<label for="saddress2"><?php esc_html_e( 'Address 2', 'pmpro-shipping' ); ?></label>
+				<input id="saddress2" name="saddress2" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_saddress2', true ) ); ?>" size="30" />
+			</div> <!-- end pmpro_checkout-field-saddress2 -->
+			<div class="pmpro_checkout-field pmpro_checkout-field-bcity_state_zip">
+				<label for="bcity_state_zip"><?php _e('City, State Zip', 'paid-memberships-pro' );?></label>
+				<input id="scity" name="scity" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_scity', true ) ); ?>" size="14" />
+				<input id="sstate" name="sstate" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sstate', true ) ); ?>"/>
+				<input id="szipcode" name="szipcode" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_szipcode', true ) ); ?>" size="5" />
+			</div> <!-- end pmpro_checkout-field-bcity_state_zip -->
+			<div class="pmpro_checkout-field pmpro_checkout-field-sphone">
+				<label for="sphone"><?php _e( 'Phone', 'pmpro-shipping' ); ?></label>
+				<input id="sphone" name="sphone" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sphone', true ) ); ?>" size="30" />
+			</div> <!-- end pmpro_checkout-field-sphone -->
+			<div class="pmpro_checkout-field pmpro_checkout-field-scountry">
+				<label for="scountry"><?php esc_html_e( 'Country', 'pmpro-shipping' ); ?></label>
+				<input id="scountry" name="scountry" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_scountry', true ) ); ?>" size="30" />
+			</div> <!-- end pmpro_checkout-field-scountry -->
+		</div> <!-- end pmpro_member_profile_edit-fields -->
+	</div> <!-- end pmpro_checkout_box-shipping -->
+	<?php
+}
+add_action( 'pmpro_show_user_profile', 'pmproship_show_extra_frontend_profile_fields' );
+
+/**
  * Save profile fields
  */
 function pmproship_save_extra_profile_fields( $user_id ) {
@@ -359,6 +404,7 @@ function pmproship_save_extra_profile_fields( $user_id ) {
 }
 add_action( 'personal_options_update', 'pmproship_save_extra_profile_fields' );
 add_action( 'edit_user_profile_update', 'pmproship_save_extra_profile_fields' );
+add_action( 'pmpro_personal_options_update', 'pmproship_save_extra_profile_fields' );
 
 /**
  * These bits are required for PayPal Express
