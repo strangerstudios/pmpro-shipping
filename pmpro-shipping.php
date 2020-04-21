@@ -388,7 +388,7 @@ add_action( 'pmpro_show_user_profile', 'pmproship_show_extra_frontend_profile_fi
  */
 function pmproship_save_extra_profile_fields( $user_id ) {
 	
-	if ( ! current_user_can( 'edit_user', $user_id ) ) {
+	if ( ! current_user_can( 'edit_user', $user_id ) || ! isset( $_REQUEST['submit'] ) ) {
 		return false;
 	}
 	
