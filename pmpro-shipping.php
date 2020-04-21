@@ -262,88 +262,141 @@ function pmproship_save_shipping_to_usermeta($user_id)
  * Show the shipping address in the profile
  */
 function pmproship_show_extra_profile_fields( $user ) {
-	global $pmpro_states;
+	global $pmpro_states, $pmpro_pages;
 	?>
     <h3><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></h3>
 
-    <table class="form-table">
+	
+	<?php if ( ! is_page( $pmpro_pages['member_profile_edit'] ) ){ ?>
+		<table class="form-table">
 
-        <tr>
-            <th><?php esc_html_e( 'First Name', 'pmpro-shipping' ); ?></th>
-            <td>
-                <input id="sfirstname" name="sfirstname" type="text" class="regular-text"
-                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sfirstname', true ) ); ?>"/>
-            </td>
-        </tr>
-        <tr>
-            <th><?php esc_html_e( 'Last Name', 'pmpro-shipping' ); ?></th>
-            <td>
-                <input id="slastname" name="slastname" type="text" class="regular-text"
-                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_slastname', true ) ); ?>"/>
-            </td>
-        </tr>
-        <tr>
-            <th><?php esc_html_e( 'Address 1', 'pmpro-shipping' ); ?></th>
-            <td>
-                <input id="saddress1" name="saddress1" type="text" class="regular-text"
-                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_saddress1', true ) ); ?>"/>
-            </td>
-        </tr>
-        <tr>
-            <th><?php esc_html_e( 'Address 2', 'pmpro-shipping' ); ?></th>
-            <td>
-                <input id="saddress2" name="saddress2" type="text" class="regular-text"
-                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_saddress2', true ) ); ?>"/>
-            </td>
-        </tr>
-        <tr>
-            <th><?php esc_html_e( 'City', 'pmpro-shipping' ); ?></th>
-            <td>
-                <input id="scity" name="scity" type="text" class="regular-text"
-                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_scity', true ) ); ?>"/>
-            </td>
-        </tr>
-        <tr>
-            <th><?php esc_html_e( 'State', 'pmpro-shipping' ); ?></th>
-            <td>
-                <input id="sstate" name="sstate" type="text" class="regular-text"
-                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sstate', true ) ); ?>"/>
-            </td>
-        </tr>
-        <tr>
-            <th><?php esc_html_e( 'Postal Code', 'pmpro-shipping' ); ?></th>
-            <td>
-                <input id="szipcode" name="szipcode" type="text" class="regular-text"
-                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_szipcode', true ) ); ?>"/>
-            </td>
-        </tr>
-        <tr>
-            <th><?php _e( 'Phone', 'pmpro-shipping' ); ?></th>
-            <td>
-                <input id="sphone" name="sphone" type="text" class="regular-text"
-                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sphone', true ) ); ?>"/>
-            </td>
-        </tr>
-        <tr>
-		<th><?php esc_html_e( 'Country', 'pmpro-shipping' ); ?></th>
-            <td>
-                <input id="scountry" name="scountry" type="text" class="regular-text"
-                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_scountry', true ) ); ?>"/>
-            </td>
-        </tr>
+			<tr>
+				<th><?php esc_html_e( 'First Name', 'pmpro-shipping' ); ?></th>
+				<td>
+					<input id="sfirstname" name="sfirstname" type="text" class="regular-text"
+						value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sfirstname', true ) ); ?>"/>
+				</td>
+			</tr>
+			<tr>
+				<th><?php esc_html_e( 'Last Name', 'pmpro-shipping' ); ?></th>
+				<td>
+					<input id="slastname" name="slastname" type="text" class="regular-text"
+						value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_slastname', true ) ); ?>"/>
+				</td>
+			</tr>
+			<tr>
+				<th><?php esc_html_e( 'Address 1', 'pmpro-shipping' ); ?></th>
+				<td>
+					<input id="saddress1" name="saddress1" type="text" class="regular-text"
+						value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_saddress1', true ) ); ?>"/>
+				</td>
+			</tr>
+			<tr>
+				<th><?php esc_html_e( 'Address 2', 'pmpro-shipping' ); ?></th>
+				<td>
+					<input id="saddress2" name="saddress2" type="text" class="regular-text"
+						value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_saddress2', true ) ); ?>"/>
+				</td>
+			</tr>
+			<tr>
+				<th><?php esc_html_e( 'City', 'pmpro-shipping' ); ?></th>
+				<td>
+					<input id="scity" name="scity" type="text" class="regular-text"
+						value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_scity', true ) ); ?>"/>
+				</td>
+			</tr>
+			<tr>
+				<th><?php esc_html_e( 'State', 'pmpro-shipping' ); ?></th>
+				<td>
+					<input id="sstate" name="sstate" type="text" class="regular-text"
+						value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sstate', true ) ); ?>"/>
+				</td>
+			</tr>
+			<tr>
+				<th><?php esc_html_e( 'Postal Code', 'pmpro-shipping' ); ?></th>
+				<td>
+					<input id="szipcode" name="szipcode" type="text" class="regular-text"
+						value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_szipcode', true ) ); ?>"/>
+				</td>
+			</tr>
+			<tr>
+				<th><?php _e( 'Phone', 'pmpro-shipping' ); ?></th>
+				<td>
+					<input id="sphone" name="sphone" type="text" class="regular-text"
+						value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sphone', true ) ); ?>"/>
+				</td>
+			</tr>
+			<tr>
+			<th><?php esc_html_e( 'Country', 'pmpro-shipping' ); ?></th>
+				<td>
+					<input id="scountry" name="scountry" type="text" class="regular-text"
+						value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_scountry', true ) ); ?>"/>
+				</td>
+			</tr>
 
-    </table>
+		</table>
 	<?php
+	} else {  ?>
+		<div class="pmpro_member_profile_edit-fields" id="pmpro-member-profiles-shipping-fields">
+			<div class="pmpro_member_profile_edit-field pmpro_member_profile_edit-field-pmpro_sfirstname">
+				<label for="sfirstname"><?php esc_html_e( 'First Name', 'pmpro-shipping' ); ?></label>
+					<input id="sfirstname" name="sfirstname" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sfirstname', true ) ); ?>"/>
+			</div>
+
+			<div class="pmpro_member_profile_edit-field pmpro_member_profile_edit-field-pmpro_slastname">
+				<label for="slastname"><?php esc_html_e( 'Last Name', 'pmpro-shipping' ); ?></label>
+				<input id="slastname" name="slastname" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_slastname', true ) ); ?>"/>
+			</div>
+
+			<div class="pmpro_member_profile_edit-field pmpro_member_profile_edit-field-pmpro_saddress1">
+				<label for="saddress1"><?php esc_html_e( 'Address 1', 'pmpro-shipping' ); ?></label>
+				<input id="saddress1" name="saddress1" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_saddress1', true ) ); ?>"/>
+			</div>
+
+			<div class="pmpro_member_profile_edit-field pmpro_member_profile_edit-field-pmpro_saddress2">
+				<label for="saddress2"><?php esc_html_e( 'Address 2', 'pmpro-shipping' ); ?></label>
+				<input id="saddress2" name="saddress2" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_saddress2', true ) ); ?>"/>
+			</div>
+
+			<div class="pmpro_member_profile_edit-field pmpro_member_profile_edit-field-pmpro_scity">
+				<label for="scity"><?php esc_html_e( 'City', 'pmpro-shipping' ); ?></label>
+				<input id="scity" name="scity" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_scity', true ) ); ?>"/>
+			</div>
+
+			<div class="pmpro_member_profile_edit-field pmpro_member_profile_edit-field-pmpro_sstate">
+				<label for="sstate"><?php esc_html_e( 'State', 'pmpro-shipping' ); ?></label>
+				<input id="sstate" name="sstate" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sstate', true ) ); ?>"/>
+			</div>
+
+			<div class="pmpro_member_profile_edit-field pmpro_member_profile_edit-field-pmpro_szipcode">
+				<label for="szipcode"><?php esc_html_e( 'Postal Code', 'pmpro-shipping' ); ?></label>
+				<input id="szipcode" name="szipcode" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_szipcode', true ) ); ?>"/>
+			</div>
+
+			<div class="pmpro_member_profile_edit-field pmpro_member_profile_edit-field-pmpro_sphone">
+				<label for="sphone"><?php esc_html_e( 'Phone', 'pmpro-shipping' ); ?></label>
+				<input id="sphone" name="sphone" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sphone', true ) ); ?>"/>
+			</div>
+
+			<div class="pmpro_member_profile_edit-field pmpro_member_profile_edit-field-pmpro_scountry">
+				<label for="scountry"><?php esc_html_e( 'Country', 'pmpro-shipping' ); ?></label>
+				<input id="scountry" name="scountry" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_scountry', true ) ); ?>"/>
+			</div>
+
+		</div>
+		
+	<?php
+	}
 }
 add_action( 'show_user_profile', 'pmproship_show_extra_profile_fields' );
 add_action( 'edit_user_profile', 'pmproship_show_extra_profile_fields' );
-
+add_action( 'pmpro_show_user_profile', 'pmproship_show_extra_profile_fields' );
 /**
  * Save profile fields
  */
 function pmproship_save_extra_profile_fields( $user_id ) {
 	
-	if ( ! current_user_can( 'edit_user', $user_id ) ) {
+	if ( ! current_user_can( 'edit_user', $user_id ) || ! isset( $_REQUEST['submit'] ) ) {
 		return false;
 	}
 	
@@ -359,6 +412,9 @@ function pmproship_save_extra_profile_fields( $user_id ) {
 }
 add_action( 'personal_options_update', 'pmproship_save_extra_profile_fields' );
 add_action( 'edit_user_profile_update', 'pmproship_save_extra_profile_fields' );
+add_action( 'pmpro_personal_options_update', 'pmproship_save_extra_profile_fields' );
+
+
 
 /**
  * These bits are required for PayPal Express
