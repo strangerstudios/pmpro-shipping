@@ -1,9 +1,9 @@
 === Paid Memberships Pro - Shipping Add On ===
 Contributors: strangerstudios
-Tags: paid memberships pro, shipping, shipping address, 
+Tags: paid memberships pro, shipping, shipping address,
 Requires at least: 4.0
-Tested up to: 5.3.2
-Stable tag: .8
+Tested up to: 5.4
+Stable tag: 1.0
 
 Adds shipping fields to the Paid Memberships Pro checkout.
 
@@ -11,11 +11,19 @@ Adds shipping fields to the Paid Memberships Pro checkout.
 
 Adds shipping fields to the checkout page, confirmation page, confirmation emails, member's list and edit user profile pages.
 
+[Read the full documentation for the Shipping Add On](https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/)
+
+= Official Paid Memberships Pro Add On =
+
+This is an official Add On for [Paid Memberships Pro](https://www.paidmembershipspro.com), the most complete member management and membership subscriptions plugin for WordPress.
+
 == Installation ==
 
 1. Make sure you have the Paid Memberships Pro plugin installed and activated.
 1. Upload the `pmpro-shipping` directory to the `/wp-content/plugins/` directory of your site.
 1. Activate the plugin through the 'Plugins' menu in WordPress.
+
+Fields will automatically be captured for all membership levels. You can remove the fields for a level on the Memberships > Settings > Edit Membership Level > "Hide Shipping Address" ssetting.
 
 == Frequently Asked Questions ==
 
@@ -28,6 +36,11 @@ Please post it in the GitHub issue tracker here: https://github.com/strangerstud
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= 1.0 - 2020-04-30 =
+* BUG FIX/ENHANCEMENT: Checking if user has a membership that includes shipping fields or is an admin before displaying fields.
+* ENHANCEMENT: Added support for PMPro v2.3+ frontend profile.
+* ENHANCEMENT: Setting to v1.0 to reflect the stability of the functionality and code base.
+
 = .8 - 2020-01-06 =
 * ENHANCEMENT: Added phone data to confirmation message, email and Member's List area.
 * ENHANCEMENT: General code improvements and optimization.
