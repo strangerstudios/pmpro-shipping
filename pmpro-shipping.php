@@ -3,7 +3,7 @@
 Plugin Name: Paid Memberships Pro - Shipping Add On
 Plugin URI: https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/
 Description: Add shipping to the checkout page and other updates.
-Version: .8
+Version: 0.9
 Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com
 Text Domain: pmpro-shipping
@@ -12,7 +12,7 @@ Domain Path: /languages
 
 if(!defined('PMPRO_SHIPPING_SHOW_REQUIRED'))
 	define( 'PMPRO_SHIPPING_SHOW_REQUIRED', true );    //if false required fields won't have asterisks and non-required fields will say (optional)
-define( 'PMPRO_SHIPPING_VERSION', '.8' );
+define( 'PMPRO_SHIPPING_VERSION', '.9' );
 
 /** 
  * Load plugin textdomain. 
@@ -262,91 +262,178 @@ function pmproship_save_shipping_to_usermeta($user_id)
  * Show the shipping address in the profile
  */
 function pmproship_show_extra_profile_fields( $user ) {
-	global $pmpro_states;
-	?>
-    <h3><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></h3>
+	global $current_user, $pmpro_states;
 
-    <table class="form-table">
+	$show_shipping = false;
 
-        <tr>
-            <th><?php esc_html_e( 'First Name', 'pmpro-shipping' ); ?></th>
-            <td>
-                <input id="sfirstname" name="sfirstname" type="text" class="regular-text"
-                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sfirstname', true ) ); ?>"/>
-            </td>
-        </tr>
-        <tr>
-            <th><?php esc_html_e( 'Last Name', 'pmpro-shipping' ); ?></th>
-            <td>
-                <input id="slastname" name="slastname" type="text" class="regular-text"
-                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_slastname', true ) ); ?>"/>
-            </td>
-        </tr>
-        <tr>
-            <th><?php esc_html_e( 'Address 1', 'pmpro-shipping' ); ?></th>
-            <td>
-                <input id="saddress1" name="saddress1" type="text" class="regular-text"
-                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_saddress1', true ) ); ?>"/>
-            </td>
-        </tr>
-        <tr>
-            <th><?php esc_html_e( 'Address 2', 'pmpro-shipping' ); ?></th>
-            <td>
-                <input id="saddress2" name="saddress2" type="text" class="regular-text"
-                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_saddress2', true ) ); ?>"/>
-            </td>
-        </tr>
-        <tr>
-            <th><?php esc_html_e( 'City', 'pmpro-shipping' ); ?></th>
-            <td>
-                <input id="scity" name="scity" type="text" class="regular-text"
-                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_scity', true ) ); ?>"/>
-            </td>
-        </tr>
-        <tr>
-            <th><?php esc_html_e( 'State', 'pmpro-shipping' ); ?></th>
-            <td>
-                <input id="sstate" name="sstate" type="text" class="regular-text"
-                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sstate', true ) ); ?>"/>
-            </td>
-        </tr>
-        <tr>
-            <th><?php esc_html_e( 'Postal Code', 'pmpro-shipping' ); ?></th>
-            <td>
-                <input id="szipcode" name="szipcode" type="text" class="regular-text"
-                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_szipcode', true ) ); ?>"/>
-            </td>
-        </tr>
-        <tr>
-            <th><?php _e( 'Phone', 'pmpro-shipping' ); ?></th>
-            <td>
-                <input id="sphone" name="sphone" type="text" class="regular-text"
-                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sphone', true ) ); ?>"/>
-            </td>
-        </tr>
-        <tr>
-		<th><?php esc_html_e( 'Country', 'pmpro-shipping' ); ?></th>
-            <td>
-                <input id="scountry" name="scountry" type="text" class="regular-text"
-                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_scountry', true ) ); ?>"/>
-            </td>
-        </tr>
+	// Make sure PMPro is activated.
+	if ( function_exists( 'pmpro_getMembershipLevelsForUser') ) {
+		// Make sure their level shows shipping fields.
+		$membership_levels = pmpro_getMembershipLevelsForUser( $user->ID );
 
-    </table>
-	<?php
+		foreach ( $membership_levels as $membership_level ) {
+			if ( empty( get_option( 'pmpro_shipping_hidden_level_' . $membership_level->id, false ) ) ) {
+				$show_shipping = true;
+				break;
+			}
+		}
+	}
+
+	// Show the shipping fields if the membership level includes fields or the user is an admin.
+	if ( ! empty( $show_shipping ) || current_user_can( 'manage_options', $current_user->ID ) ) { ?>
+	    <h3><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></h3>
+
+	    <table class="form-table">
+
+	        <tr>
+	            <th><?php esc_html_e( 'First Name', 'pmpro-shipping' ); ?></th>
+	            <td>
+	                <input id="sfirstname" name="sfirstname" type="text" class="regular-text"
+	                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sfirstname', true ) ); ?>"/>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th><?php esc_html_e( 'Last Name', 'pmpro-shipping' ); ?></th>
+	            <td>
+	                <input id="slastname" name="slastname" type="text" class="regular-text"
+	                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_slastname', true ) ); ?>"/>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th><?php esc_html_e( 'Address 1', 'pmpro-shipping' ); ?></th>
+	            <td>
+	                <input id="saddress1" name="saddress1" type="text" class="regular-text"
+	                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_saddress1', true ) ); ?>"/>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th><?php esc_html_e( 'Address 2', 'pmpro-shipping' ); ?></th>
+	            <td>
+	                <input id="saddress2" name="saddress2" type="text" class="regular-text"
+	                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_saddress2', true ) ); ?>"/>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th><?php esc_html_e( 'City', 'pmpro-shipping' ); ?></th>
+	            <td>
+	                <input id="scity" name="scity" type="text" class="regular-text"
+	                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_scity', true ) ); ?>"/>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th><?php esc_html_e( 'State', 'pmpro-shipping' ); ?></th>
+	            <td>
+	                <input id="sstate" name="sstate" type="text" class="regular-text"
+	                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sstate', true ) ); ?>"/>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th><?php esc_html_e( 'Postal Code', 'pmpro-shipping' ); ?></th>
+	            <td>
+	                <input id="szipcode" name="szipcode" type="text" class="regular-text"
+	                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_szipcode', true ) ); ?>"/>
+	            </td>
+	        </tr>
+	        <tr>
+	            <th><?php _e( 'Phone', 'pmpro-shipping' ); ?></th>
+	            <td>
+	                <input id="sphone" name="sphone" type="text" class="regular-text"
+	                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sphone', true ) ); ?>"/>
+	            </td>
+	        </tr>
+	        <tr>
+			<th><?php esc_html_e( 'Country', 'pmpro-shipping' ); ?></th>
+	            <td>
+	                <input id="scountry" name="scountry" type="text" class="regular-text"
+	                       value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_scountry', true ) ); ?>"/>
+	            </td>
+	        </tr>
+
+	    </table>
+		<?php
+	}
 }
 add_action( 'show_user_profile', 'pmproship_show_extra_profile_fields' );
 add_action( 'edit_user_profile', 'pmproship_show_extra_profile_fields' );
+
+/**
+ * Show the shipping address in the frontend profile
+ */
+function pmproship_show_extra_frontend_profile_fields( $user ) {
+	global $pmpro_states;
+
+	$show_shipping = false;
+
+	// Make sure PMPro is activated.
+	if ( function_exists( 'pmpro_getMembershipLevelsForUser') ) {
+		// Make sure their level shows shipping fields.
+		$membership_levels = pmpro_getMembershipLevelsForUser( $user->ID );
+
+		foreach ( $membership_levels as $membership_level ) {
+			if ( empty( get_option( 'pmpro_shipping_hidden_level_' . $membership_level->id, false ) ) ) {
+				$show_shipping = true;
+				break;
+			}
+		}
+	}
+
+	// Show the shipping fields.
+	if ( ! empty( $show_shipping ) ) { ?>
+		<div class="pmpro_checkout_box-shipping">
+			<h3><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></h3>
+			<div class="pmpro_member_profile_edit-fields">
+				<div class="pmpro_checkout-field pmpro_checkout-field-sfirstname">
+					<label for="sfirstname"><?php esc_html_e( 'First Name', 'pmpro-shipping' ); ?></label>
+					<input id="sfirstname" name="sfirstname" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sfirstname', true ) ); ?>" size="30" />
+				</div> <!-- end pmpro_checkout-field-sfirstname -->
+				<div class="pmpro_checkout-field pmpro_checkout-field-slastname">
+					<label for="slastname"><?php esc_html_e( 'Last Name', 'pmpro-shipping' ); ?></label>
+					<input id="slastname" name="slastname" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_slastname', true ) ); ?>" size="30" />
+				</div> <!-- end pmpro_checkout-field-slastname -->
+				<div class="pmpro_checkout-field pmpro_checkout-field-saddress1">
+					<label for="saddress1"><?php esc_html_e( 'Address 1', 'pmpro-shipping' ); ?></label>
+					<input id="saddress1" name="saddress1" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_saddress1', true ) ); ?>" size="30" />
+				</div> <!-- end pmpro_checkout-field-saddress1 -->
+				<div class="pmpro_checkout-field pmpro_checkout-field-saddress2">
+					<label for="saddress2"><?php esc_html_e( 'Address 2', 'pmpro-shipping' ); ?></label>
+					<input id="saddress2" name="saddress2" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_saddress2', true ) ); ?>" size="30" />
+				</div> <!-- end pmpro_checkout-field-saddress2 -->
+				<div class="pmpro_checkout-field pmpro_checkout-field-bcity_state_zip">
+					<label for="bcity_state_zip"><?php _e('City, State Zip', 'paid-memberships-pro' );?></label>
+					<input id="scity" name="scity" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_scity', true ) ); ?>" size="14" />
+					<input id="sstate" name="sstate" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sstate', true ) ); ?>"/>
+					<input id="szipcode" name="szipcode" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_szipcode', true ) ); ?>" size="5" />
+				</div> <!-- end pmpro_checkout-field-bcity_state_zip -->
+				<div class="pmpro_checkout-field pmpro_checkout-field-sphone">
+					<label for="sphone"><?php _e( 'Phone', 'pmpro-shipping' ); ?></label>
+					<input id="sphone" name="sphone" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sphone', true ) ); ?>" size="30" />
+				</div> <!-- end pmpro_checkout-field-sphone -->
+				<div class="pmpro_checkout-field pmpro_checkout-field-scountry">
+					<label for="scountry"><?php esc_html_e( 'Country', 'pmpro-shipping' ); ?></label>
+					<input id="scountry" name="scountry" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_scountry', true ) ); ?>" size="30" />
+				</div> <!-- end pmpro_checkout-field-scountry -->
+			</div> <!-- end pmpro_member_profile_edit-fields -->
+		</div> <!-- end pmpro_checkout_box-shipping -->
+		<?php
+	}
+}
+add_action( 'pmpro_show_user_profile', 'pmproship_show_extra_frontend_profile_fields' );
 
 /**
  * Save profile fields
  */
 function pmproship_save_extra_profile_fields( $user_id ) {
 	
-	if ( ! current_user_can( 'edit_user', $user_id ) ) {
+	// Bail if the user cannot edit the profile or they aren't updating.
+	if ( ! current_user_can( 'edit_user', $user_id ) || ! isset( $_REQUEST['submit'] ) ) {
 		return false;
 	}
 	
+	// Bail if the shipping fields are hidden.
+	if ( ! isset( $_POST['saddress1'] ) ) {
+		return false;
+	} 
+
 	update_user_meta( $user_id, 'pmpro_sfirstname', sanitize_text_field( $_POST['sfirstname'] ) );
 	update_user_meta( $user_id, 'pmpro_slastname', sanitize_text_field( $_POST['slastname'] ) );
 	update_user_meta( $user_id, 'pmpro_saddress1', sanitize_text_field( $_POST['saddress1'] ) );
@@ -359,6 +446,7 @@ function pmproship_save_extra_profile_fields( $user_id ) {
 }
 add_action( 'personal_options_update', 'pmproship_save_extra_profile_fields' );
 add_action( 'edit_user_profile_update', 'pmproship_save_extra_profile_fields' );
+add_action( 'pmpro_personal_options_update', 'pmproship_save_extra_profile_fields' );
 
 /**
  * These bits are required for PayPal Express
