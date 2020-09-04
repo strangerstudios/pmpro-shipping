@@ -647,7 +647,7 @@ function pmproship_pmpro_memberslist_extra_cols_body( $theuser ) {
 				echo $theuser->pmpro_saddress2 . "<br />";
 			} ?>
 			<?php if ( $theuser->pmpro_scity && $theuser->pmpro_sstate ) { ?>
-				<?php echo $theuser->pmpro_scity ?>, <?php echo $theuser->pmpro_sstate ?><?php echo $theuser->pmpro_szipcode ?><?php if ( ! empty( $theuser->pmpro_scountry ) )
+				<?php echo $theuser->pmpro_scity ?>, <?php echo $theuser->pmpro_sstate ?> <?php echo $theuser->pmpro_szipcode ?> <?php if ( ! empty( $theuser->pmpro_scountry ) )
 					echo $theuser->pmpro_scountry ?><br/>
 			<?php } ?>
 		<?php } ?>
