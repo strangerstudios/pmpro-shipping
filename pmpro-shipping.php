@@ -95,7 +95,7 @@ function pmproship_pmpro_checkout_boxes() {
 					<?php if ( PMPRO_SHIPPING_SHOW_REQUIRED ) { ?><span class="pmpro_asterisk"> *</span><?php } ?>
                 </div>     <!-- end pmpro_checkout-field pmpro_checkout-field-sphone -->
                 <div class="pmpro_checkout-field pmpro_checkout-field-sphone">
-                    <label for="sphone"><?php _e( 'Phone', 'pmpro' ); ?></label>
+                    <label for="sphone"><?php _e( 'Phone', 'pmpro-shipping' ); ?></label>
                     <input id="sphone" name="sphone" type="text"
                            class="input <?php echo pmpro_getClassForField( "sphone" ); ?>" size="30"
                            value="<?php echo esc_attr( $sphone ) ?>"/>
