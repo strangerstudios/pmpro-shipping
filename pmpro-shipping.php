@@ -2,8 +2,8 @@
 /*
 Plugin Name: Paid Memberships Pro - Shipping Add On
 Plugin URI: https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/
-Description: Add shipping to the checkout page and other updates.
-Version: 1.0
+Description: Add shipping address to the checkout page and other locations.
+Version: 1.1
 Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com
 Text Domain: pmpro-shipping
@@ -12,7 +12,7 @@ Domain Path: /languages
 
 if(!defined('PMPRO_SHIPPING_SHOW_REQUIRED'))
 	define( 'PMPRO_SHIPPING_SHOW_REQUIRED', true );    //if false required fields won't have asterisks and non-required fields will say (optional)
-define( 'PMPRO_SHIPPING_VERSION', '1.0' );
+define( 'PMPRO_SHIPPING_VERSION', '1.1' );
 
 /**
  * Load plugin textdomain.
@@ -554,7 +554,7 @@ function pmproship_pmpro_confirmation_message( $confirmation_message, $pmpro_inv
 
 	$shipping_address = pmpro_formatAddress( trim( $sfirstname . ' ' . $slastname ), $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $sphone );
 
-	$confirmation_message .= '<br /><h3>' . __( 'Shipping Information:', 'pmpro-shipping' ) . '</h3><p>' . $shipping_address . '</p>';
+	$confirmation_message .= '<h3>' . __( 'Shipping Information:', 'pmpro-shipping' ) . '</h3><p>' . $shipping_address . '</p>';
 
 
 	return $confirmation_message;
@@ -822,14 +822,10 @@ function pmproship_hide_shipping() {
 add_filter( 'pmpro_checkout_preheader', 'pmproship_hide_shipping', 5 );
 
 /**
- * Load our javascript on the checkout page only
- * NOTE: If we get around to creating a pmpro_is_checkout_page type function, use that instead
+ * Load our javascript on the checkout page only.
  */
 function pmproship_load_js() {
-
-	global $pmpro_pages;
-
-	if ( is_admin() || is_page( $pmpro_pages['checkout'] ) ) {
+	if ( function_exists( 'pmpro_is_checkout' ) && pmpro_is_checkout() ) {
 		wp_enqueue_script( 'pmproship', plugins_url( 'js/pmpro-shipping.js', __FILE__ ), array( 'jquery' ), PMPRO_SHIPPING_VERSION );
 	}
 }
