@@ -2,14 +2,14 @@
 Contributors: strangerstudios
 Tags: paid memberships pro, shipping, shipping address,
 Requires at least: 4.0
-Tested up to: 5.4
-Stable tag: 1.0
+Tested up to: 5.5.3
+Stable tag: 1.1
 
 Adds shipping fields to the Paid Memberships Pro checkout.
 
 == Description ==
 
-Adds shipping fields to the checkout page, confirmation page, confirmation emails, member's list and edit user profile pages.
+Adds shipping fields to the checkout page, confirmation page, confirmation emails, members list and edit user profile pages.
 
 [Read the full documentation for the Shipping Add On](https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/)
 
@@ -36,6 +36,13 @@ Please post it in the GitHub issue tracker here: https://github.com/strangerstud
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+
+= 1.1 - 2020-11-27 =
+* BUG FIX/ENHANCEMENT: Updated to use pmpro_is_checkout to conditionally load the JavaScript.
+* BUG FIX: Fixed spacing for address in Members List.
+* BUG FIX: Fixed incorrect textdomain for "Phone" field.
+* BUG FIX: Removed <br> tag before output of Shipping Address details on Membership Confirmation page.
+
 = 1.0 - 2020-04-30 =
 * BUG FIX/ENHANCEMENT: Checking if user has a membership that includes shipping fields or is an admin before displaying fields.
 * ENHANCEMENT: Added support for PMPro v2.3+ frontend profile.
@@ -51,7 +58,6 @@ Please visit our premium support site at http://www.paidmembershipspro.com for m
 * ENHANCEMENT: Support State Dropdown Add On.
 * ENHANCEMENT: Added in phone field support for shipping address.
 * ENHANCEMENT: Improved internationalization for translating the plugin.
-
 
 = .6 =
 * BUG FIX: Fixed bugs where shipping address was not being saved. Rewrote the logic that figures out when and how to save shipping to user meta based on the chosen gateway.
