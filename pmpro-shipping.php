@@ -399,7 +399,7 @@ function pmproship_show_extra_frontend_profile_fields( $user ) {
 					<input id="saddress2" name="saddress2" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_saddress2', true ) ); ?>" size="30" />
 				</div> <!-- end pmpro_checkout-field-saddress2 -->
 				<div class="pmpro_checkout-field pmpro_checkout-field-bcity_state_zip">
-					<label for="bcity_state_zip"><?php _e('City, State Zip', 'paid-memberships-pro' );?></label>
+					<label for="bcity_state_zip"><?php _e('City, State Zip', 'pmpro-shipping' );?></label>
 					<input id="scity" name="scity" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_scity', true ) ); ?>" size="14" />
 					<input id="sstate" name="sstate" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sstate', true ) ); ?>"/>
 					<input id="szipcode" name="szipcode" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_szipcode', true ) ); ?>" size="5" />
