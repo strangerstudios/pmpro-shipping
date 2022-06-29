@@ -398,14 +398,20 @@ function pmproship_show_extra_frontend_profile_fields( $user ) {
 					<label for="saddress2"><?php esc_html_e( 'Address 2', 'pmpro-shipping' ); ?></label>
 					<input id="saddress2" name="saddress2" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_saddress2', true ) ); ?>" size="30" />
 				</div> <!-- end pmpro_checkout-field-saddress2 -->
-				<div class="pmpro_checkout-field pmpro_checkout-field-bcity_state_zip">
-					<label for="bcity_state_zip"><?php _e('City, State Zip', 'paid-memberships-pro' );?></label>
+				<div class="pmpro_checkout-field pmpro_checkout-field-scity">
+					<label for="scity"><?php esc_html_e( 'City', 'pmpro-shipping' ); ?></label>
 					<input id="scity" name="scity" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_scity', true ) ); ?>" size="14" />
+				</div> <!-- end pmpro_checkout-field-scity -->
+				<div class="pmpro_checkout-field pmpro_checkout-field-sstate">
+					<label for="sstate"><?php esc_html_e( 'State', 'pmpro-shipping' ); ?></label>
 					<input id="sstate" name="sstate" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sstate', true ) ); ?>"/>
+				</div> <!-- end pmpro_checkout-field-sstate -->
+				<div class="pmpro_checkout-field pmpro_checkout-field-szipcode">
+					<label for="szipcode"><?php esc_html_e( 'Postal Code', 'pmpro-shipping' ); ?></label>
 					<input id="szipcode" name="szipcode" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_szipcode', true ) ); ?>" size="5" />
-				</div> <!-- end pmpro_checkout-field-bcity_state_zip -->
+				</div><!-- end pmpro_checkout-field-szipcode -->
 				<div class="pmpro_checkout-field pmpro_checkout-field-sphone">
-					<label for="sphone"><?php _e( 'Phone', 'pmpro-shipping' ); ?></label>
+					<label for="sphone"><?php esc_html_e( 'Phone', 'pmpro-shipping' ); ?></label>
 					<input id="sphone" name="sphone" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sphone', true ) ); ?>" size="30" />
 				</div> <!-- end pmpro_checkout-field-sphone -->
 				<div class="pmpro_checkout-field pmpro_checkout-field-scountry">
