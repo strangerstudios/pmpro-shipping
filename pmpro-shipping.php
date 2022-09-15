@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Paid Memberships Pro - Shipping Add On
+Plugin Name: Paid Memberships Pro - Mailing Add On
 Plugin URI: https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/
-Description: Add shipping address to the checkout page and other locations.
+Description: Add mailing address to the checkout page and other locations.
 Version: 1.1
 Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com
@@ -24,7 +24,7 @@ function pmproship_pmpro_load_textdomain() {
 add_action( 'init', 'pmproship_pmpro_load_textdomain' );
 
 /**
- * Add a shipping address field to the checkout page with "sameas" checkbox
+ * Add a mailing address field to the checkout page with "sameas" checkbox
  */
 function pmproship_pmpro_checkout_boxes() {
 	global $gateway, $pmpro_states, $sameasbilling, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $sphone, $scountry, $shipping_address, $pmpro_requirebilling, $pmpro_review;
@@ -32,14 +32,14 @@ function pmproship_pmpro_checkout_boxes() {
     <div id="pmpro_shipping_address_fields" class="pmpro_checkout"
 	     <?php if ( $pmpro_review ) { ?>style="display: none;"<?php } ?> >
         <h3>
-            <span class="pmpro_checkout-h3-name"><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></span>
+            <span class="pmpro_checkout-h3-name"><?php esc_html_e( 'Mailing Address', 'pmpro-shipping' ); ?></span>
         </h3>
         <div class="pmpro_checkout-fields">
 			<?php if ( apply_filters( 'pmpro_include_billing_address_fields', true ) ) { ?>
                 <p id="sameasbilling_wrapper">
                     <input type="checkbox" id="sameasbilling" name="sameasbilling" value="1" <?php checked($sameasbilling, 1);?> />
                     <label for="sameasbilling" class="pmpro_label-inline pmpro_clickable">
-						<?php esc_html_e( 'Ship to the billing address used above.', 'pmpro-shipping' ); ?>
+						<?php esc_html_e( 'Mail to the billing address used above.', 'pmpro-shipping' ); ?>
                     </label>
                 </p>
 			<?php } ?>
@@ -180,7 +180,7 @@ function pmproship_pmpro_checkout_preheader()
 		$szipcode = sanitize_text_field( $_SESSION['szipcode'] );
 		$scountry = sanitize_text_field( $_SESSION['scountry'] );
 	} else if ( ! empty( $current_user->ID ) ) {
-		//get shipping fields from user meta
+		//get mailing fields from user meta
 		$user_id    = $current_user->ID;
 		$sfirstname = get_user_meta( $user_id, "pmpro_sfirstname", true );
 		$slastname  = get_user_meta( $user_id, "pmpro_slastname", true );
@@ -223,7 +223,7 @@ function pmproship_save_shipping_to_usermeta($user_id)
 
 	if(!empty($sameasbilling))
 	{
-		//set the shipping fields to be the same as the billing fields
+		//set the mailing fields to be the same as the billing fields
 		$sfirstname = get_user_meta($user_id, "pmpro_bfirstname", true);
 		$slastname = get_user_meta($user_id, "pmpro_blastname", true);
 		$saddress1 = get_user_meta($user_id, "pmpro_baddress1", true);
@@ -268,7 +268,7 @@ function pmproship_show_extra_profile_fields( $user ) {
 
 	// Make sure PMPro is activated.
 	if ( function_exists( 'pmpro_getMembershipLevelsForUser') ) {
-		// Make sure their level shows shipping fields.
+		// Make sure their level shows mailing fields.
 		$membership_levels = pmpro_getMembershipLevelsForUser( $user->ID );
 
 		foreach ( $membership_levels as $membership_level ) {
@@ -279,9 +279,9 @@ function pmproship_show_extra_profile_fields( $user ) {
 		}
 	}
 
-	// Show the shipping fields if the membership level includes fields or the user is an admin.
+	// Show the mailing fields if the membership level includes fields or the user is an admin.
 	if ( ! empty( $show_shipping ) || current_user_can( 'manage_options', $current_user->ID ) ) { ?>
-	    <h3><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></h3>
+	    <h3><?php esc_html_e( 'Mailing Address', 'pmpro-shipping' ); ?></h3>
 
 	    <table class="form-table">
 
@@ -366,7 +366,7 @@ function pmproship_show_extra_frontend_profile_fields( $user ) {
 
 	// Make sure PMPro is activated.
 	if ( function_exists( 'pmpro_getMembershipLevelsForUser') ) {
-		// Make sure their level shows shipping fields.
+		// Make sure their level shows mailing fields.
 		$membership_levels = pmpro_getMembershipLevelsForUser( $user->ID );
 
 		foreach ( $membership_levels as $membership_level ) {
@@ -377,10 +377,10 @@ function pmproship_show_extra_frontend_profile_fields( $user ) {
 		}
 	}
 
-	// Show the shipping fields.
+	// Show the mailing fields.
 	if ( ! empty( $show_shipping ) ) { ?>
 		<div class="pmpro_checkout_box-shipping">
-			<h3><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></h3>
+			<h3><?php esc_html_e( 'Mailing Address', 'pmpro-shipping' ); ?></h3>
 			<div class="pmpro_member_profile_edit-fields">
 				<div class="pmpro_checkout-field pmpro_checkout-field-sfirstname">
 					<label for="sfirstname"><?php esc_html_e( 'First Name', 'pmpro-shipping' ); ?></label>
@@ -435,7 +435,7 @@ function pmproship_save_extra_profile_fields( $user_id ) {
 		return false;
 	}
 
-	// Bail if the shipping fields are hidden.
+	// Bail if the mailing fields are hidden.
 	if ( ! isset( $_POST['saddress1'] ) ) {
 		return false;
 	}
@@ -510,7 +510,7 @@ function pmproship_is_shipping_set( $object = NULL ) {
 }
 
 /**
- * Require the shipping fields (optional)
+ * Require the mailing fields (optional)
  */
 function pmproship_pmpro_registration_checks( $okay ) {
 	//only check if we're okay so far and same as billing wasn't checked
@@ -560,7 +560,7 @@ function pmproship_pmpro_confirmation_message( $confirmation_message, $pmpro_inv
 
 	$shipping_address = pmpro_formatAddress( trim( $sfirstname . ' ' . $slastname ), $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $sphone );
 
-	$confirmation_message .= '<h3>' . __( 'Shipping Information:', 'pmpro-shipping' ) . '</h3><p>' . $shipping_address . '</p>';
+	$confirmation_message .= '<h3>' . __( 'Mailing Information:', 'pmpro-shipping' ) . '</h3><p>' . $shipping_address . '</p>';
 
 
 	return $confirmation_message;
@@ -602,9 +602,9 @@ function pmproship_pmpro_email_body( $body, $pmpro_email ) {
 		if ( ! empty( $shipping_address ) ) {
 			//squeeze the shipping address above the billing information or above the log link
 			if ( strpos( $body, "Billing Information:" ) ) {
-				$body = str_replace( "Billing Information:", __( "Shipping Address", "pmpro-shipping" ) . ":<br />" . $shipping_address . "<br /><br />" . __( "Billing Information", "pmpro-shipping" ) . ":", $body );
+				$body = str_replace( "Billing Information:", __( "Mailing Address", "pmpro-shipping" ) . ":<br />" . $shipping_address . "<br /><br />" . __( "Billing Information", "pmpro-shipping" ) . ":", $body );
 			} else {
-				$body = str_replace( "Log in to your membership", __( "Shipping Address", "pmpro-shipping" ) . ":<br />" . $shipping_address . "<br /><br />" . __( "Log in to your membership", "pmpro-shipping" ), $body );
+				$body = str_replace( "Log in to your membership", __( "Mailing Address", "pmpro-shipping" ) . ":<br />" . $shipping_address . "<br /><br />" . __( "Log in to your membership", "pmpro-shipping" ), $body );
 			}
 		}
 	}
@@ -629,7 +629,7 @@ add_filter( "pmpro_state_dropdowns", "pmproship_pmpro_state_dropdowns" );
 //heading
 function pmproship_pmpro_memberslist_extra_cols_header() {
 	?>
-    <th><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></th>
+    <th><?php esc_html_e( 'Mailing Address', 'pmpro-shipping' ); ?></th>
 	<?php
 }
 add_action( "pmpro_memberslist_extra_cols_header", "pmproship_pmpro_memberslist_extra_cols_header" );
@@ -776,15 +776,15 @@ function pmproship_pmpro_membership_level_after_other_settings() {
 		$hide_shipping = false;
 	}
 	?>
-    <h3 class="topborder"><?php	 esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></h3>
+    <h3 class="topborder"><?php	 esc_html_e( 'Mailing Address', 'pmpro-shipping' ); ?></h3>
     <table>
         <tbody class="form-table">
         <tr>
             <th scope="row" valign="top"><label
-                        for="hide_shipping"><?php esc_html_e( 'Hide Shipping Address:', 'pmpro-shipping' ); ?></label></th>
+                        for="hide_shipping"><?php esc_html_e( 'Hide Mailing Address:', 'pmpro-shipping' ); ?></label></th>
             <td>
                 <input type="checkbox" id="hide_shipping" name="hide_shipping" value="1" <?php checked( $hide_shipping, 1 ); ?> />
-                <label for="hide_shipping"><?php esc_html_e( 'Check this if you DO NOT want to ask for a shipping address with this level.', 'pmpro-shipping' ); ?></label>
+                <label for="hide_shipping"><?php esc_html_e( 'Check this if you DO NOT want to ask for a mailing address with this level.', 'pmpro-shipping' ); ?></label>
             </td>
         </tr>
         </tbody>
@@ -795,7 +795,7 @@ function pmproship_pmpro_membership_level_after_other_settings() {
 add_action( 'pmpro_membership_level_after_other_settings', 'pmproship_pmpro_membership_level_after_other_settings' );
 
 /**
- * Save hide shipping setting when the level is saved/added
+ * Save hide mailing setting when the level is saved/added
  */
  function pmproship_pmpro_save_membership_level( $level_id ) {
 	if ( isset( $_REQUEST['hide_shipping'] ) ) {
