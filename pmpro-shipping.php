@@ -196,6 +196,57 @@ function pmproship_pmpro_checkout_preheader()
 add_action('pmpro_checkout_preheader', 'pmproship_pmpro_checkout_preheader');
 
 /**
+ * If we are processing a checkout paid with Stripe Checkout,
+ * we need to run the preheader code so that the shipping fields save properly.
+ *
+ * Stripe checkout payments are completed by webhooks, so we can just check if we
+ * are processing a Stripe Webhook.
+ */
+function pmproship_pmpro_checkout_before_change_membership_level() {
+	if ( pmpro_doing_webhook( 'stripe' ) ) {
+		pmproship_pmpro_checkout_preheader();
+
+		// Fix "use same as billing" checkbox. Original code will try to pull billing address from user meta which we no longer populate.
+		global $sameasbilling, $sfirstname, $slastname, $saddress1, $saddress2, $scity, $sstate, $szipcode, $sphone, $scountry;
+		if ( ! empty( $sameasbilling ) ) {
+			if ( empty( $sfirstname ) ) {
+				$sfirstname = empty( $_REQUEST['bfirstname'] ) ? '' : sanitize_text_field( $_REQUEST['bfirstname'] );
+			}
+			if ( empty( $slastname ) ) {
+				$slastname = empty( $_REQUEST['blastname'] ) ? '' : sanitize_text_field( $_REQUEST['blastname'] );
+			}
+			if ( empty( $saddress1 ) ) {
+				$saddress1 = empty( $_REQUEST['baddress1'] ) ? '' : sanitize_text_field( $_REQUEST['baddress1'] );
+			}
+			if ( empty( $saddress2 ) ) {
+				$saddress2 = empty( $_REQUEST['baddress2'] ) ? '' : sanitize_text_field( $_REQUEST['baddress2'] );
+			}
+			if ( empty( $scity ) ) {
+				$scity = empty( $_REQUEST['bcity'] ) ? '' : sanitize_text_field( $_REQUEST['bcity'] );
+			}
+			if ( empty( $sstate ) ) {
+				$sstate = empty( $_REQUEST['bstate'] ) ? '' : sanitize_text_field( $_REQUEST['bstate'] );
+			}
+			if ( empty( $szipcode ) ) {
+				$szipcode = empty( $_REQUEST['bzipcode'] ) ? '' : sanitize_text_field( $_REQUEST['bzipcode'] );
+			}
+			if ( empty( $sphone ) ) {
+				$sphone = empty( $_REQUEST['bphone'] ) ? '' : sanitize_text_field( $_REQUEST['bphone'] );
+			}
+			if ( empty( $scountry ) ) {
+				$scountry = empty( $_REQUEST['bcountry'] ) ? '' : sanitize_text_field( $_REQUEST['bcountry'] );
+			}
+
+			// Set $sameasbilling to false so that we don't try to pull billing address from user meta.
+			$sameasbilling = false;
+		}
+
+		add_action('pmpro_after_checkout', 'pmproship_save_shipping_to_usermeta');
+	}
+}
+add_action( 'pmpro_checkout_before_change_membership_level', 'pmproship_pmpro_checkout_before_change_membership_level' );
+
+/**
  * Choose which hook to use to update user meta values.
  * For PayPal Standard, 2Checkout, CCBill, and Payfast, we need to
  * run this code before we redirect away.
