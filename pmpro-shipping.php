@@ -31,9 +31,9 @@ function pmproship_pmpro_checkout_boxes() {
 	?>
     <div id="pmpro_shipping_address_fields" class="pmpro_checkout"
 	     <?php if ( $pmpro_review ) { ?>style="display: none;"<?php } ?> >
-        <h3>
-            <span class="pmpro_checkout-h3-name"><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></span>
-        </h3>
+        <h2>
+            <span class="pmpro_checkout-h2-name"><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></span>
+        </h2>
         <div class="pmpro_checkout-fields">
 			<?php if ( apply_filters( 'pmpro_include_billing_address_fields', true ) ) { ?>
                 <p id="sameasbilling_wrapper">
@@ -281,7 +281,7 @@ function pmproship_show_extra_profile_fields( $user ) {
 
 	// Show the shipping fields if the membership level includes fields or the user is an admin.
 	if ( ! empty( $show_shipping ) || current_user_can( 'manage_options', $current_user->ID ) ) { ?>
-	    <h3><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></h3>
+	    <h2><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></h2>
 
 	    <table class="form-table">
 
@@ -380,7 +380,7 @@ function pmproship_show_extra_frontend_profile_fields( $user ) {
 	// Show the shipping fields.
 	if ( ! empty( $show_shipping ) ) { ?>
 		<div class="pmpro_checkout_box-shipping">
-			<h3><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></h3>
+			<h2><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></h2>
 			<div class="pmpro_member_profile_edit-fields">
 				<div class="pmpro_checkout-field pmpro_checkout-field-sfirstname">
 					<label for="sfirstname"><?php esc_html_e( 'First Name', 'pmpro-shipping' ); ?></label>
@@ -554,7 +554,7 @@ function pmproship_pmpro_confirmation_message( $confirmation_message, $pmpro_inv
 
 	$shipping_address = pmpro_formatAddress( trim( $sfirstname . ' ' . $slastname ), $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $sphone );
 
-	$confirmation_message .= '<br /><h3>' . __( 'Shipping Information:', 'pmpro-shipping' ) . '</h3><p>' . $shipping_address . '</p>';
+	$confirmation_message .= '<br /><h2>' . __( 'Shipping Information:', 'pmpro-shipping' ) . '</h2><p>' . $shipping_address . '</p>';
 
 
 	return $confirmation_message;
@@ -770,7 +770,7 @@ function pmproship_pmpro_membership_level_after_other_settings() {
 		$hide_shipping = false;
 	}
 	?>
-    <h3 class="topborder"><?php	 esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></h3>
+    <h2 class="topborder"><?php	 esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></h2>
     <table>
         <tbody class="form-table">
         <tr>
