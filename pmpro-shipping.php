@@ -31,9 +31,9 @@ function pmproship_pmpro_checkout_boxes() {
 	?>
     <div id="pmpro_shipping_address_fields" class="pmpro_checkout"
 	     <?php if ( $pmpro_review ) { ?>style="display: none;"<?php } ?> >
-        <h3>
-            <span class="pmpro_checkout-h3-name"><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></span>
-        </h3>
+        <h2>
+            <span class="pmpro_checkout-h2-name"><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></span>
+        </h2>
         <div class="pmpro_checkout-fields">
 			<?php if ( apply_filters( 'pmpro_include_billing_address_fields', true ) ) { ?>
                 <p id="sameasbilling_wrapper">
