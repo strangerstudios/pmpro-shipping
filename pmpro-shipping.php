@@ -2,8 +2,8 @@
 /*
 Plugin Name: Paid Memberships Pro - Shipping Add On
 Plugin URI: https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/
-Description: Add shipping to the checkout page and other updates.
-Version: 1.0
+Description: Add shipping address to the checkout page and other locations.
+Version: 1.1
 Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com
 Text Domain: pmpro-shipping
@@ -12,7 +12,7 @@ Domain Path: /languages
 
 if(!defined('PMPRO_SHIPPING_SHOW_REQUIRED'))
 	define( 'PMPRO_SHIPPING_SHOW_REQUIRED', true );    //if false required fields won't have asterisks and non-required fields will say (optional)
-define( 'PMPRO_SHIPPING_VERSION', '1.0' );
+define( 'PMPRO_SHIPPING_VERSION', '1.1' );
 
 /**
  * Load plugin textdomain.
@@ -95,7 +95,7 @@ function pmproship_pmpro_checkout_boxes() {
 					<?php if ( PMPRO_SHIPPING_SHOW_REQUIRED ) { ?><span class="pmpro_asterisk"> *</span><?php } ?>
                 </div>     <!-- end pmpro_checkout-field pmpro_checkout-field-sphone -->
                 <div class="pmpro_checkout-field pmpro_checkout-field-sphone">
-                    <label for="sphone"><?php _e( 'Phone', 'pmpro' ); ?></label>
+                    <label for="sphone"><?php _e( 'Phone', 'pmpro-shipping' ); ?></label>
                     <input id="sphone" name="sphone" type="text"
                            class="input <?php echo pmpro_getClassForField( "sphone" ); ?>" size="30"
                            value="<?php echo esc_attr( $sphone ) ?>"/>
@@ -398,14 +398,20 @@ function pmproship_show_extra_frontend_profile_fields( $user ) {
 					<label for="saddress2"><?php esc_html_e( 'Address 2', 'pmpro-shipping' ); ?></label>
 					<input id="saddress2" name="saddress2" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_saddress2', true ) ); ?>" size="30" />
 				</div> <!-- end pmpro_checkout-field-saddress2 -->
-				<div class="pmpro_checkout-field pmpro_checkout-field-bcity_state_zip">
-					<label for="bcity_state_zip"><?php _e('City, State Zip', 'paid-memberships-pro' );?></label>
+				<div class="pmpro_checkout-field pmpro_checkout-field-scity">
+					<label for="scity"><?php esc_html_e( 'City', 'pmpro-shipping' ); ?></label>
 					<input id="scity" name="scity" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_scity', true ) ); ?>" size="14" />
+				</div> <!-- end pmpro_checkout-field-scity -->
+				<div class="pmpro_checkout-field pmpro_checkout-field-sstate">
+					<label for="sstate"><?php esc_html_e( 'State', 'pmpro-shipping' ); ?></label>
 					<input id="sstate" name="sstate" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sstate', true ) ); ?>"/>
+				</div> <!-- end pmpro_checkout-field-sstate -->
+				<div class="pmpro_checkout-field pmpro_checkout-field-szipcode">
+					<label for="szipcode"><?php esc_html_e( 'Postal Code', 'pmpro-shipping' ); ?></label>
 					<input id="szipcode" name="szipcode" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_szipcode', true ) ); ?>" size="5" />
-				</div> <!-- end pmpro_checkout-field-bcity_state_zip -->
+				</div><!-- end pmpro_checkout-field-szipcode -->
 				<div class="pmpro_checkout-field pmpro_checkout-field-sphone">
-					<label for="sphone"><?php _e( 'Phone', 'pmpro-shipping' ); ?></label>
+					<label for="sphone"><?php esc_html_e( 'Phone', 'pmpro-shipping' ); ?></label>
 					<input id="sphone" name="sphone" type="text" class="regular-text" value="<?php echo esc_attr( get_user_meta( $user->ID, 'pmpro_sphone', true ) ); ?>" size="30" />
 				</div> <!-- end pmpro_checkout-field-sphone -->
 				<div class="pmpro_checkout-field pmpro_checkout-field-scountry">
@@ -647,7 +653,7 @@ function pmproship_pmpro_memberslist_extra_cols_body( $theuser ) {
 				echo $theuser->pmpro_saddress2 . "<br />";
 			} ?>
 			<?php if ( $theuser->pmpro_scity && $theuser->pmpro_sstate ) { ?>
-				<?php echo $theuser->pmpro_scity ?>, <?php echo $theuser->pmpro_sstate ?><?php echo $theuser->pmpro_szipcode ?><?php if ( ! empty( $theuser->pmpro_scountry ) )
+				<?php echo $theuser->pmpro_scity ?>, <?php echo $theuser->pmpro_sstate ?> <?php echo $theuser->pmpro_szipcode ?> <?php if ( ! empty( $theuser->pmpro_scountry ) )
 					echo $theuser->pmpro_scountry ?><br/>
 			<?php } ?>
 		<?php } ?>
@@ -822,14 +828,10 @@ function pmproship_hide_shipping() {
 add_filter( 'pmpro_checkout_preheader', 'pmproship_hide_shipping', 5 );
 
 /**
- * Load our javascript on the checkout page only
- * NOTE: If we get around to creating a pmpro_is_checkout_page type function, use that instead
+ * Load our javascript on the checkout page only.
  */
 function pmproship_load_js() {
-
-	global $pmpro_pages;
-
-	if ( is_admin() || is_page( $pmpro_pages['checkout'] ) ) {
+	if ( function_exists( 'pmpro_is_checkout' ) && pmpro_is_checkout() ) {
 		wp_enqueue_script( 'pmproship', plugins_url( 'js/pmpro-shipping.js', __FILE__ ), array( 'jquery' ), PMPRO_SHIPPING_VERSION );
 	}
 }
