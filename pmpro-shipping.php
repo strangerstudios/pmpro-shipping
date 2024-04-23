@@ -113,7 +113,7 @@ function pmproship_add_user_fields() {
 		)
 	);
 }
-add_action( 'init', 'pmproship_add_user_fields', 20 ); // 20 to run after gateways filter pmpro_include_billing_address_fields.
+add_action( 'init', 'pmproship_add_user_fields' );
 
 /**
  * Don't show the shipping address box on `checkout_boxes` hook.
