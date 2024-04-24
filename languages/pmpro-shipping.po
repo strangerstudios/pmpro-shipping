@@ -39,6 +39,13 @@ msgstr ""
 msgid "https://www.paidmembershipspro.com"
 msgstr ""
 
+#: pmpro-shipping.php:35
+#: pmpro-shipping.php:284
+#: pmpro-shipping.php:383
+#: pmpro-shipping.php:599
+#: pmpro-shipping.php:601
+#: pmpro-shipping.php:626
+#: pmpro-shipping.php:773
 #: pmpro-shipping.php:50
 #: pmpro-shipping.php:128
 #: pmpro-shipping.php:156
@@ -50,78 +57,119 @@ msgstr ""
 msgid "Shipping Address"
 msgstr ""
 
+#: pmpro-shipping.php:42
 #: pmpro-shipping.php:64
 msgid "Ship to the billing address used above."
 msgstr ""
 
+#: pmpro-shipping.php:48
+#: pmpro-shipping.php:289
+#: pmpro-shipping.php:386
 #: pmpro-shipping.php:72
 msgid "First Name"
 msgstr ""
 
+#: pmpro-shipping.php:55
+#: pmpro-shipping.php:296
+#: pmpro-shipping.php:390
 #: pmpro-shipping.php:73
 msgid "Last Name"
 msgstr ""
 
+#: pmpro-shipping.php:62
+#: pmpro-shipping.php:303
+#: pmpro-shipping.php:394
 #: pmpro-shipping.php:74
 msgid "Address 1"
 msgstr ""
 
+#: pmpro-shipping.php:69
+#: pmpro-shipping.php:310
+#: pmpro-shipping.php:398
 #: pmpro-shipping.php:75
 msgid "Address 2"
 msgstr ""
 
+#: pmpro-shipping.php:74
+msgid "optional"
+msgstr ""
+
+#: pmpro-shipping.php:77
+#: pmpro-shipping.php:317
 #: pmpro-shipping.php:76
 msgid "City"
 msgstr ""
 
+#: pmpro-shipping.php:84
+#: pmpro-shipping.php:324
 #: pmpro-shipping.php:77
 msgid "State"
 msgstr ""
 
+#: pmpro-shipping.php:91
+#: pmpro-shipping.php:331
 #: pmpro-shipping.php:78
 msgid "Postal Code"
 msgstr ""
 
+#: pmpro-shipping.php:98
+#: pmpro-shipping.php:338
+#: pmpro-shipping.php:408
 #: pmpro-shipping.php:79
 msgid "Phone"
 msgstr ""
 
 #: pmpro-shipping.php:105
+#: pmpro-shipping.php:345
+#: pmpro-shipping.php:412
 msgid "Country"
 msgstr ""
 
+#: pmpro-shipping.php:528
+msgid "Please complete all required fields."
+msgstr ""
+
+#: pmpro-shipping.php:557
 #: pmpro-shipping.php:189
 msgid "Shipping Information:"
 msgstr ""
 
+#: pmpro-shipping.php:599
 #: pmpro-shipping.php:231
 msgid "Billing Information"
 msgstr ""
 
+#: pmpro-shipping.php:601
 #: pmpro-shipping.php:233
 msgid "Log in to your membership"
 msgstr ""
 
+#: pmpro-shipping.php:778
 #: pmpro-shipping.php:302
 msgid "Hide Shipping Address:"
 msgstr ""
 
+#: pmpro-shipping.php:781
 #: pmpro-shipping.php:305
 msgid "Check this if you DO NOT want to ask for a shipping address with this level."
 msgstr ""
 
+#: pmpro-shipping.php:840
 #: pmpro-shipping.php:345
 msgid "View Documentation"
 msgstr ""
 
+#: pmpro-shipping.php:840
 #: pmpro-shipping.php:345
 msgid "Docs"
 msgstr ""
 
+#: pmpro-shipping.php:841
 #: pmpro-shipping.php:346
 msgid "Visit Customer Support Forum"
 msgstr ""
 
+#: pmpro-shipping.php:841
 #: pmpro-shipping.php:346
 msgid "Support"
 msgstr ""
