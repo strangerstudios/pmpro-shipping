@@ -186,7 +186,7 @@ function pmproship_pmpro_confirmation_message( $confirmation_message, $pmpro_inv
 
 	$shipping_address = pmpro_formatAddress( trim( $sfirstname . ' ' . $slastname ), $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $sphone );
 
-	$confirmation_message .= '<h3>' . __( 'Shipping Information:', 'pmpro-shipping' ) . '</h3><p>' . $shipping_address . '</p>';
+	$confirmation_message .= '<h2>' . __( 'Shipping Information:', 'pmpro-shipping' ) . '</h2><p>' . $shipping_address . '</p>';
 
 
 	return $confirmation_message;
@@ -294,7 +294,7 @@ function pmproship_pmpro_membership_level_after_other_settings() {
 		$hide_shipping = false;
 	}
 	?>
-    <h3 class="topborder"><?php	 esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></h3>
+    <h2 class="topborder"><?php	 esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></h2>
     <table>
         <tbody class="form-table">
         <tr>
