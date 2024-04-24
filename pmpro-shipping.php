@@ -3,14 +3,14 @@
 Plugin Name: Paid Memberships Pro - Shipping Add On
 Plugin URI: https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/
 Description: Add shipping address to the checkout page and other locations.
-Version: 1.1
+Version: 1.2
 Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com
 Text Domain: pmpro-shipping
 Domain Path: /languages
 */
 
-define( 'PMPRO_SHIPPING_VERSION', '1.1' );
+define( 'PMPRO_SHIPPING_VERSION', '1.2' );
 
 /**
  * Load plugin textdomain.
@@ -26,7 +26,7 @@ include_once( plugin_dir_path( __FILE__ ) . 'includes/deprecated.php' );
 /**
  * Set up user fields for shipping address.
  *
- * @since TBD
+ * @since 1.2
  */
 function pmproship_add_user_fields() {
 	global $pmpro_countries, $pmpro_default_country;
@@ -119,7 +119,7 @@ add_action( 'init', 'pmproship_add_user_fields' );
  * Don't show the shipping address box on `checkout_boxes` hook.
  * We'll show it after the billing address fields using custom code.
  *
- * @since TBD
+ * @since 1.2
  */
 function pmproship_unhook_field_group() {
 	global $pmpro_field_groups;
@@ -136,7 +136,7 @@ add_action( 'pmpro_checkout_boxes', 'pmproship_unhook_field_group', 9 );
 /**
  * Show the shipping address fields after the billing address fields.
  *
- * @since TBD
+ * @since 1.2
  */
 function pmproship_show_shipping_fields_at_checkout() {
 	global $pmpro_user_fields;
