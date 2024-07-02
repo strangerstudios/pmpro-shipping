@@ -150,19 +150,22 @@ function pmproship_show_shipping_fields_at_checkout() {
 	}
 
 	?>
-	<div id="pmpro_checkout_box-shipping-address" class="pmpro_checkout">
-		<hr />
-		<h2>
-			<span class="pmpro_checkout-h2-name"><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></span>
-		</h2>
-		<div class="pmpro_checkout-fields">
-			<?php
-				foreach( $pmpro_user_fields[ esc_html__( 'Shipping Address', 'pmpro-shipping' ) ] as $field ) {
-					$field->displayAtCheckout();
-				}
-			?>
-		</div> <!-- end pmpro_checkout-fields -->
-	</div> <!-- end pmpro_checkout_box-name -->
+	<div id="pmpro_checkout_box-shipping-address" class="pmpro_card">
+		<div class="pmpro_card_content">
+			<legend class="pmpro_form_legend">
+				<h2 class="pmpro_form_heading pmpro_font-large">
+					<?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?>
+				</h2>
+			</legend>
+			<div class="pmproship_checkout-fields">
+				<?php
+					foreach( $pmpro_user_fields[ esc_html__( 'Shipping Address', 'pmpro-shipping' ) ] as $field ) {
+						$field->displayAtCheckout();
+					}
+				?>
+			</div> <!-- end pmproship_checkout-fields -->
+		</div> <!-- end pmpro-content -->
+	</div> <!-- end pmpro_card -->
 	<?php
 }
 add_action( 'pmpro_checkout_after_billing_fields', 'pmproship_show_shipping_fields_at_checkout' );
