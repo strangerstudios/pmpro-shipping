@@ -55,18 +55,16 @@ function pmproship_add_user_fields() {
 		$field_group_name,
 		new PMPro_Field(
 			'pmproship_same_billing_address',
-			'html',
+			'checkbox',
 			array(
-				'showmainlabel' => false,
+				'label' => esc_html__( 'Ship to the billing address used above.', 'pmpro-shipping' ),
 				'profile' => false,
 				'required' => false,
 				'levels' => $shipping_levels,
-				'html' => '<input type="checkbox" class="input" id="pmproship_same_billing_address" name="pmproship_same_billing_address" value="1" /><label class="pmprorh_checkbox_label" for="pmproship_same_billing_address" style="display: inline;"> ' . esc_html__( 'Ship to the billing address used above.', 'pmpro-shipping' ) . '</label>',
-				'divclass' => 'pmpro_hidden',
 			)
 		)
 	);
- 
+
 	// Add text shipping address fields.
 	$text_fields_map = array(
 		'pmpro_sfirstname' => esc_html__( 'First Name', 'pmpro-shipping' ),
@@ -150,22 +148,31 @@ function pmproship_show_shipping_fields_at_checkout() {
 	}
 
 	?>
-	<div id="pmpro_checkout_box-shipping-address" class="pmpro_card">
-		<div class="pmpro_card_content">
-			<legend class="pmpro_form_legend">
-				<h2 class="pmpro_form_heading pmpro_font-large">
-					<?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?>
-				</h2>
-			</legend>
-			<div class="pmproship_checkout-fields">
-				<?php
-					foreach( $pmpro_user_fields[ esc_html__( 'Shipping Address', 'pmpro-shipping' ) ] as $field ) {
-						$field->displayAtCheckout();
-					}
-				?>
-			</div> <!-- end pmproship_checkout-fields -->
-		</div> <!-- end pmpro-content -->
-	</div> <!-- end pmpro_card -->
+	<fieldset id="pmpro_form_fieldset-shipping-address" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_fieldset', 'pmpro_form_fieldset-shipping-address' ) ); ?>">
+		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card' ) ); ?>">
+			<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_content' ) ); ?>">
+				<legend class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_legend' ) ); ?>">
+					<h2 class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_heading pmpro_font-large' ) ); ?>">
+						<?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?>
+					</h2>
+				</legend>
+				<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_fields' ) ); ?>">
+					<?php
+						foreach( $pmpro_user_fields[ esc_html__( 'Shipping Address', 'pmpro-shipping' ) ] as $field ) {
+							// Do something special after the first field.
+							if ( $field->name === 'pmpro_sfirstname' ) {
+								?>
+								<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_cols-2' ) ); ?>">
+								<?php
+							}
+							$field->displayAtCheckout();
+						}
+					?>
+					</div> <!-- end pmpro_cols-2 -->
+				</div> <!-- end pmpro_form_fields -->
+			</div> <!-- end pmpro_card_content -->
+		</div> <!-- end pmpro_card -->
+	</fieldset> <!-- end pmpro_form_fieldset-shipping-address -->
 	<?php
 }
 add_action( 'pmpro_checkout_after_billing_fields', 'pmproship_show_shipping_fields_at_checkout' );
