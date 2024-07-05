@@ -4,12 +4,15 @@
 jQuery(document).ready(function($){
     "use strict";
 
+	// Assume we are hiding the checkbox to match shipping fields to billing address fields.
+	$( '#pmproship_same_billing_address_div' ).hide();
+
 	if ( $( '#pmpro_billing_address_fields' ).css( 'display' ) !== 'none' ) {
 		$( '#pmproship_same_billing_address_div' ).show();
 		function pmproship_update_shipping_fields() {
 			// If the "same as billing" checkbox is checked, hide the shipping fields and copy the values. Otherwise, show them.
 			if ( $( '#pmproship_same_billing_address' ).is( ':checked' ) ) {
-				$( '#pmpro_checkout_box-shipping-address .pmpro_checkout-field-text, #pmpro_checkout_box-shipping-address .pmpro_checkout-field-select' ).each( function( index, element ) {
+				$( '#pmpro_form_fieldset-shipping-address .pmpro_form_field-text, #pmpro_form_fieldset-shipping-address .pmpro_form_field-select' ).each( function( index, element ) {
 					$( element ).hide();
 				} );
 
@@ -25,7 +28,7 @@ jQuery(document).ready(function($){
 					$( '#' + shipping_field_name ).val( element.value );
 				} );
 			} else {
-				$( '#pmpro_checkout_box-shipping-address .pmpro_checkout-field-text, #pmpro_checkout_box-shipping-address .pmpro_checkout-field-select' ).each( function( index, element ) {
+				$( '#pmpro_form_fieldset-shipping-address .pmpro_form_field-text, #pmpro_form_fieldset-shipping-address .pmpro_form_field-select' ).each( function( index, element ) {
 					$( element ).show();
 				} );
 			}
