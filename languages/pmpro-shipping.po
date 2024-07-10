@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Paid Memberships Pro - Shipping Add On plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Paid Memberships Pro - Shipping Add On 1.2\n"
+"Project-Id-Version: Paid Memberships Pro - Shipping Add On 1.3\n"
 "Report-Msgid-Bugs-To: info@paidmembershipspro.com\n"
 "Last-Translator: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "Language-Team: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-04-24T16:44:21+00:00\n"
+"POT-Creation-Date: 2024-07-10T09:26:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: pmpro-shipping\n"
@@ -54,11 +54,21 @@ msgstr ""
 #: pmpro-shipping.php:233
 #: pmpro-shipping.php:248
 #: pmpro-shipping.php:297
+#: pmpro-shipping.php:126
+#: pmpro-shipping.php:158
+#: pmpro-shipping.php:163
+#: pmpro-shipping.php:184
+#: pmpro-shipping.php:188
+#: pmpro-shipping.php:260
+#: pmpro-shipping.php:262
+#: pmpro-shipping.php:277
+#: pmpro-shipping.php:326
 msgid "Shipping Address"
 msgstr ""
 
 #: pmpro-shipping.php:42
 #: pmpro-shipping.php:64
+#: pmpro-shipping.php:60
 msgid "Ship to the billing address used above."
 msgstr ""
 
@@ -66,6 +76,7 @@ msgstr ""
 #: pmpro-shipping.php:289
 #: pmpro-shipping.php:386
 #: pmpro-shipping.php:72
+#: pmpro-shipping.php:70
 msgid "First Name"
 msgstr ""
 
@@ -73,6 +84,7 @@ msgstr ""
 #: pmpro-shipping.php:296
 #: pmpro-shipping.php:390
 #: pmpro-shipping.php:73
+#: pmpro-shipping.php:71
 msgid "Last Name"
 msgstr ""
 
@@ -80,6 +92,7 @@ msgstr ""
 #: pmpro-shipping.php:303
 #: pmpro-shipping.php:394
 #: pmpro-shipping.php:74
+#: pmpro-shipping.php:72
 msgid "Address 1"
 msgstr ""
 
@@ -87,6 +100,7 @@ msgstr ""
 #: pmpro-shipping.php:310
 #: pmpro-shipping.php:398
 #: pmpro-shipping.php:75
+#: pmpro-shipping.php:73
 msgid "Address 2"
 msgstr ""
 
@@ -97,18 +111,21 @@ msgstr ""
 #: pmpro-shipping.php:77
 #: pmpro-shipping.php:317
 #: pmpro-shipping.php:76
+#: pmpro-shipping.php:74
 msgid "City"
 msgstr ""
 
 #: pmpro-shipping.php:84
 #: pmpro-shipping.php:324
 #: pmpro-shipping.php:77
+#: pmpro-shipping.php:75
 msgid "State"
 msgstr ""
 
 #: pmpro-shipping.php:91
 #: pmpro-shipping.php:331
 #: pmpro-shipping.php:78
+#: pmpro-shipping.php:76
 msgid "Postal Code"
 msgstr ""
 
@@ -116,12 +133,14 @@ msgstr ""
 #: pmpro-shipping.php:338
 #: pmpro-shipping.php:408
 #: pmpro-shipping.php:79
+#: pmpro-shipping.php:77
 msgid "Phone"
 msgstr ""
 
 #: pmpro-shipping.php:105
 #: pmpro-shipping.php:345
 #: pmpro-shipping.php:412
+#: pmpro-shipping.php:103
 msgid "Country"
 msgstr ""
 
@@ -131,45 +150,54 @@ msgstr ""
 
 #: pmpro-shipping.php:557
 #: pmpro-shipping.php:189
+#: pmpro-shipping.php:218
 msgid "Shipping Information:"
 msgstr ""
 
 #: pmpro-shipping.php:599
 #: pmpro-shipping.php:231
+#: pmpro-shipping.php:260
 msgid "Billing Information"
 msgstr ""
 
 #: pmpro-shipping.php:601
 #: pmpro-shipping.php:233
+#: pmpro-shipping.php:262
 msgid "Log in to your membership"
 msgstr ""
 
 #: pmpro-shipping.php:778
 #: pmpro-shipping.php:302
+#: pmpro-shipping.php:331
 msgid "Hide Shipping Address:"
 msgstr ""
 
 #: pmpro-shipping.php:781
 #: pmpro-shipping.php:305
+#: pmpro-shipping.php:334
 msgid "Check this if you DO NOT want to ask for a shipping address with this level."
 msgstr ""
 
 #: pmpro-shipping.php:840
 #: pmpro-shipping.php:345
+#: pmpro-shipping.php:374
 msgid "View Documentation"
 msgstr ""
 
 #: pmpro-shipping.php:840
 #: pmpro-shipping.php:345
+#: pmpro-shipping.php:374
 msgid "Docs"
 msgstr ""
 
 #: pmpro-shipping.php:841
 #: pmpro-shipping.php:346
+#: pmpro-shipping.php:375
 msgid "Visit Customer Support Forum"
 msgstr ""
 
 #: pmpro-shipping.php:841
 #: pmpro-shipping.php:346
+#: pmpro-shipping.php:375
 msgid "Support"
 msgstr ""
