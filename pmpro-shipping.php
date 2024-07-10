@@ -147,6 +147,8 @@ function pmproship_show_shipping_fields_at_checkout() {
 		return;
 	}
 
+	// Check if PMPro is V3.1+ or legacy. TODO: Remove this later once we are confident most people are using 3.1
+	if ( version_compare( PMPRO_VERSION, '3.1' ) >= 0 ) {
 	?>
 	<fieldset id="pmpro_form_fieldset-shipping-address" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_fieldset', 'pmpro_form_fieldset-shipping-address' ) ); ?>">
 		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card' ) ); ?>">
@@ -174,6 +176,23 @@ function pmproship_show_shipping_fields_at_checkout() {
 		</div> <!-- end pmpro_card -->
 	</fieldset> <!-- end pmpro_form_fieldset-shipping-address -->
 	<?php
+	} else {
+		?>
+		<div id="pmpro_checkout_box-shipping-address" class="pmpro_checkout">
+			<hr />
+			<h2>
+				<span class="pmpro_checkout-h2-name"><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></span>
+			</h2>
+			<div class="pmpro_checkout-fields">
+				<?php
+					foreach( $pmpro_user_fields[ esc_html__( 'Shipping Address', 'pmpro-shipping' ) ] as $field ) {
+						$field->displayAtCheckout();
+					}
+				?>
+			</div> <!-- end pmpro_checkout-fields -->
+		</div> <!-- end pmpro_checkout_box-name -->
+		<?php
+	}
 }
 add_action( 'pmpro_checkout_after_billing_fields', 'pmproship_show_shipping_fields_at_checkout' );
 

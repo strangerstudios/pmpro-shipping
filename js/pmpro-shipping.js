@@ -7,8 +7,7 @@ jQuery(document).ready(function($){
 	// Assume we are hiding the checkbox to match shipping fields to billing address fields.
 	$( '#pmproship_same_billing_address_div' ).hide();
 
-	if ( $( '#pmpro_billing_address_fields' ).css( 'display' ) !== 'none' ) {
-		$( '#pmproship_same_billing_address_div' ).show();
+	if ($('#pmpro_billing_address_fields').length && $('#pmpro_billing_address_fields').css('display') !== 'none') {
 		$('#pmproship_same_billing_address_div').show();
 
 		function pmproship_update_shipping_fields() {
@@ -20,17 +19,17 @@ jQuery(document).ready(function($){
 				});
 
 				// Pre 3.1
-				$('#pmpro_form_fieldset-shipping-address .pmpro_checkout-field-text, #pmpro_form_fieldset-shipping-address .pmpro_checkout-field-select').each(function (index, element) {
+				$('#pmpro_checkout_box-shipping-address .pmpro_checkout-field-text, #pmpro_checkout_box-shipping-address .pmpro_checkout-field-select').each(function (index, element) {
 					$(element).hide();
 				});
 
 				// Copy the billing fields to the shipping fields.
-				$( '#pmpro_billing_address_fields input, #pmpro_billing_address_fields select' ).each( function( index, element ) {
+				$('#pmpro_billing_address_fields input, #pmpro_billing_address_fields select').each(function (index, element) {
 					// Get the name of the shipping field.
 					let shipping_field_name = element.name;
 
 					// Replace the first character with 'pmpro_s' to get the name of the shipping field.
-					shipping_field_name = 'pmpro_s' + shipping_field_name.substr( 1 );
+					shipping_field_name = 'pmpro_s' + shipping_field_name.substr(1);
 
 					// Set the value of the shipping field to the value of the billing field.
 					$( '#' + shipping_field_name ).val( element.value );
@@ -40,7 +39,7 @@ jQuery(document).ready(function($){
 					$(element).show();
 				});
 
-				$('#pmpro_form_fieldset-shipping-address .pmpro_checkout-field-text, #pmpro_form_fieldset-shipping-address .pmpro_checkout-field-select').each(function (index, element) {
+				$('#pmpro_checkout_box-shipping-address .pmpro_checkout-field-text, #pmpro_checkout_box-shipping-address .pmpro_checkout-field-select').each(function (index, element) {
 					$(element).show();
 				});
 			}
