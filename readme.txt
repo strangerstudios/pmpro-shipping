@@ -1,9 +1,9 @@
 === Paid Memberships Pro - Shipping Add On ===
 Contributors: strangerstudios
 Tags: paid memberships pro, shipping, shipping address,
-Requires at least: 4.0
+Requires at least: 5.0
 Tested up to: 6.5
-Stable tag: 1.2
+Stable tag: 1.3
 
 Adds shipping fields to the Paid Memberships Pro checkout.
 
@@ -36,6 +36,9 @@ Please post it in the GitHub issue tracker here: https://github.com/strangerstud
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= 1.3 - 2024-07-10 =
+* ENHANCEMENT: Added support for V3.1+ Paid Memberships Pro frontend changes and kept backwards compatibility for older versions. (@MaximilianoRicoTabo, @andrewlimaza)
+
 = 1.2 - 2024-04-24 =
 * ENHANCEMENT: Added shipping fields to the "Edit Member" page for PMPro v3.0+. #56 (@dparker1005)
 * ENHANCEMENT: Updated `<h3>` tags to `<h2>` tags for better accessibility. #56 (@michaelbeil)
