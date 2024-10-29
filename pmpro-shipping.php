@@ -47,12 +47,11 @@ function pmproship_add_user_fields() {
 	}
 
 	// Add a user field group to put our fields into.
-	$field_group_name = esc_html__( 'Shipping Address', 'pmpro-shipping' );
-	pmpro_add_field_group( $field_group_name );
+	pmpro_add_field_group( 'pmproship', esc_html__( 'Shipping Address', 'pmpro-shipping' ) );
 
 	// Show the "same as billing" checkbox.
 	pmpro_add_user_field(
-		$field_group_name,
+		'pmproship',
 		new PMPro_Field(
 			'pmproship_same_billing_address',
 			'checkbox',
@@ -78,7 +77,7 @@ function pmproship_add_user_fields() {
 	);
 	foreach( $text_fields_map as $meta_name => $label ) {
 		pmpro_add_user_field(
-			$field_group_name,
+			'pmproship',
 			new PMPro_Field(
 				$meta_name,
 				'text',
@@ -95,7 +94,7 @@ function pmproship_add_user_fields() {
 
 	// Add a select field for country.
 	pmpro_add_user_field(
-		$field_group_name,
+		'pmproship',
 		new PMPro_Field(
 			'pmpro_scountry',
 			'select',
@@ -121,13 +120,7 @@ add_action( 'init', 'pmproship_add_user_fields' );
  */
 function pmproship_unhook_field_group() {
 	global $pmpro_field_groups;
-	$new_groups = array();
-	foreach( $pmpro_field_groups as $group ) {
-		if ( $group->name !== esc_html__( 'Shipping Address', 'pmpro-shipping' ) ) {
-			$new_groups[] = $group;
-		}
-	}
-	$pmpro_field_groups = $new_groups;
+	unset( $pmpro_field_groups['pmproship'] );
 }
 add_action( 'pmpro_checkout_boxes', 'pmproship_unhook_field_group', 9 );
 
@@ -160,7 +153,7 @@ function pmproship_show_shipping_fields_at_checkout() {
 				</legend>
 				<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_fields' ) ); ?>">
 					<?php
-						foreach( $pmpro_user_fields[ esc_html__( 'Shipping Address', 'pmpro-shipping' ) ] as $field ) {
+						foreach( $pmpro_user_fields['pmproship'] as $field ) {
 							// Do something special after the first field.
 							if ( $field->name === 'pmpro_sfirstname' ) {
 								?>
@@ -185,7 +178,7 @@ function pmproship_show_shipping_fields_at_checkout() {
 			</h2>
 			<div class="pmpro_checkout-fields">
 				<?php
-					foreach( $pmpro_user_fields[ esc_html__( 'Shipping Address', 'pmpro-shipping' ) ] as $field ) {
+					foreach( $pmpro_user_fields['pmproship'] as $field ) {
 						$field->displayAtCheckout();
 					}
 				?>
