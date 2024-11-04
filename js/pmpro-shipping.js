@@ -10,16 +10,23 @@ jQuery(document).ready(function($){
 	if ($('#pmpro_billing_address_fields').length && $('#pmpro_billing_address_fields').css('display') !== 'none') {
 		$('#pmproship_same_billing_address_div').show();
 
+		// Move the shipping address fields to after the billing address fields.
+		// Post 3.1
+		$('#pmpro_billing_address_fields').after( $('#pmpro_form_fieldset-pmproship') );
+		// Pre 3.1
+		$('#pmpro_billing_address_fields').after( $('#pmpro_checkout_box-pmproship') );
+
 		function pmproship_update_shipping_fields() {
+			console.log('pmproship_update_shipping_fields');
 			// If the "same as billing" checkbox is checked, hide the shipping fields and copy the values. Otherwise, show them.
 			if ($('#pmproship_same_billing_address').is(':checked')) {
 				// Post 3.1
-				$('#pmpro_form_fieldset-shipping-address .pmpro_form_field-text, #pmpro_form_fieldset-shipping-address .pmpro_form_field-select').each(function (index, element) {
+				$('#pmpro_form_fieldset-pmproship .pmpro_form_field-text, #pmpro_form_fieldset-pmproship .pmpro_form_field-select').each(function (index, element) {
 					$(element).hide();
 				});
 
 				// Pre 3.1
-				$('#pmpro_checkout_box-shipping-address .pmpro_checkout-field-text, #pmpro_checkout_box-shipping-address .pmpro_checkout-field-select').each(function (index, element) {
+				$('#pmpro_checkout_box-pmproship .pmpro_checkout-field-text, #pmpro_checkout_box-pmproship .pmpro_checkout-field-select').each(function (index, element) {
 					$(element).hide();
 				});
 
@@ -35,11 +42,11 @@ jQuery(document).ready(function($){
 					$( '#' + shipping_field_name ).val( element.value );
 				} );
 			} else {
-				$('#pmpro_form_fieldset-shipping-address .pmpro_form_field-text, #pmpro_form_fieldset-shipping-address .pmpro_form_field-select').each(function (index, element) {
+				$('#pmpro_form_fieldset-pmproship .pmpro_form_field-text, #pmpro_form_fieldset-pmproship .pmpro_form_field-select').each(function (index, element) {
 					$(element).show();
 				});
 
-				$('#pmpro_checkout_box-shipping-address .pmpro_checkout-field-text, #pmpro_checkout_box-shipping-address .pmpro_checkout-field-select').each(function (index, element) {
+				$('#pmpro_checkout_box-pmproship .pmpro_checkout-field-text, #pmpro_checkout_box-pmproship .pmpro_checkout-field-select').each(function (index, element) {
 					$(element).show();
 				});
 			}
