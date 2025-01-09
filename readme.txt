@@ -2,14 +2,14 @@
 Contributors: strangerstudios
 Tags: paid memberships pro, mailing, mailing address,
 Requires at least: 5.0
-Tested up to: 6.5
-Stable tag: 1.3
+Tested up to: 6.7
+Stable tag: 2.0
 
-Adds mailing fields to the Paid Memberships Pro checkout.
+Adds mailing address fields to the Paid Memberships Pro checkout.
 
 == Description ==
 
-Adds mailing fields to the checkout page, confirmation page, confirmation emails, members list and edit user profile pages.
+Adds mailing address fields to the checkout page, confirmation page, confirmation emails, members list and edit user profile pages.
 
 [Read the full documentation for the Mailing Address Add On](https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/)
 
@@ -36,6 +36,12 @@ Please post it in the GitHub issue tracker here: https://github.com/strangerstud
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= 2.0 - 2025-01-09 =
+* FEATURE: Rebranded to "Mailing Address Add On" to better reflect the functionality of the plugin. #48 (@JarrydLong)
+* ENHANCEMENT: Updated the checkout page code to move the mailing address fields below the billing address fields via JavaScript. #60 (@dparker1005)
+* BUG FIX: Fixed an issue where emails may contain the mailing address of the email recipient instead of the member who checked out. #61 (@MaximilianoRicoTabo)
+* BUG FIX: Fixed the user field group name for the mailing address fields to not have spaces. #59 (@dparker1005)
+
 = 1.3 - 2024-07-10 =
 * ENHANCEMENT: Added support for V3.1+ Paid Memberships Pro frontend changes and kept backwards compatibility for older versions. (@MaximilianoRicoTabo, @andrewlimaza)
 
