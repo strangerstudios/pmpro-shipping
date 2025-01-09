@@ -1,76 +1,60 @@
 /**
  * Copyright (c) 2017 - Stranger Studios, LLC
  */
-
-var pmpro_shipping = {};
-
 jQuery(document).ready(function($){
     "use strict";
 
-    pmpro_shipping = {
-        init: function() {
-            
-        	this.field_names = [ 'firstname', 'lastname', 'address1', 'address2', 'phone', 'country', 'city', 'state', 'zipcode'  ];
-            this.sameas_checkbox = $('#sameasbilling');
-            this.fields = $('#shipping-fields');
-			this.show_sameas_timer = null;
-			
-            var self = this;			
-			
-			//hide/show shipping fields and copy when clicking sameas
-            self.sameas_checkbox.unbind('change').on('change', function() {              
-				//maybe copy
-				self.maybe_copy_data( this );				
-            });
-			
-			//hide the sameas button if the billing address is not visible
-			self.checkBillingAddressVisibilityForSameAsCheckbox();
-        },
-        maybe_copy_data: function( element ) {
+	// Assume we are hiding the checkbox to match shipping fields to billing address fields.
+	$( '#pmproship_same_billing_address_div' ).hide();
 
-            var self = this;
-            
-            if (element.checked) {				
-				//hide the fields
-				self.fields.hide();
-				
-				// Integrate with State dropdown, convert #sstate to text input.
-            	if ( $( '#bcountry.crs-country' ).length > 0 ) {
-	            	$('#sstate').replaceWith( '<input type="text" id="sstate" name="sstate"></input>');
-	            }
+	if ($('#pmpro_billing_address_fields').length && $('#pmpro_billing_address_fields').css('display') !== 'none') {
+		$('#pmproship_same_billing_address_div').show();
 
-				//copy the fields			
-		    	$.each( self.field_names, function( index, field_name ) {
-	          		$( '#s' + field_name  ).val( $('#b' + field_name ).val() );  // Set shipping field equal to each billing field.
-	          	});
-            } else {				
-				//show the fields
-				self.fields.show();				
-			}
-        },
-		checkBillingAddressVisibilityForSameAsCheckbox: function() {
-			var baddress = $('#baddress1');
-			var pmpro_shipping_address_fields = $('#pmpro_shipping_address_fields');
-			
-			var self = this;
-			
-			if(this.sameas_checkbox.is(':checked')) {					
-				this.fields.hide();
-			}
+		// Move the shipping address fields to after the billing address fields.
+		// Post 3.1
+		$('#pmpro_billing_address_fields').after( $('#pmpro_form_fieldset-pmproship') );
+		// Pre 3.1
+		$('#pmpro_billing_address_fields').after( $('#pmpro_checkout_box-pmproship') );
 
-			if(baddress.length && baddress.is(':visible')) {
-				$('#sameasbilling_wrapper').show();
-			}
-			else if (pmpro_shipping_address_fields.is(':visible'))
-			{
-				this.sameas_checkbox.attr('checked', false);
-				$('#sameasbilling_wrapper').hide();						
-				this.fields.show();
-			}
-			//check again in .2 seconds
-			this.show_sameas_timer = setTimeout(function(){self.checkBillingAddressVisibilityForSameAsCheckbox();}, 200);
-		}			
-    };
+		function pmproship_update_shipping_fields() {
+			console.log('pmproship_update_shipping_fields');
+			// If the "same as billing" checkbox is checked, hide the shipping fields and copy the values. Otherwise, show them.
+			if ($('#pmproship_same_billing_address').is(':checked')) {
+				// Post 3.1
+				$('#pmpro_form_fieldset-pmproship .pmpro_form_field-text, #pmpro_form_fieldset-pmproship .pmpro_form_field-select').each(function (index, element) {
+					$(element).hide();
+				});
 
-    pmpro_shipping.init();			
+				// Pre 3.1
+				$('#pmpro_checkout_box-pmproship .pmpro_checkout-field-text, #pmpro_checkout_box-pmproship .pmpro_checkout-field-select').each(function (index, element) {
+					$(element).hide();
+				});
+
+				// Copy the billing fields to the shipping fields.
+				$('#pmpro_billing_address_fields input, #pmpro_billing_address_fields select').each(function (index, element) {
+					// Get the name of the shipping field.
+					let shipping_field_name = element.name;
+
+					// Replace the first character with 'pmpro_s' to get the name of the shipping field.
+					shipping_field_name = 'pmpro_s' + shipping_field_name.substr(1);
+
+					// Set the value of the shipping field to the value of the billing field.
+					$( '#' + shipping_field_name ).val( element.value );
+				} );
+			} else {
+				$('#pmpro_form_fieldset-pmproship .pmpro_form_field-text, #pmpro_form_fieldset-pmproship .pmpro_form_field-select').each(function (index, element) {
+					$(element).show();
+				});
+
+				$('#pmpro_checkout_box-pmproship .pmpro_checkout-field-text, #pmpro_checkout_box-pmproship .pmpro_checkout-field-select').each(function (index, element) {
+					$(element).show();
+				});
+			}
+		}
+
+		// Make sure that the shipping fields are updated when the page loads, when the "same as billing" checkbox is clicked, and when the submit button is clicked.
+		pmproship_update_shipping_fields();
+		$( '#pmproship_same_billing_address' ).on( 'change', pmproship_update_shipping_fields );
+		$( '#pmpro_btn-submit' ).on( 'click', pmproship_update_shipping_fields );
+	}
 });
