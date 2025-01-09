@@ -47,12 +47,11 @@ function pmproship_add_user_fields() {
 	}
 
 	// Add a user field group to put our fields into.
-	$field_group_name = esc_html__( 'Shipping Address', 'pmpro-shipping' );
-	pmpro_add_field_group( $field_group_name );
+	pmpro_add_field_group( 'pmproship', esc_html__( 'Shipping Address', 'pmpro-shipping' ) );
 
 	// Show the "same as billing" checkbox.
 	pmpro_add_user_field(
-		$field_group_name,
+		'pmproship',
 		new PMPro_Field(
 			'pmproship_same_billing_address',
 			'checkbox',
@@ -78,7 +77,7 @@ function pmproship_add_user_fields() {
 	);
 	foreach( $text_fields_map as $meta_name => $label ) {
 		pmpro_add_user_field(
-			$field_group_name,
+			'pmproship',
 			new PMPro_Field(
 				$meta_name,
 				'text',
@@ -95,7 +94,7 @@ function pmproship_add_user_fields() {
 
 	// Add a select field for country.
 	pmpro_add_user_field(
-		$field_group_name,
+		'pmproship',
 		new PMPro_Field(
 			'pmpro_scountry',
 			'select',
@@ -112,89 +111,6 @@ function pmproship_add_user_fields() {
 	);
 }
 add_action( 'init', 'pmproship_add_user_fields' );
-
-/**
- * Don't show the shipping address box on `checkout_boxes` hook.
- * We'll show it after the billing address fields using custom code.
- *
- * @since 1.2
- */
-function pmproship_unhook_field_group() {
-	global $pmpro_field_groups;
-	$new_groups = array();
-	foreach( $pmpro_field_groups as $group ) {
-		if ( $group->name !== esc_html__( 'Shipping Address', 'pmpro-shipping' ) ) {
-			$new_groups[] = $group;
-		}
-	}
-	$pmpro_field_groups = $new_groups;
-}
-add_action( 'pmpro_checkout_boxes', 'pmproship_unhook_field_group', 9 );
-
-/**
- * Show the shipping address fields after the billing address fields.
- *
- * @since 1.2
- */
-function pmproship_show_shipping_fields_at_checkout() {
-	global $pmpro_user_fields;
-
-	// Get the checkout level.
-	$checkout_level = pmpro_getLevelAtCheckout();
-
-	// If shipping fields are hidden for this level, bail.
-	if ( ! empty( get_option( 'pmpro_shipping_hidden_level_' . $checkout_level->id, false ) ) ) {
-		return;
-	}
-
-	// Check if PMPro is V3.1+ or legacy. TODO: Remove this later once we are confident most people are using 3.1
-	if ( version_compare( PMPRO_VERSION, '3.1' ) >= 0 ) {
-	?>
-	<fieldset id="pmpro_form_fieldset-shipping-address" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_fieldset', 'pmpro_form_fieldset-shipping-address' ) ); ?>">
-		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card' ) ); ?>">
-			<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_content' ) ); ?>">
-				<legend class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_legend' ) ); ?>">
-					<h2 class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_heading pmpro_font-large' ) ); ?>">
-						<?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?>
-					</h2>
-				</legend>
-				<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_fields' ) ); ?>">
-					<?php
-						foreach( $pmpro_user_fields[ esc_html__( 'Shipping Address', 'pmpro-shipping' ) ] as $field ) {
-							// Do something special after the first field.
-							if ( $field->name === 'pmpro_sfirstname' ) {
-								?>
-								<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_cols-2' ) ); ?>">
-								<?php
-							}
-							$field->displayAtCheckout();
-						}
-					?>
-					</div> <!-- end pmpro_cols-2 -->
-				</div> <!-- end pmpro_form_fields -->
-			</div> <!-- end pmpro_card_content -->
-		</div> <!-- end pmpro_card -->
-	</fieldset> <!-- end pmpro_form_fieldset-shipping-address -->
-	<?php
-	} else {
-		?>
-		<div id="pmpro_checkout_box-shipping-address" class="pmpro_checkout">
-			<hr />
-			<h2>
-				<span class="pmpro_checkout-h2-name"><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></span>
-			</h2>
-			<div class="pmpro_checkout-fields">
-				<?php
-					foreach( $pmpro_user_fields[ esc_html__( 'Shipping Address', 'pmpro-shipping' ) ] as $field ) {
-						$field->displayAtCheckout();
-					}
-				?>
-			</div> <!-- end pmpro_checkout-fields -->
-		</div> <!-- end pmpro_checkout_box-name -->
-		<?php
-	}
-}
-add_action( 'pmpro_checkout_after_billing_fields', 'pmproship_show_shipping_fields_at_checkout' );
 
 /**
  * Adding shipping address to confirmation page
