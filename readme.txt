@@ -1,17 +1,17 @@
-=== Paid Memberships Pro - Shipping Add On ===
+=== Paid Memberships Pro - Mailing Address Add On ===
 Contributors: strangerstudios
-Tags: paid memberships pro, shipping, shipping address,
+Tags: paid memberships pro, mailing, mailing address,
 Requires at least: 5.0
 Tested up to: 6.5
 Stable tag: 1.3
 
-Adds shipping fields to the Paid Memberships Pro checkout.
+Adds mailing fields to the Paid Memberships Pro checkout.
 
 == Description ==
 
-Adds shipping fields to the checkout page, confirmation page, confirmation emails, members list and edit user profile pages.
+Adds mailing fields to the checkout page, confirmation page, confirmation emails, members list and edit user profile pages.
 
-[Read the full documentation for the Shipping Add On](https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/)
+[Read the full documentation for the Mailing Address Add On](https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/)
 
 = Official Paid Memberships Pro Add On =
 
@@ -23,7 +23,7 @@ This is an official Add On for [Paid Memberships Pro](https://www.paidmembership
 1. Upload the `pmpro-shipping` directory to the `/wp-content/plugins/` directory of your site.
 1. Activate the plugin through the 'Plugins' menu in WordPress.
 
-Fields will automatically be captured for all membership levels. You can remove the fields for a level on the Memberships > Settings > Edit Membership Level > "Hide Shipping Address" ssetting.
+Fields will automatically be captured for all membership levels. You can remove the fields for a level on the Memberships > Settings > Edit Membership Level > "Hide Mailing Address" ssetting.
 
 == Frequently Asked Questions ==
 
