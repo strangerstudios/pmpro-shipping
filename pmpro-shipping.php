@@ -156,6 +156,19 @@ function pmproship_pmpro_email_body( $body, $pmpro_email ) {
 		$user_id = $user->ID;
 	}
 
+	if ( class_exists( 'MemberOrder' ) ) {
+		//Get the order from the email. We need to determine if the user coming matches with order user.
+		$order_id = isset( $pmpro_email->data['order_id'] ) ? $pmpro_email->data['order_id'] : null;
+		//if we have an order_id, we can get the user_id from the order
+		if( ! empty( $order_id ) ) {
+			$order = new MemberOrder( $order_id );
+			//If the user id from the order is different from the user id from the email, we will use the user id from the order.
+			if( $user_id != $order->user_id ) {
+				$user_id = $order->user_id;
+			}
+		}
+	}
+
 	if ( ! empty( $user_id ) ) {
 		//does the user being emailed have a shipping address?
 		$sfirstname = get_user_meta( $user_id, "pmpro_sfirstname", true );
