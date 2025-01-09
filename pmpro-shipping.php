@@ -56,7 +56,7 @@ function pmproship_add_user_fields() {
 			'pmproship_same_billing_address',
 			'checkbox',
 			array(
-				'label' => esc_html__( 'Ship to the billing address used above.', 'pmpro-shipping' ),
+				'label' => esc_html__( 'Copy the billing address used above.', 'pmpro-shipping' ),
 				'profile' => false,
 				'required' => false,
 				'levels' => $shipping_levels,
