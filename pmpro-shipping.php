@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Paid Memberships Pro - Shipping Add On
+Plugin Name: Paid Memberships Pro - Mailing Add On
 Plugin URI: https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/
-Description: Add shipping address to the checkout page and other locations.
+Description: Add mailing address to the checkout page and other locations.
 Version: 1.3
 Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com
@@ -47,7 +47,7 @@ function pmproship_add_user_fields() {
 	}
 
 	// Add a user field group to put our fields into.
-	pmpro_add_field_group( 'pmproship', esc_html__( 'Shipping Address', 'pmpro-shipping' ) );
+	pmpro_add_field_group( 'pmproship', esc_html__( 'Mailing Address', 'pmpro-shipping' ) );
 
 	// Show the "same as billing" checkbox.
 	pmpro_add_user_field(
@@ -131,7 +131,7 @@ function pmproship_pmpro_confirmation_message( $confirmation_message, $pmpro_inv
 
 	$shipping_address = pmpro_formatAddress( trim( $sfirstname . ' ' . $slastname ), $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $sphone );
 
-	$confirmation_message .= '<h2>' . __( 'Shipping Information:', 'pmpro-shipping' ) . '</h2><p>' . $shipping_address . '</p>';
+	$confirmation_message .= '<h2>' . __( 'Mailing Information:', 'pmpro-shipping' ) . '</h2><p>' . $shipping_address . '</p>';
 
 
 	return $confirmation_message;
@@ -186,9 +186,9 @@ function pmproship_pmpro_email_body( $body, $pmpro_email ) {
 		if ( ! empty( $shipping_address ) ) {
 			//squeeze the shipping address above the billing information or above the log link
 			if ( strpos( $body, "Billing Information:" ) ) {
-				$body = str_replace( "Billing Information:", __( "Shipping Address", "pmpro-shipping" ) . ":<br />" . $shipping_address . "<br /><br />" . __( "Billing Information", "pmpro-shipping" ) . ":", $body );
+				$body = str_replace( "Billing Information:", __( "Mailing Address", "pmpro-shipping" ) . ":<br />" . $shipping_address . "<br /><br />" . __( "Billing Information", "pmpro-shipping" ) . ":", $body );
 			} else {
-				$body = str_replace( "Log in to your membership", __( "Shipping Address", "pmpro-shipping" ) . ":<br />" . $shipping_address . "<br /><br />" . __( "Log in to your membership", "pmpro-shipping" ), $body );
+				$body = str_replace( "Log in to your membership", __( "Mailing Address", "pmpro-shipping" ) . ":<br />" . $shipping_address . "<br /><br />" . __( "Log in to your membership", "pmpro-shipping" ), $body );
 			}
 		}
 	}
@@ -203,7 +203,7 @@ add_filter( "pmpro_email_body", "pmproship_pmpro_email_body", 10, 2 );
 //heading
 function pmproship_pmpro_memberslist_extra_cols_header() {
 	?>
-    <th><?php esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></th>
+    <th><?php esc_html_e( 'Mailing Address', 'pmpro-shipping' ); ?></th>
 	<?php
 }
 add_action( "pmpro_memberslist_extra_cols_header", "pmproship_pmpro_memberslist_extra_cols_header" );
@@ -252,15 +252,15 @@ function pmproship_pmpro_membership_level_after_other_settings() {
 		$hide_shipping = false;
 	}
 	?>
-    <h2 class="topborder"><?php	 esc_html_e( 'Shipping Address', 'pmpro-shipping' ); ?></h2>
+    <h2 class="topborder"><?php	 esc_html_e( 'Mailing Address', 'pmpro-shipping' ); ?></h2>
     <table>
         <tbody class="form-table">
         <tr>
             <th scope="row" valign="top"><label
-                        for="hide_shipping"><?php esc_html_e( 'Hide Shipping Address:', 'pmpro-shipping' ); ?></label></th>
+                        for="hide_shipping"><?php esc_html_e( 'Hide Mailing Address:', 'pmpro-shipping' ); ?></label></th>
             <td>
                 <input type="checkbox" id="hide_shipping" name="hide_shipping" value="1" <?php checked( $hide_shipping, 1 ); ?> />
-                <label for="hide_shipping"><?php esc_html_e( 'Check this if you DO NOT want to ask for a shipping address with this level.', 'pmpro-shipping' ); ?></label>
+                <label for="hide_shipping"><?php esc_html_e( 'Check this if you DO NOT want to ask for a mailing address with this level.', 'pmpro-shipping' ); ?></label>
             </td>
         </tr>
         </tbody>
@@ -271,7 +271,7 @@ function pmproship_pmpro_membership_level_after_other_settings() {
 add_action( 'pmpro_membership_level_after_other_settings', 'pmproship_pmpro_membership_level_after_other_settings' );
 
 /**
- * Save hide shipping setting when the level is saved/added
+ * Save hide mailing setting when the level is saved/added
  */
  function pmproship_pmpro_save_membership_level( $level_id ) {
 	if ( isset( $_REQUEST['hide_shipping'] ) ) {
