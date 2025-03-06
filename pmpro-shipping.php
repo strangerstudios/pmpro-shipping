@@ -2,7 +2,7 @@
 /*
 Plugin Name: Paid Memberships Pro - Mailing Add On
 Plugin URI: https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/
-Description: Add mailing address to the checkout page and other locations.
+Description: Add mailing or shipping address to the checkout page and other locations.
 Version: 2.0
 Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com
