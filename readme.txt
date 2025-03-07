@@ -1,15 +1,15 @@
 === Paid Memberships Pro - Mailing Address Add On ===
 Contributors: strangerstudios
-Tags: paid memberships pro, mailing, mailing address,
+Tags: paid memberships pro, mailing, mailing address, shipping address
 Requires at least: 5.0
 Tested up to: 6.7
 Stable tag: 2.0
 
-Adds mailing address fields to the Paid Memberships Pro checkout.
+Adds mailing or shipping address fields to the Paid Memberships Pro checkout.
 
 == Description ==
 
-Adds mailing address fields to the checkout page, confirmation page, confirmation emails, members list and edit user profile pages.
+Adds mailing or shipping address fields to the checkout page, confirmation page, confirmation emails, members list and edit user profile pages.
 
 [Read the full documentation for the Mailing Address Add On](https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/)
 
