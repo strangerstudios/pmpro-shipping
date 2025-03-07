@@ -91,9 +91,6 @@ function pmproship_add_user_fields() {
 			)
 		);
 	}
-
-	// Add a blank '' at the beginning of $pmpro_countries global so people don't get a random/incorrect country.
-	$pmpro_countries = array( '' => '' ) + $pmpro_countries;
 	
 	// Add a select field for country.
 	pmpro_add_user_field(
