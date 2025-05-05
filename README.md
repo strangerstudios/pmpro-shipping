@@ -1,4 +1,4 @@
-![](pmpro-shipping-banner.jpg)
+![](pmpro-shipping-banner.png)
 
 # [Paid Memberships Pro - Mailing Address on Membership Checkout](https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/) #
 [comment]: # (Generate badges from shields.io, only works for .org plugins to get other stats etc. We'd have to create our own endpoints for Premium plugins)
