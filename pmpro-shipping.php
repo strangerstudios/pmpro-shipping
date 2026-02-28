@@ -253,6 +253,12 @@ function pmproship_pmpro_membership_level_after_other_settings() {
 	}
 	?>
     <h2 class="topborder"><?php	 esc_html_e( 'Mailing Address', 'pmpro-shipping' ); ?></h2>
+    <p>
+    	<?php
+    	$shipping_link = '<a title="' . esc_attr__( 'Mailing Address Add On', 'pmpro-shipping' ) . '" target="_blank" rel="nofollow noopener" href="https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/?utm_source=plugin&utm_medium=pmpro-shipping&utm_campaign=add-ons&utm_content=&utm_term=">' . esc_html__( 'Mailing Address', 'pmpro-shipping' ) . '</a>';
+    	printf( esc_html__( 'Learn more about %s.', 'pmpro-shipping' ), $shipping_link ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+    	?>
+    </p>
     <table>
         <tbody class="form-table">
         <tr>
