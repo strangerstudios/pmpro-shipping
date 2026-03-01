@@ -243,7 +243,6 @@ add_action( "pmpro_memberslist_extra_cols_body", "pmproship_pmpro_memberslist_ex
 /**
  * Add checkbox to hide shipping address on some levels.
  */
-//show the checkbox on the edit level page
 function pmproship_pmpro_membership_level_after_other_settings() {
 	$level_id = isset( $_REQUEST['edit'] ) ? intval( $_REQUEST['edit'] ) : 0;
 	if ( $level_id > 0 ) {
@@ -252,25 +251,25 @@ function pmproship_pmpro_membership_level_after_other_settings() {
 		$hide_shipping = false;
 	}
 	?>
-    <h2 class="topborder"><?php	 esc_html_e( 'Mailing Address', 'pmpro-shipping' ); ?></h2>
-    <p>
-    	<?php
-    	$shipping_link = '<a title="' . esc_attr__( 'Mailing Address Add On', 'pmpro-shipping' ) . '" target="_blank" rel="nofollow noopener" href="https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/?utm_source=plugin&utm_medium=pmpro-shipping&utm_campaign=add-ons&utm_content=&utm_term=">' . esc_html__( 'Mailing Address', 'pmpro-shipping' ) . '</a>';
-    	printf( esc_html__( 'Learn more about %s.', 'pmpro-shipping' ), $shipping_link ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-    	?>
-    </p>
-    <table>
-        <tbody class="form-table">
-        <tr>
-            <th scope="row" valign="top"><label
-                        for="hide_shipping"><?php esc_html_e( 'Hide Mailing Address:', 'pmpro-shipping' ); ?></label></th>
-            <td>
-                <input type="checkbox" id="hide_shipping" name="hide_shipping" value="1" <?php checked( $hide_shipping, 1 ); ?> />
-                <label for="hide_shipping"><?php esc_html_e( 'Check this if you DO NOT want to ask for a mailing address with this level.', 'pmpro-shipping' ); ?></label>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+	<hr />
+	<h2><?php esc_html_e( 'Mailing Address', 'pmpro-shipping' ); ?></h2>
+	<p>
+		<?php
+		$shipping_link = '<a title="' . esc_attr__( 'Mailing Address Add On Documentation', 'pmpro-shipping' ) . '" target="_blank" rel="nofollow noopener" href="https://www.paidmembershipspro.com/add-ons/shipping-address-membership-checkout/?utm_source=plugin&utm_medium=pmpro-shipping&utm_campaign=add-ons">' . esc_html__( 'Mailing Addresses', 'pmpro-shipping' ) . '</a>';
+		printf( esc_html__( 'Learn more about %s.', 'pmpro-shipping' ), $shipping_link ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		?>
+	</p>
+	<table class="form-table">
+		<tbody>
+		<tr>
+			<th scope="row" valign="top"><label for="hide_shipping"><?php esc_html_e( 'Hide Mailing Address', 'pmpro-shipping' ); ?></label></th>
+			<td>
+				<input type="checkbox" id="hide_shipping" name="hide_shipping" value="1" <?php checked( $hide_shipping, 1 ); ?> />
+				<label for="hide_shipping"><?php esc_html_e( 'Check this if you DO NOT want to ask for a mailing address with this level.', 'pmpro-shipping' ); ?></label>
+			</td>
+		</tr>
+		</tbody>
+	</table>
 	<?php
 }
 
