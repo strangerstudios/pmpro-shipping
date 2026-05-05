@@ -2,8 +2,8 @@
 Contributors: strangerstudios
 Tags: paid memberships pro, mailing, mailing address, shipping address
 Requires at least: 5.0
-Tested up to: 6.7
-Stable tag: 2.0
+Tested up to: 6.9
+Stable tag: 2.0.1
 
 Adds mailing or shipping address fields to the Paid Memberships Pro checkout.
 
@@ -36,6 +36,9 @@ Please post it in the GitHub issue tracker here: https://github.com/strangerstud
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= 2.0.1 - 2026-05-05 =
+* ENHANCEMENT: Updated the Edit Level settings UI to match modern PMPro 3.x conventions and added a link to the Mailing Address Add On documentation. #66 (@kimcoleman)
+
 = 2.0 - 2025-01-09 =
 * FEATURE: Rebranded to "Mailing Address Add On" to better reflect the functionality of the plugin. #48 (@JarrydLong)
 * ENHANCEMENT: Updated the checkout page code to move the mailing address fields below the billing address fields via JavaScript. #60 (@dparker1005)
