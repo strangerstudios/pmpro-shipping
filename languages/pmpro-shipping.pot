@@ -1,17 +1,17 @@
-# Copyright (C) 2025 Paid Memberships Pro
+# Copyright (C) 2026 Paid Memberships Pro
 # This file is distributed under the same license as the Paid Memberships Pro - Mailing Add On plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Paid Memberships Pro - Mailing Add On 2.0\n"
+"Project-Id-Version: Paid Memberships Pro - Mailing Add On 2.0.1\n"
 "Report-Msgid-Bugs-To: info@paidmembershipspro.com\n"
 "Last-Translator: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "Language-Team: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-09T17:19:46+00:00\n"
+"POT-Creation-Date: 2026-05-05T13:37:13+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pmpro-shipping\n"
 
 #. Plugin Name of the plugin
@@ -26,7 +26,7 @@ msgstr ""
 
 #. Description of the plugin
 #: pmpro-shipping.php
-msgid "Add mailing address to the checkout page and other locations."
+msgid "Add mailing or shipping address to the checkout page and other locations."
 msgstr ""
 
 #. Author of the plugin
@@ -99,26 +99,39 @@ msgstr ""
 msgid "Log in to your membership"
 msgstr ""
 
-#: pmpro-shipping.php:260
-msgid "Hide Mailing Address:"
+#: pmpro-shipping.php:258
+msgid "Mailing Address Add On Documentation"
 msgstr ""
 
-#: pmpro-shipping.php:263
+#: pmpro-shipping.php:258
+msgid "Mailing Addresses"
+msgstr ""
+
+#: pmpro-shipping.php:259
+#, php-format
+msgid "Learn more about %s."
+msgstr ""
+
+#: pmpro-shipping.php:265
+msgid "Hide Mailing Address"
+msgstr ""
+
+#: pmpro-shipping.php:268
 msgid "Check this if you DO NOT want to ask for a mailing address with this level."
 msgstr ""
 
-#: pmpro-shipping.php:303
+#: pmpro-shipping.php:308
 msgid "View Documentation"
 msgstr ""
 
-#: pmpro-shipping.php:303
+#: pmpro-shipping.php:308
 msgid "Docs"
 msgstr ""
 
-#: pmpro-shipping.php:304
+#: pmpro-shipping.php:309
 msgid "Visit Customer Support Forum"
 msgstr ""
 
-#: pmpro-shipping.php:304
+#: pmpro-shipping.php:309
 msgid "Support"
 msgstr ""
