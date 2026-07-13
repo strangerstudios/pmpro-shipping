@@ -113,6 +113,37 @@ function pmproship_add_user_fields() {
 add_action( 'init', 'pmproship_add_user_fields' );
 
 /**
+ * Add the mailing/shipping address fields to the Import Users From CSV mapping screen.
+ *
+ * The mailing address values are stored in user meta using these keys, so mapping a
+ * CSV column to one of these fields will import the value directly into user meta.
+ *
+ * @since 2.1
+ *
+ * @param array $fields The available fields for mapping, organized by group.
+ * @return array The fields with the mailing address group added.
+ */
+function pmproship_pmproiucsv_mapping_fields( $fields ) {
+	$fields['pmproship'] = array(
+		'label'  => esc_html__( 'Mailing Address Fields', 'pmpro-shipping' ),
+		'fields' => array(
+			'pmpro_sfirstname' => esc_html__( 'Mailing First Name', 'pmpro-shipping' ),
+			'pmpro_slastname'  => esc_html__( 'Mailing Last Name', 'pmpro-shipping' ),
+			'pmpro_saddress1'  => esc_html__( 'Mailing Address 1', 'pmpro-shipping' ),
+			'pmpro_saddress2'  => esc_html__( 'Mailing Address 2', 'pmpro-shipping' ),
+			'pmpro_scity'      => esc_html__( 'Mailing City', 'pmpro-shipping' ),
+			'pmpro_sstate'     => esc_html__( 'Mailing State', 'pmpro-shipping' ),
+			'pmpro_szipcode'   => esc_html__( 'Mailing Postal Code', 'pmpro-shipping' ),
+			'pmpro_sphone'     => esc_html__( 'Mailing Phone', 'pmpro-shipping' ),
+			'pmpro_scountry'   => esc_html__( 'Mailing Country', 'pmpro-shipping' ),
+		),
+	);
+
+	return $fields;
+}
+add_filter( 'pmproiucsv_mapping_fields', 'pmproship_pmproiucsv_mapping_fields' );
+
+/**
  * Adding shipping address to confirmation page
  */
 function pmproship_pmpro_confirmation_message( $confirmation_message, $pmpro_invoice ) {
