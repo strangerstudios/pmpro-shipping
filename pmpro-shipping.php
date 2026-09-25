@@ -10,6 +10,10 @@ Text Domain: pmpro-shipping
 Domain Path: /languages
 */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 define( 'PMPRO_SHIPPING_VERSION', '2.0.1' );
 
 /**
@@ -219,20 +223,20 @@ function pmproship_pmpro_memberslist_extra_cols_body( $theuser ) {
 		if ( empty( $theuser->pmpro_slastname ) ) {
 			$theuser->pmpro_slastname = "";
 		}
-		echo trim( $theuser->pmpro_sfirstname . " " . $theuser->pmpro_slastname );
+		echo esc_html( trim( $theuser->pmpro_sfirstname . " " . $theuser->pmpro_slastname ) );
 		?><br/>
 		<?php if ( ! empty( $theuser->pmpro_saddress1 ) ) { ?>
-			<?php echo $theuser->pmpro_saddress1; ?><br/>
+			<?php echo esc_html( $theuser->pmpro_saddress1 ); ?><br/>
 			<?php if ( ! empty( $theuser->pmpro_saddress2 ) ) {
-				echo $theuser->pmpro_saddress2 . "<br />";
+				echo esc_html( $theuser->pmpro_saddress2 ) . "<br />";
 			} ?>
 			<?php if ( $theuser->pmpro_scity && $theuser->pmpro_sstate ) { ?>
-				<?php echo $theuser->pmpro_scity ?>, <?php echo $theuser->pmpro_sstate ?> <?php echo $theuser->pmpro_szipcode ?> <?php if ( ! empty( $theuser->pmpro_scountry ) )
-					echo $theuser->pmpro_scountry ?><br/>
+				<?php echo esc_html( $theuser->pmpro_scity ) ?>, <?php echo esc_html( $theuser->pmpro_sstate ) ?> <?php echo esc_html( $theuser->pmpro_szipcode ) ?> <?php if ( ! empty( $theuser->pmpro_scountry ) )
+					echo esc_html( $theuser->pmpro_scountry ) ?><br/>
 			<?php } ?>
 		<?php } ?>
 		<?php if ( ! empty( $theuser->pmpro_sphone ) ) {
-			echo formatPhone( $theuser->pmpro_sphone );
+			echo esc_html( formatPhone( $theuser->pmpro_sphone ) );
 		} ?>
     </td>
 	<?php
@@ -244,7 +248,7 @@ add_action( "pmpro_memberslist_extra_cols_body", "pmproship_pmpro_memberslist_ex
  * Add checkbox to hide shipping address on some levels.
  */
 function pmproship_pmpro_membership_level_after_other_settings() {
-	$level_id = isset( $_REQUEST['edit'] ) ? intval( $_REQUEST['edit'] ) : 0;
+	$level_id = isset( $_REQUEST['edit'] ) ? intval( $_REQUEST['edit'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only: selects which level's setting to display on the edit level page.
 	if ( $level_id > 0 ) {
 		$hide_shipping = get_option( 'pmpro_shipping_hidden_level_' . $level_id );
 	} else {
@@ -279,11 +283,13 @@ add_action( 'pmpro_membership_level_after_other_settings', 'pmproship_pmpro_memb
  * Save hide mailing setting when the level is saved/added
  */
  function pmproship_pmpro_save_membership_level( $level_id ) {
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Nonce and capability verified by PMPro core before pmpro_save_membership_level fires (adminpages/membershiplevels.php check_admin_referer).
 	if ( isset( $_REQUEST['hide_shipping'] ) ) {
 		$hide_shipping = intval( $_REQUEST['hide_shipping'] );
 	} else {
 		$hide_shipping = 0;
 	}
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	update_option( 'pmpro_shipping_hidden_level_' . $level_id, $hide_shipping );
 }
 
