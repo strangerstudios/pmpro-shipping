@@ -129,7 +129,7 @@ function pmproship_pmpro_confirmation_message( $confirmation_message, $pmpro_inv
 	$sphone   	= get_user_meta( $current_user->ID, "pmpro_sphone", true );
 	$scountry   = get_user_meta( $current_user->ID, "pmpro_scountry", true );
 
-	$shipping_address = pmpro_formatAddress( trim( $sfirstname . ' ' . $slastname ), $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $sphone );
+	$shipping_address = pmpro_formatAddress( esc_html( trim( $sfirstname . ' ' . $slastname ) ), esc_html( $saddress1 ), esc_html( $saddress2 ), esc_html( $scity ), esc_html( $sstate ), esc_html( $szipcode ), esc_html( $scountry ), esc_html( $sphone ) );
 
 	$confirmation_message .= '<h2>' . __( 'Mailing Information:', 'pmpro-shipping' ) . '</h2><p>' . $shipping_address . '</p>';
 
@@ -181,7 +181,7 @@ function pmproship_pmpro_email_body( $body, $pmpro_email ) {
 		$sphone  	= get_user_meta( $user_id, "pmpro_sphone", true );
 		$scountry   = get_user_meta( $user_id, "pmpro_scountry", true );
 
-		$shipping_address = pmpro_formatAddress( trim( $sfirstname . ' ' . $slastname ), $saddress1, $saddress2, $scity, $sstate, $szipcode, $scountry, $sphone );
+		$shipping_address = pmpro_formatAddress( esc_html( trim( $sfirstname . ' ' . $slastname ) ), esc_html( $saddress1 ), esc_html( $saddress2 ), esc_html( $scity ), esc_html( $sstate ), esc_html( $szipcode ), esc_html( $scountry ), esc_html( $sphone ) );
 
 		if ( ! empty( $shipping_address ) ) {
 			//squeeze the shipping address above the billing information or above the log link
