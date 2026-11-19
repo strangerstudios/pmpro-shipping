@@ -3,7 +3,7 @@ Contributors: strangerstudios
 Tags: paid memberships pro, mailing, mailing address, shipping address
 Requires at least: 5.0
 Tested up to: 7.1
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 
 Adds mailing or shipping address fields to the Paid Memberships Pro checkout.
 
@@ -36,6 +36,9 @@ Please post it in the GitHub issue tracker here: https://github.com/strangerstud
 Please visit our premium support site at http://www.paidmembershipspro.com for more documentation and our support forums.
 
 == Changelog ==
+= 2.0.3 - 2026-11-19 =
+* BUG FIX: Fixed the "Copy the billing address" option not showing when billing fields are shown after the page loads, such as with Address for Free Levels or Donations. #70 (@dparker1005)
+
 = 2.0.2 - 2026-09-30 =
 * SECURITY: Escaped mailing address fields in checkout emails and the confirmation message. #69 (@dparker1005)
 * SECURITY: Improved sanitization and escaping throughout the plugin to resolve Plugin Check security findings. #68 (@dparker1005)
