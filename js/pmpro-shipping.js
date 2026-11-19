@@ -32,14 +32,15 @@ jQuery(document).ready(function($){
 	function pmproship_update_shipping_fields() {
 		// If the "same as billing" checkbox is checked, hide the shipping fields and copy the values. Otherwise, show them.
 		if (pmproship_billing_fields_visible() && $('#pmproship_same_billing_address').is(':checked')) {
+			// Mark the fields we hide so that we only show those fields again later.
 			// Post 3.1
 			$('#pmpro_form_fieldset-pmproship .pmpro_form_field-text, #pmpro_form_fieldset-pmproship .pmpro_form_field-select').each(function (index, element) {
-				$(element).hide();
+				$(element).addClass('pmproship_hidden').hide();
 			});
 
 			// Pre 3.1
 			$('#pmpro_checkout_box-pmproship .pmpro_checkout-field-text, #pmpro_checkout_box-pmproship .pmpro_checkout-field-select').each(function (index, element) {
-				$(element).hide();
+				$(element).addClass('pmproship_hidden').hide();
 			});
 
 			// Copy the billing fields to the shipping fields.
@@ -54,13 +55,8 @@ jQuery(document).ready(function($){
 				$( '#' + shipping_field_name ).val( element.value );
 			} );
 		} else {
-			$('#pmpro_form_fieldset-pmproship .pmpro_form_field-text, #pmpro_form_fieldset-pmproship .pmpro_form_field-select').each(function (index, element) {
-				$(element).show();
-			});
-
-			$('#pmpro_checkout_box-pmproship .pmpro_checkout-field-text, #pmpro_checkout_box-pmproship .pmpro_checkout-field-select').each(function (index, element) {
-				$(element).show();
-			});
+			// Only show the fields hidden above, so fields hidden by other code (e.g. State Dropdowns) stay hidden.
+			$('.pmproship_hidden').removeClass('pmproship_hidden').show();
 		}
 	}
 
