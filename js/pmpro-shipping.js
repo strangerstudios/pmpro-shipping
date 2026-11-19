@@ -13,10 +13,15 @@ jQuery(document).ready(function($){
 			$('#pmproship_same_billing_address_div').show();
 
 			// Move the shipping address fields to after the billing address fields.
+			// Skip if already there, since re-inserting the fields drops focus from them.
 			// Post 3.1
-			$('#pmpro_billing_address_fields').after( $('#pmpro_form_fieldset-pmproship') );
+			if ( ! $('#pmpro_billing_address_fields').next().is('#pmpro_form_fieldset-pmproship') ) {
+				$('#pmpro_billing_address_fields').after( $('#pmpro_form_fieldset-pmproship') );
+			}
 			// Pre 3.1
-			$('#pmpro_billing_address_fields').after( $('#pmpro_checkout_box-pmproship') );
+			if ( ! $('#pmpro_billing_address_fields').next().is('#pmpro_checkout_box-pmproship') ) {
+				$('#pmpro_billing_address_fields').after( $('#pmpro_checkout_box-pmproship') );
+			}
 		} else {
 			$('#pmproship_same_billing_address_div').hide();
 		}
