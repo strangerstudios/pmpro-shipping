@@ -122,6 +122,11 @@ add_action( 'init', 'pmproship_add_user_fields' );
 function pmproship_pmpro_confirmation_message( $confirmation_message, $pmpro_invoice ) {
 	global $current_user;
 
+	// Don't show the mailing address if it is hidden for the checkout level.
+	if ( ! empty( $pmpro_invoice->membership_id ) && ! empty( get_option( 'pmpro_shipping_hidden_level_' . $pmpro_invoice->membership_id, false ) ) ) {
+		return $confirmation_message;
+	}
+
 	//does the user have a shipping address?
 	$sfirstname = get_user_meta( $current_user->ID, "pmpro_sfirstname", true );
 	$slastname  = get_user_meta( $current_user->ID, "pmpro_slastname", true );
@@ -134,6 +139,11 @@ function pmproship_pmpro_confirmation_message( $confirmation_message, $pmpro_inv
 	$scountry   = get_user_meta( $current_user->ID, "pmpro_scountry", true );
 
 	$shipping_address = pmpro_formatAddress( esc_html( trim( $sfirstname . ' ' . $slastname ) ), esc_html( $saddress1 ), esc_html( $saddress2 ), esc_html( $scity ), esc_html( $sstate ), esc_html( $szipcode ), esc_html( $scountry ), esc_html( $sphone ) );
+
+	// Don't show an empty heading if the user has no mailing address.
+	if ( empty( $shipping_address ) ) {
+		return $confirmation_message;
+	}
 
 	$confirmation_message .= '<h2>' . __( 'Mailing Information:', 'pmpro-shipping' ) . '</h2><p>' . $shipping_address . '</p>';
 
