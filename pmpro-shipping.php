@@ -50,6 +50,11 @@ function pmproship_add_user_fields() {
 		$shipping_levels[] = $level_id;
 	}
 
+	// If the mailing address is hidden for every level, don't add the fields. An empty levels array would show them for all levels.
+	if ( ! empty( $all_levels ) && empty( $shipping_levels ) ) {
+		return;
+	}
+
 	// Add a user field group to put our fields into.
 	pmpro_add_field_group( 'pmproship', esc_html__( 'Mailing Address', 'pmpro-shipping' ) );
 
